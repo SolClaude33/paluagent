@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 
+export type EmotionType = 'celebrating' | 'thinking' | 'talking' | 'angry' | 'idle';
+
 interface WebSocketMessage {
-  type: 'connection' | 'user_message' | 'max_message' | 'max_thinking' | 'max_speaking';
+  type: 'connection' | 'user_message' | 'max_message' | 'max_thinking' | 'max_speaking' | 'max_emotion';
   data: any;
 }
 
 export function useWebSocket(url: string) {
   const [isConnected, setIsConnected] = useState(false);
   const [lastMessage, setLastMessage] = useState<WebSocketMessage | null>(null);
+  const [currentEmotion, setCurrentEmotion] = useState<EmotionType>('idle');
   const wsRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
@@ -26,6 +29,10 @@ export function useWebSocket(url: string) {
       try {
         const message = JSON.parse(event.data);
         setLastMessage(message);
+        
+        if (message.type === 'max_emotion' && message.data.emotion) {
+          setCurrentEmotion(message.data.emotion);
+        }
       } catch (error) {
         console.error('Error parsing WebSocket message:', error);
       }
@@ -51,5 +58,5 @@ export function useWebSocket(url: string) {
     }
   }, []);
 
-  return { isConnected, lastMessage, sendMessage };
+  return { isConnected, lastMessage, sendMessage, currentEmotion };
 }
