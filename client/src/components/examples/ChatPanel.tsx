@@ -3,7 +3,10 @@ import ChatPanel from '../ChatPanel'
 export default function ChatPanelExample() {
   return (
     <div className="h-screen">
-      <ChatPanel onMessageSent={(msg) => console.log('Message sent:', msg)} />
+      <ChatPanel 
+        onMaxThinking={(thinking) => console.log('Max thinking:', thinking)}
+        onMaxSpeaking={(speaking) => console.log('Max speaking:', speaking)}
+      />
     </div>
   )
 }

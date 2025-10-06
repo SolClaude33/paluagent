@@ -11,20 +11,6 @@ export default function StreamPage() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [showApiInfo, setShowApiInfo] = useState(false);
 
-  const handleMessageSent = (message: string) => {
-    console.log('User message:', message);
-    
-    setIsThinking(true);
-    setTimeout(() => {
-      setIsThinking(false);
-      setIsSpeaking(true);
-      
-      setTimeout(() => {
-        setIsSpeaking(false);
-      }, 2500);
-    }, 1200);
-  };
-
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden bg-black">
       <StreamHeader />
@@ -46,7 +32,10 @@ export default function StreamPage() {
         </div>
         
         <div className="hidden lg:block w-[30%] min-w-[320px] max-w-[420px]">
-          <ChatPanel onMessageSent={handleMessageSent} />
+          <ChatPanel 
+            onMaxThinking={setIsThinking}
+            onMaxSpeaking={setIsSpeaking}
+          />
         </div>
       </div>
 
@@ -67,7 +56,10 @@ export default function StreamPage() {
       )}
 
       <div className="lg:hidden fixed bottom-0 left-0 right-0 h-[45vh] border-t border-primary/20 bg-gradient-to-b from-black to-neutral-950 z-40">
-        <ChatPanel onMessageSent={handleMessageSent} />
+        <ChatPanel 
+          onMaxThinking={setIsThinking}
+          onMaxSpeaking={setIsSpeaking}
+        />
       </div>
     </div>
   );
