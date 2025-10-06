@@ -35,6 +35,17 @@ Preferred communication style: Simple, everyday language.
 - React hooks for local component state
 - React Query for API data fetching and caching
 
+**3D Visualization (Max3DViewer):**
+- Pure Three.js implementation (vanilla, not React Three Fiber due to Replit environment constraints)
+- Multi-model FBX loading system for state-based animations:
+  - Each FBX file (idle.fbx, talking.fbx, thinking.fbx, angry.fbx, celebrating.fbx) contains a complete model with integrated animation
+  - Separate AnimationMixer per model for independent animation control
+  - Visibility-based model switching (only active state model is visible)
+  - State transitions: idle (default) → talking (when isSpeaking) → thinking (when isThinking)
+- OrbitControls for interactive camera manipulation (zoom disabled, limited vertical rotation)
+- Real-time synchronization with AI state (thinking/speaking indicators trigger appropriate animations)
+- BNB Chain themed lighting setup with ambient, directional, and colored point lights
+
 ### Backend Architecture
 
 **Server Framework:**
