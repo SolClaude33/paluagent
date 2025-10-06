@@ -2,23 +2,23 @@ import ChatMessage from '../ChatMessage'
 
 export default function ChatMessageExample() {
   return (
-    <div className="space-y-4 p-4 bg-background">
+    <div className="space-y-4 p-6 bg-black min-h-screen">
       <ChatMessage
         id="1"
-        message="Hello Max! How are you today?"
+        message="¡Hola Max! ¿Cómo estás hoy?"
         sender="user"
         timestamp="2:30 PM"
         username="Alice"
       />
       <ChatMessage
         id="2"
-        message="Hello! I'm doing great, thanks for asking! I'm here to help you with anything you need. What can I do for you today?"
+        message="¡Hola! Estoy genial, gracias por preguntar. Soy Max, tu asistente de IA en BNB Chain. ¿En qué puedo ayudarte hoy?"
         sender="max"
         timestamp="2:30 PM"
       />
       <ChatMessage
         id="3"
-        message="Can you tell me about BNB Chain?"
+        message="¿Puedes hablarme sobre BNB Chain y sus características?"
         sender="user"
         timestamp="2:31 PM"
         username="Bob"

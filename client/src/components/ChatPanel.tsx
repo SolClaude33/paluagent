@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Send, Users } from "lucide-react";
+import { Send, Users, TrendingUp } from "lucide-react";
 import ChatMessage from "./ChatMessage";
 
 interface Message {
@@ -21,13 +21,13 @@ export default function ChatPanel({ onMessageSent }: ChatPanelProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      message: "Welcome to Max AI Stream! I'm here to chat with you in real-time.",
+      message: "¡Bienvenido al stream de Max AI! Soy un agente de IA en vivo. ¿En qué puedo ayudarte hoy?",
       sender: "max",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     }
   ]);
   const [input, setInput] = useState("");
-  const [viewerCount] = useState(42);
+  const [viewerCount] = useState(127);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function ChatPanel({ onMessageSent }: ChatPanelProps) {
       message: input,
       sender: "user",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      username: "You"
+      username: "Tú"
     };
 
     setMessages(prev => [...prev, userMessage]);
@@ -53,11 +53,13 @@ export default function ChatPanel({ onMessageSent }: ChatPanelProps) {
 
     setTimeout(() => {
       const responses = [
-        "That's a great question! Let me think about that...",
-        "I appreciate you sharing that with me!",
-        "Interesting point! I'd love to discuss this further.",
-        "Thanks for the message! I'm processing that information.",
-        "Great to hear from you! Let me respond to that..."
+        "¡Excelente pregunta! Déjame procesar eso...",
+        "¡Me encanta tu entusiasmo! Hablemos de esto.",
+        "Interesante punto de vista. Aquí está mi opinión...",
+        "Gracias por compartir eso. Estoy procesando la información.",
+        "¡Genial! Permíteme responder a eso de manera detallada.",
+        "Esa es una gran observación sobre BNB Chain.",
+        "¡Me alegra que estés aquí! Déjame ayudarte con eso."
       ];
       
       const maxResponse: Message = {
@@ -79,33 +81,37 @@ export default function ChatPanel({ onMessageSent }: ChatPanelProps) {
   };
 
   return (
-    <div className="flex h-full flex-col bg-card border-l border-border">
-      <div className="border-b border-border bg-background/50 backdrop-blur-sm px-4 py-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-foreground uppercase tracking-wide">Live Chat</h2>
-          <div className="flex items-center gap-1.5 text-primary" data-testid="viewer-count">
-            <Users className="h-4 w-4" />
-            <span className="text-sm font-medium">{viewerCount}</span>
+    <div className="flex h-full flex-col bg-gradient-to-b from-black to-neutral-950 border-l border-primary/20">
+      <div className="border-b border-primary/20 bg-black/50 backdrop-blur-xl px-6 py-4">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-base font-bold text-foreground uppercase tracking-wider font-[Space_Grotesk] bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent">
+            Chat en Vivo
+          </h2>
+          <div className="flex items-center gap-2 bg-primary/10 px-3 py-1.5 rounded-full border border-primary/30" data-testid="viewer-count">
+            <TrendingUp className="h-3.5 w-3.5 text-primary" />
+            <Users className="h-3.5 w-3.5 text-primary" />
+            <span className="text-sm font-bold text-primary">{viewerCount}</span>
           </div>
         </div>
+        <div className="h-1 w-full bg-gradient-to-r from-transparent via-primary/30 to-transparent rounded-full" />
       </div>
 
       <ScrollArea className="flex-1 px-4">
-        <div ref={scrollRef} className="space-y-4 py-4">
+        <div ref={scrollRef} className="space-y-4 py-6">
           {messages.map((msg) => (
             <ChatMessage key={msg.id} {...msg} />
           ))}
         </div>
       </ScrollArea>
 
-      <div className="border-t border-border bg-background/50 backdrop-blur-sm p-4">
+      <div className="border-t border-primary/20 bg-black/50 backdrop-blur-xl p-4">
         <div className="flex gap-2">
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Say something nice..."
-            className="flex-1 bg-background border-input focus-visible:ring-primary"
+            placeholder="Escribe algo increíble..."
+            className="flex-1 bg-neutral-900/80 border-primary/30 focus-visible:ring-primary focus-visible:border-primary/60 text-foreground placeholder:text-muted-foreground rounded-xl"
             data-testid="input-chat"
           />
           <Button 
@@ -113,7 +119,7 @@ export default function ChatPanel({ onMessageSent }: ChatPanelProps) {
             size="icon"
             disabled={!input.trim()}
             data-testid="button-send"
-            className="hover-elevate active-elevate-2"
+            className="h-10 w-10 bg-gradient-to-r from-primary to-yellow-400 text-black hover:from-yellow-400 hover:to-primary transition-all shadow-lg shadow-primary/30 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl"
           >
             <Send className="h-4 w-4" />
           </Button>
