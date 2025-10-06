@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { GLTFLoader } from 'three-stdlib';
 import { FBXLoader } from 'three-stdlib';
 import { OrbitControls } from 'three-stdlib';
 import { Sparkles } from "lucide-react";
@@ -17,10 +16,8 @@ export default function Max3DViewer({ isThinking = false, isSpeaking = false }: 
   const sceneRef = useRef<THREE.Scene | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-  const modelRef = useRef<THREE.Group | null>(null);
-  const mixerRef = useRef<THREE.AnimationMixer | null>(null);
   const controlsRef = useRef<OrbitControls | null>(null);
-  const animationsRef = useRef<Record<AnimationState, THREE.AnimationClip | null>>({
+  const modelsRef = useRef<Record<AnimationState, { model: THREE.Group; mixer: THREE.AnimationMixer; clip: THREE.AnimationClip } | null>>({
     idle: null,
     talking: null,
     thinking: null,
@@ -74,84 +71,58 @@ export default function Max3DViewer({ isThinking = false, isSpeaking = false }: 
     controls.maxPolarAngle = Math.PI / 1.5;
     controlsRef.current = controls;
 
-    const gltfLoader = new GLTFLoader();
     const fbxLoader = new FBXLoader();
 
-    gltfLoader.load(
-      '/max.glb',
-      (gltf) => {
-        const model = gltf.scene;
-        model.position.set(0, -1, 0);
-        model.scale.set(2, 2, 2);
-        
-        model.traverse((child) => {
-          if ((child as THREE.Mesh).isMesh) {
-            (child as THREE.Mesh).castShadow = true;
-            (child as THREE.Mesh).receiveShadow = true;
+    const loadFBXModel = (path: string, state: AnimationState): Promise<void> => {
+      return new Promise((resolve) => {
+        fbxLoader.load(
+          path,
+          (fbxModel) => {
+            fbxModel.position.set(0, -1, 0);
+            fbxModel.scale.set(0.02, 0.02, 0.02);
+            
+            fbxModel.traverse((child) => {
+              if ((child as THREE.Mesh).isMesh) {
+                (child as THREE.Mesh).castShadow = true;
+                (child as THREE.Mesh).receiveShadow = true;
+              }
+            });
+
+            fbxModel.visible = state === 'idle';
+            scene.add(fbxModel);
+
+            const mixer = new THREE.AnimationMixer(fbxModel);
+            
+            if (fbxModel.animations && fbxModel.animations.length > 0) {
+              const clip = fbxModel.animations[0];
+              modelsRef.current[state] = { model: fbxModel, mixer, clip };
+              
+              if (state === 'idle') {
+                const action = mixer.clipAction(clip);
+                action.play();
+              }
+            }
+            
+            resolve();
+          },
+          undefined,
+          (error) => {
+            console.error(`Error loading ${state} FBX:`, error);
+            resolve();
           }
-        });
+        );
+      });
+    };
 
-        scene.add(model);
-        modelRef.current = model;
-
-        const mixer = new THREE.AnimationMixer(model);
-        mixerRef.current = mixer;
-
-        Promise.all([
-          new Promise<void>((resolve) => {
-            fbxLoader.load('/idle.fbx', (fbx) => {
-              if (fbx.animations && fbx.animations.length > 0) {
-                animationsRef.current.idle = fbx.animations[0];
-              }
-              resolve();
-            }, undefined, () => resolve());
-          }),
-          new Promise<void>((resolve) => {
-            fbxLoader.load('/talking.fbx', (fbx) => {
-              if (fbx.animations && fbx.animations.length > 0) {
-                animationsRef.current.talking = fbx.animations[0];
-              }
-              resolve();
-            }, undefined, () => resolve());
-          }),
-          new Promise<void>((resolve) => {
-            fbxLoader.load('/thinking.fbx', (fbx) => {
-              if (fbx.animations && fbx.animations.length > 0) {
-                animationsRef.current.thinking = fbx.animations[0];
-              }
-              resolve();
-            }, undefined, () => resolve());
-          }),
-          new Promise<void>((resolve) => {
-            fbxLoader.load('/angry.fbx', (fbx) => {
-              if (fbx.animations && fbx.animations.length > 0) {
-                animationsRef.current.angry = fbx.animations[0];
-              }
-              resolve();
-            }, undefined, () => resolve());
-          }),
-          new Promise<void>((resolve) => {
-            fbxLoader.load('/celebrating.fbx', (fbx) => {
-              if (fbx.animations && fbx.animations.length > 0) {
-                animationsRef.current.celebrating = fbx.animations[0];
-              }
-              resolve();
-            }, undefined, () => resolve());
-          })
-        ]).then(() => {
-          setIsLoading(false);
-          if (animationsRef.current.idle && mixer) {
-            const action = mixer.clipAction(animationsRef.current.idle);
-            action.play();
-          }
-        });
-      },
-      undefined,
-      (error) => {
-        console.error('Error loading model:', error);
-        setIsLoading(false);
-      }
-    );
+    Promise.all([
+      loadFBXModel('/idle.fbx', 'idle'),
+      loadFBXModel('/talking.fbx', 'talking'),
+      loadFBXModel('/thinking.fbx', 'thinking'),
+      loadFBXModel('/angry.fbx', 'angry'),
+      loadFBXModel('/celebrating.fbx', 'celebrating')
+    ]).then(() => {
+      setIsLoading(false);
+    });
 
     const clock = new THREE.Clock();
 
@@ -160,12 +131,15 @@ export default function Max3DViewer({ isThinking = false, isSpeaking = false }: 
 
       const delta = clock.getDelta();
       
-      if (mixerRef.current) {
-        mixerRef.current.update(delta);
-      }
+      Object.values(modelsRef.current).forEach(modelData => {
+        if (modelData && modelData.mixer) {
+          modelData.mixer.update(delta);
+        }
+      });
 
-      if (modelRef.current && !isSpeaking && !isThinking) {
-        modelRef.current.rotation.y = Math.sin(clock.elapsedTime * 0.3) * 0.1;
+      const currentModelData = modelsRef.current[currentState];
+      if (currentModelData && !isSpeaking && !isThinking) {
+        currentModelData.model.rotation.y = Math.sin(clock.elapsedTime * 0.3) * 0.1;
       }
 
       if (controlsRef.current) {
@@ -222,16 +196,18 @@ export default function Max3DViewer({ isThinking = false, isSpeaking = false }: 
     if (newState !== currentState) {
       setCurrentState(newState);
       
-      if (mixerRef.current) {
-        mixerRef.current.stopAllAction();
-        
-        const animation = animationsRef.current[newState];
-        if (animation) {
-          const action = mixerRef.current.clipAction(animation);
-          action.reset();
-          action.play();
+      Object.entries(modelsRef.current).forEach(([state, modelData]) => {
+        if (modelData) {
+          const isActive = state === newState;
+          modelData.model.visible = isActive;
+          
+          if (isActive && modelData.mixer && modelData.clip) {
+            const action = modelData.mixer.clipAction(modelData.clip);
+            action.reset();
+            action.play();
+          }
         }
-      }
+      });
     }
   }, [isSpeaking, isThinking, currentState]);
 
