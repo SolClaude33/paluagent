@@ -57,16 +57,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
           const maxMessage = {
             id: (Date.now() + 1).toString(),
-            message: aiResponse,
+            message: aiResponse.message,
             sender: 'max' as const,
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            emotion: aiResponse.emotion,
           };
 
           wss.clients.forEach((client) => {
             if (client.readyState === WebSocket.OPEN) {
               client.send(JSON.stringify({
-                type: 'max_speaking',
-                data: { speaking: true }
+                type: 'max_emotion',
+                data: { emotion: aiResponse.emotion }
               }));
             }
           });
@@ -85,12 +86,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
               wss.clients.forEach((client) => {
                 if (client.readyState === WebSocket.OPEN) {
                   client.send(JSON.stringify({
-                    type: 'max_speaking',
-                    data: { speaking: false }
+                    type: 'max_emotion',
+                    data: { emotion: 'idle' }
                   }));
                 }
               });
-            }, 2500);
+            }, 3000);
           }, 500);
         }
       } catch (error) {
