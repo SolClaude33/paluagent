@@ -1,56 +1,11 @@
-import { Suspense, useRef, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, OrbitControls } from '@react-three/drei';
-import { Group } from 'three';
+import { useEffect, useRef, useState } from 'react';
+import * as THREE from 'three';
+import { GLTFLoader } from 'three-stdlib';
+import { FBXLoader } from 'three-stdlib';
+import { OrbitControls } from 'three-stdlib';
 import { Sparkles } from "lucide-react";
 
-interface Max3DModelProps {
-  isThinking?: boolean;
-  isSpeaking?: boolean;
-}
-
-function Max3DModel({ isThinking = false, isSpeaking = false }: Max3DModelProps) {
-  const group = useRef<Group>(null);
-  const { scene } = useGLTF('/max-model.glb');
-  
-  useEffect(() => {
-    if (scene) {
-      scene.traverse((child: any) => {
-        if (child.isMesh) {
-          child.castShadow = true;
-          child.receiveShadow = true;
-        }
-      });
-    }
-  }, [scene]);
-  
-  useFrame((state) => {
-    if (!group.current) return;
-    
-    if (isSpeaking) {
-      group.current.position.y = Math.sin(state.clock.elapsedTime * 4) * 0.15;
-      group.current.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 4) * 0.03);
-    } else {
-      group.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.15;
-      group.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.3) * 0.05;
-    }
-  });
-
-  return (
-    <group ref={group} position={[0, -1.5, 0]}>
-      <primitive object={scene} scale={1.8} />
-    </group>
-  );
-}
-
-function Loader() {
-  return (
-    <mesh>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="#F0B90B" wireframe />
-    </mesh>
-  );
-}
+type AnimationState = 'idle' | 'talking' | 'thinking' | 'angry' | 'celebrating';
 
 interface Max3DViewerProps {
   isThinking?: boolean;
@@ -58,6 +13,228 @@ interface Max3DViewerProps {
 }
 
 export default function Max3DViewer({ isThinking = false, isSpeaking = false }: Max3DViewerProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const modelRef = useRef<THREE.Group | null>(null);
+  const mixerRef = useRef<THREE.AnimationMixer | null>(null);
+  const controlsRef = useRef<OrbitControls | null>(null);
+  const animationsRef = useRef<Record<AnimationState, THREE.AnimationClip | null>>({
+    idle: null,
+    talking: null,
+    thinking: null,
+    angry: null,
+    celebrating: null
+  });
+  const [currentState, setCurrentState] = useState<AnimationState>('idle');
+  const [isLoading, setIsLoading] = useState(true);
+  const animationFrameRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const container = containerRef.current;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    const scene = new THREE.Scene();
+    sceneRef.current = scene;
+
+    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
+    camera.position.set(0, 0, 5);
+    cameraRef.current = camera;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+    rendererRef.current = renderer;
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 5, 5);
+    directionalLight.castShadow = true;
+    scene.add(directionalLight);
+
+    const pointLight1 = new THREE.PointLight(0xF0B90B, 0.5);
+    pointLight1.position.set(-3, 2, -3);
+    scene.add(pointLight1);
+
+    const pointLight2 = new THREE.PointLight(0xFCD535, 0.5);
+    pointLight2.position.set(0, 3, 3);
+    scene.add(pointLight2);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    controls.minPolarAngle = Math.PI / 3;
+    controls.maxPolarAngle = Math.PI / 1.5;
+    controlsRef.current = controls;
+
+    const gltfLoader = new GLTFLoader();
+    const fbxLoader = new FBXLoader();
+
+    gltfLoader.load(
+      '/max.glb',
+      (gltf) => {
+        const model = gltf.scene;
+        model.position.set(0, -1, 0);
+        model.scale.set(2, 2, 2);
+        
+        model.traverse((child) => {
+          if ((child as THREE.Mesh).isMesh) {
+            (child as THREE.Mesh).castShadow = true;
+            (child as THREE.Mesh).receiveShadow = true;
+          }
+        });
+
+        scene.add(model);
+        modelRef.current = model;
+
+        const mixer = new THREE.AnimationMixer(model);
+        mixerRef.current = mixer;
+
+        Promise.all([
+          new Promise<void>((resolve) => {
+            fbxLoader.load('/idle.fbx', (fbx) => {
+              if (fbx.animations && fbx.animations.length > 0) {
+                animationsRef.current.idle = fbx.animations[0];
+              }
+              resolve();
+            }, undefined, () => resolve());
+          }),
+          new Promise<void>((resolve) => {
+            fbxLoader.load('/talking.fbx', (fbx) => {
+              if (fbx.animations && fbx.animations.length > 0) {
+                animationsRef.current.talking = fbx.animations[0];
+              }
+              resolve();
+            }, undefined, () => resolve());
+          }),
+          new Promise<void>((resolve) => {
+            fbxLoader.load('/thinking.fbx', (fbx) => {
+              if (fbx.animations && fbx.animations.length > 0) {
+                animationsRef.current.thinking = fbx.animations[0];
+              }
+              resolve();
+            }, undefined, () => resolve());
+          }),
+          new Promise<void>((resolve) => {
+            fbxLoader.load('/angry.fbx', (fbx) => {
+              if (fbx.animations && fbx.animations.length > 0) {
+                animationsRef.current.angry = fbx.animations[0];
+              }
+              resolve();
+            }, undefined, () => resolve());
+          }),
+          new Promise<void>((resolve) => {
+            fbxLoader.load('/celebrating.fbx', (fbx) => {
+              if (fbx.animations && fbx.animations.length > 0) {
+                animationsRef.current.celebrating = fbx.animations[0];
+              }
+              resolve();
+            }, undefined, () => resolve());
+          })
+        ]).then(() => {
+          setIsLoading(false);
+          if (animationsRef.current.idle && mixer) {
+            const action = mixer.clipAction(animationsRef.current.idle);
+            action.play();
+          }
+        });
+      },
+      undefined,
+      (error) => {
+        console.error('Error loading model:', error);
+        setIsLoading(false);
+      }
+    );
+
+    const clock = new THREE.Clock();
+
+    const animate = () => {
+      animationFrameRef.current = requestAnimationFrame(animate);
+
+      const delta = clock.getDelta();
+      
+      if (mixerRef.current) {
+        mixerRef.current.update(delta);
+      }
+
+      if (modelRef.current && !isSpeaking && !isThinking) {
+        modelRef.current.rotation.y = Math.sin(clock.elapsedTime * 0.3) * 0.1;
+      }
+
+      if (controlsRef.current) {
+        controlsRef.current.update();
+      }
+
+      if (rendererRef.current && sceneRef.current && cameraRef.current) {
+        rendererRef.current.render(sceneRef.current, cameraRef.current);
+      }
+    };
+
+    animate();
+
+    const handleResize = () => {
+      if (!containerRef.current || !cameraRef.current || !rendererRef.current) return;
+      
+      const width = containerRef.current.clientWidth;
+      const height = containerRef.current.clientHeight;
+      
+      cameraRef.current.aspect = width / height;
+      cameraRef.current.updateProjectionMatrix();
+      rendererRef.current.setSize(width, height);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      
+      if (animationFrameRef.current !== null) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      
+      if (controlsRef.current) {
+        controlsRef.current.dispose();
+      }
+      
+      if (rendererRef.current) {
+        rendererRef.current.dispose();
+        container.removeChild(rendererRef.current.domElement);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    let newState: AnimationState = 'idle';
+    
+    if (isSpeaking) {
+      newState = 'talking';
+    } else if (isThinking) {
+      newState = 'thinking';
+    }
+    
+    if (newState !== currentState) {
+      setCurrentState(newState);
+      
+      if (mixerRef.current) {
+        mixerRef.current.stopAllAction();
+        
+        const animation = animationsRef.current[newState];
+        if (animation) {
+          const action = mixerRef.current.clipAction(animation);
+          action.reset();
+          action.play();
+        }
+      }
+    }
+  }, [isSpeaking, isThinking, currentState]);
+
   return (
     <div className="relative h-full w-full bg-black flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(240,185,11,0.15)_0%,rgba(252,213,53,0.08)_25%,transparent_70%)]" />
@@ -80,27 +257,15 @@ export default function Max3DViewer({ isThinking = false, isSpeaking = false }: 
         </div>
       )}
 
-      <div className="relative z-10 w-full h-full" data-testid="model-max">
-        <Canvas 
-          camera={{ position: [0, 0, 6], fov: 45 }}
-        >
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[5, 5, 5]} intensity={0.8} />
-          <pointLight position={[-5, 3, -5]} intensity={0.4} color="#F0B90B" />
-          <pointLight position={[0, 2, 5]} intensity={isSpeaking ? 1.2 : 0.6} color="#FCD535" />
-          
-          <Suspense fallback={<Loader />}>
-            <Max3DModel isThinking={isThinking} isSpeaking={isSpeaking} />
-          </Suspense>
-          
-          <OrbitControls 
-            enableZoom={false} 
-            enablePan={false}
-            minPolarAngle={Math.PI / 3}
-            maxPolarAngle={Math.PI / 1.5}
-          />
-        </Canvas>
-      </div>
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center z-20">
+          <div className="text-primary text-lg font-semibold animate-pulse">
+            Cargando modelo 3D...
+          </div>
+        </div>
+      )}
+
+      <div ref={containerRef} className="relative z-10 w-full h-full" data-testid="model-max" />
 
       {isSpeaking && (
         <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex items-end gap-1.5 h-12 z-20" data-testid="audio-waves">
