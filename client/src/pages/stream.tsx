@@ -1,6 +1,6 @@
 import { useState } from "react";
 import StreamHeader from "@/components/StreamHeader";
-import MaxViewer from "@/components/MaxViewer";
+import Max3DViewer from "@/components/Max3DViewer";
 import ChatPanel from "@/components/ChatPanel";
 import ApiKeyInfo from "@/components/ApiKeyInfo";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,7 @@ export default function StreamPage() {
       
       <div className="flex flex-1 overflow-hidden relative">
         <div className="flex-1 w-full lg:w-[70%] relative">
-          <MaxViewer isThinking={isThinking} isSpeaking={isSpeaking} />
+          <Max3DViewer isThinking={isThinking} isSpeaking={isSpeaking} />
           
           <Button
             variant="outline"

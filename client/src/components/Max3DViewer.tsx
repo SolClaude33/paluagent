@@ -1,6 +1,6 @@
-import { Suspense, useRef } from 'react';
+import { Suspense, useRef, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, OrbitControls, Environment } from '@react-three/drei';
+import { useGLTF, OrbitControls } from '@react-three/drei';
 import { Group } from 'three';
 import { Sparkles } from "lucide-react";
 
@@ -13,32 +13,42 @@ function Max3DModel({ isThinking = false, isSpeaking = false }: Max3DModelProps)
   const group = useRef<Group>(null);
   const { scene } = useGLTF('/max-model.glb');
   
+  useEffect(() => {
+    if (scene) {
+      scene.traverse((child: any) => {
+        if (child.isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+        }
+      });
+    }
+  }, [scene]);
+  
   useFrame((state) => {
     if (!group.current) return;
     
     if (isSpeaking) {
-      group.current.position.y = Math.sin(state.clock.elapsedTime * 4) * 0.1;
-      group.current.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 4) * 0.05);
+      group.current.position.y = Math.sin(state.clock.elapsedTime * 4) * 0.15;
+      group.current.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 4) * 0.03);
     } else {
-      group.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.2;
-      group.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.3) * 0.1;
+      group.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.15;
+      group.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.3) * 0.05;
     }
   });
 
   return (
-    <group ref={group} position={[0, -1, 0]}>
-      <primitive object={scene} scale={2.5} />
+    <group ref={group} position={[0, -1.5, 0]}>
+      <primitive object={scene} scale={1.8} />
     </group>
   );
 }
 
 function Loader() {
   return (
-    <div className="flex items-center justify-center h-full">
-      <div className="text-primary text-lg font-semibold animate-pulse">
-        Cargando modelo 3D...
-      </div>
-    </div>
+    <mesh>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color="#F0B90B" wireframe />
+    </mesh>
   );
 }
 
@@ -71,26 +81,23 @@ export default function Max3DViewer({ isThinking = false, isSpeaking = false }: 
       )}
 
       <div className="relative z-10 w-full h-full" data-testid="model-max">
-        <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+        <Canvas 
+          camera={{ position: [0, 0, 6], fov: 45 }}
+        >
           <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} intensity={1} color="#F0B90B" />
-          <pointLight position={[-10, -10, -10]} intensity={0.5} color="#FCD535" />
-          <spotLight 
-            position={[0, 5, 0]} 
-            intensity={isSpeaking ? 2 : 1} 
-            color="#F0B90B"
-            angle={0.6}
-            penumbra={1}
-          />
+          <directionalLight position={[5, 5, 5]} intensity={0.8} />
+          <pointLight position={[-5, 3, -5]} intensity={0.4} color="#F0B90B" />
+          <pointLight position={[0, 2, 5]} intensity={isSpeaking ? 1.2 : 0.6} color="#FCD535" />
+          
           <Suspense fallback={<Loader />}>
             <Max3DModel isThinking={isThinking} isSpeaking={isSpeaking} />
-            <Environment preset="city" />
           </Suspense>
+          
           <OrbitControls 
             enableZoom={false} 
             enablePan={false}
-            autoRotate={!isSpeaking}
-            autoRotateSpeed={0.5}
+            minPolarAngle={Math.PI / 3}
+            maxPolarAngle={Math.PI / 1.5}
           />
         </Canvas>
       </div>
