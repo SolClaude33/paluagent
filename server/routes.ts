@@ -38,22 +38,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
           wss.clients.forEach((client) => {
             if (client.readyState === WebSocket.OPEN) {
               client.send(JSON.stringify({
-                type: 'max_thinking',
-                data: { thinking: true }
+                type: 'max_emotion',
+                data: { emotion: 'thinking' }
               }));
             }
           });
 
           const aiResponse = await generateAIResponse(message.content);
-
-          wss.clients.forEach((client) => {
-            if (client.readyState === WebSocket.OPEN) {
-              client.send(JSON.stringify({
-                type: 'max_thinking',
-                data: { thinking: false }
-              }));
-            }
-          });
 
           const maxMessage = {
             id: (Date.now() + 1).toString(),
