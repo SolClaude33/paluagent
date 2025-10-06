@@ -37,13 +37,13 @@ Preferred communication style: Simple, everyday language.
 
 **3D Visualization (Max3DViewer):**
 - Pure Three.js implementation (vanilla, not React Three Fiber due to Replit environment constraints)
-- Multi-model FBX loading system for state-based animations:
+- Multi-model FBX loading system for emotion-based animations:
   - Each FBX file (idle.fbx, talking.fbx, thinking.fbx, angry.fbx, celebrating.fbx) contains a complete model with integrated animation
   - Separate AnimationMixer per model for independent animation control
-  - Visibility-based model switching (only active state model is visible)
-  - State transitions: idle (default) → talking (when isSpeaking) → thinking (when isThinking)
+  - Visibility-based model switching (only active emotion model is visible)
+  - Emotion states: idle (default), talking (neutral response), thinking (explanatory), angry (concerned), celebrating (positive/encouraging)
 - OrbitControls for interactive camera manipulation (zoom disabled, limited vertical rotation)
-- Real-time synchronization with AI state (thinking/speaking indicators trigger appropriate animations)
+- Real-time synchronization with AI emotion state via WebSocket emotion messages
 - BNB Chain themed lighting setup with ambient, directional, and colored point lights
 
 ### Backend Architecture
@@ -57,7 +57,10 @@ Preferred communication style: Simple, everyday language.
 - Dual AI provider support: OpenAI (GPT-3.5-turbo) and Anthropic (Claude Haiku)
 - Fallback mechanism between providers based on API key availability
 - Spanish-language personality: Max is characterized as a friendly robotic rabbit with blockchain knowledge
-- Streaming response handling with thinking/speaking state indicators
+- Emotion-based response system with sentiment analysis:
+  - Analyzes AI responses to detect emotional tone
+  - Keyword-based detection for celebrating (positive), thinking (explanatory), angry (concerned), talking (neutral)
+  - EmotionType shared across frontend/backend via @shared/schema for type safety
 
 **Data Layer:**
 - Drizzle ORM configured for PostgreSQL database interactions
@@ -67,11 +70,13 @@ Preferred communication style: Simple, everyday language.
 
 **Real-time Communication Flow:**
 1. Client sends user message via WebSocket
-2. Server broadcasts message to all connected clients
-3. Server triggers "thinking" state indicator
-4. AI provider generates response (OpenAI or Anthropic)
-5. Server broadcasts AI response and "speaking" state
-6. Visual feedback displayed to all users
+2. Server broadcasts user message to all connected clients
+3. Server sends 'thinking' emotion state to trigger thinking animation
+4. AI provider generates response with sentiment analysis (OpenAI or Anthropic)
+5. Server broadcasts emotion metadata (celebrating/thinking/talking/angry) based on response tone
+6. Server broadcasts AI message with detected emotion
+7. After 3 seconds, server resets to 'idle' emotion state
+8. Max3DViewer switches models and animations based on emotion state
 
 ### External Dependencies
 
