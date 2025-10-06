@@ -5,11 +5,11 @@ import ChatPanel from "@/components/ChatPanel";
 import ApiKeyInfo from "@/components/ApiKeyInfo";
 import { Button } from "@/components/ui/button";
 import { Info, X } from "lucide-react";
+import { useWebSocket } from "@/hooks/useWebSocket";
 
 export default function StreamPage() {
-  const [isThinking, setIsThinking] = useState(false);
-  const [isSpeaking, setIsSpeaking] = useState(false);
   const [showApiInfo, setShowApiInfo] = useState(false);
+  const { currentEmotion } = useWebSocket('/ws');
 
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden bg-black">
@@ -17,7 +17,7 @@ export default function StreamPage() {
       
       <div className="flex flex-1 overflow-hidden relative">
         <div className="flex-1 w-full lg:w-[70%] relative">
-          <Max3DViewer isThinking={isThinking} isSpeaking={isSpeaking} />
+          <Max3DViewer emotion={currentEmotion} />
           
           <Button
             variant="outline"
@@ -32,10 +32,7 @@ export default function StreamPage() {
         </div>
         
         <div className="hidden lg:block w-[30%] min-w-[320px] max-w-[420px]">
-          <ChatPanel 
-            onMaxThinking={setIsThinking}
-            onMaxSpeaking={setIsSpeaking}
-          />
+          <ChatPanel />
         </div>
       </div>
 
@@ -56,10 +53,7 @@ export default function StreamPage() {
       )}
 
       <div className="lg:hidden fixed bottom-0 left-0 right-0 h-[45vh] border-t border-primary/20 bg-gradient-to-b from-black to-neutral-950 z-40">
-        <ChatPanel 
-          onMaxThinking={setIsThinking}
-          onMaxSpeaking={setIsSpeaking}
-        />
+        <ChatPanel />
       </div>
     </div>
   );

@@ -4,14 +4,13 @@ import { FBXLoader } from 'three-stdlib';
 import { OrbitControls } from 'three-stdlib';
 import { Sparkles } from "lucide-react";
 
-type AnimationState = 'idle' | 'talking' | 'thinking' | 'angry' | 'celebrating';
+export type AnimationState = 'idle' | 'talking' | 'thinking' | 'angry' | 'celebrating';
 
 interface Max3DViewerProps {
-  isThinking?: boolean;
-  isSpeaking?: boolean;
+  emotion?: AnimationState;
 }
 
-export default function Max3DViewer({ isThinking = false, isSpeaking = false }: Max3DViewerProps) {
+export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
@@ -138,7 +137,7 @@ export default function Max3DViewer({ isThinking = false, isSpeaking = false }: 
       });
 
       const currentModelData = modelsRef.current[currentState];
-      if (currentModelData && !isSpeaking && !isThinking) {
+      if (currentModelData && currentState === 'idle') {
         currentModelData.model.rotation.y = Math.sin(clock.elapsedTime * 0.3) * 0.1;
       }
 
@@ -185,20 +184,12 @@ export default function Max3DViewer({ isThinking = false, isSpeaking = false }: 
   }, []);
 
   useEffect(() => {
-    let newState: AnimationState = 'idle';
-    
-    if (isSpeaking) {
-      newState = 'talking';
-    } else if (isThinking) {
-      newState = 'thinking';
-    }
-    
-    if (newState !== currentState) {
-      setCurrentState(newState);
+    if (emotion !== currentState) {
+      setCurrentState(emotion);
       
       Object.entries(modelsRef.current).forEach(([state, modelData]) => {
         if (modelData) {
-          const isActive = state === newState;
+          const isActive = state === emotion;
           modelData.model.visible = isActive;
           
           if (isActive && modelData.mixer && modelData.clip) {
@@ -209,7 +200,7 @@ export default function Max3DViewer({ isThinking = false, isSpeaking = false }: 
         }
       });
     }
-  }, [isSpeaking, isThinking, currentState]);
+  }, [emotion, currentState]);
 
   return (
     <div className="relative h-full w-full bg-black flex items-center justify-center overflow-hidden">
@@ -224,7 +215,7 @@ export default function Max3DViewer({ isThinking = false, isSpeaking = false }: 
         </div>
       </div>
 
-      {isThinking && (
+      {emotion === 'thinking' && (
         <div className="absolute top-6 right-6 z-10 animate-in slide-in-from-top-4 duration-300">
           <div className="flex items-center gap-2 bg-primary/20 backdrop-blur-md px-4 py-2 rounded-full border border-primary/40 shadow-lg shadow-primary/20" data-testid="status-thinking">
             <Sparkles className="h-4 w-4 text-primary animate-pulse" />
@@ -243,7 +234,7 @@ export default function Max3DViewer({ isThinking = false, isSpeaking = false }: 
 
       <div ref={containerRef} className="relative z-10 w-full h-full" data-testid="model-max" />
 
-      {isSpeaking && (
+      {(emotion === 'talking' || emotion === 'celebrating') && (
         <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex items-end gap-1.5 h-12 z-20" data-testid="audio-waves">
           {[...Array(7)].map((_, i) => (
             <div

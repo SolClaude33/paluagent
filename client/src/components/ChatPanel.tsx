@@ -7,12 +7,7 @@ import ChatMessage from "./ChatMessage";
 import { useWebSocket } from "@/hooks/useWebSocket";
 import type { ChatMessage as ChatMessageType } from "@shared/schema";
 
-interface ChatPanelProps {
-  onMaxThinking?: (thinking: boolean) => void;
-  onMaxSpeaking?: (speaking: boolean) => void;
-}
-
-export default function ChatPanel({ onMaxThinking, onMaxSpeaking }: ChatPanelProps) {
+export default function ChatPanel() {
   const [messages, setMessages] = useState<ChatMessageType[]>([
     {
       id: "1",
@@ -33,13 +28,9 @@ export default function ChatPanel({ onMaxThinking, onMaxSpeaking }: ChatPanelPro
         setMessages(prev => [...prev, lastMessage.data]);
       } else if (lastMessage.type === 'max_message') {
         setMessages(prev => [...prev, lastMessage.data]);
-      } else if (lastMessage.type === 'max_thinking') {
-        onMaxThinking?.(lastMessage.data.thinking);
-      } else if (lastMessage.type === 'max_speaking') {
-        onMaxSpeaking?.(lastMessage.data.speaking);
       }
     }
-  }, [lastMessage, onMaxThinking, onMaxSpeaking]);
+  }, [lastMessage]);
 
   useEffect(() => {
     if (scrollRef.current) {
