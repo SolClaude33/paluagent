@@ -17,12 +17,16 @@ export const insertUserSchema = createInsertSchema(users).pick({
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 
+export const emotionSchema = z.enum(['celebrating', 'thinking', 'talking', 'angry', 'idle']);
+export type EmotionType = z.infer<typeof emotionSchema>;
+
 export const chatMessageSchema = z.object({
   id: z.string(),
   message: z.string().min(1).max(2000),
   sender: z.enum(["user", "max"]),
   username: z.string().optional(),
   timestamp: z.string(),
+  emotion: emotionSchema.optional(),
 });
 
 export type ChatMessage = z.infer<typeof chatMessageSchema>;

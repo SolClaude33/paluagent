@@ -3,11 +3,10 @@ import * as THREE from 'three';
 import { FBXLoader } from 'three-stdlib';
 import { OrbitControls } from 'three-stdlib';
 import { Sparkles } from "lucide-react";
-
-export type AnimationState = 'idle' | 'talking' | 'thinking' | 'angry' | 'celebrating';
+import type { EmotionType } from '@shared/schema';
 
 interface Max3DViewerProps {
-  emotion?: AnimationState;
+  emotion?: EmotionType;
 }
 
 export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
@@ -16,14 +15,14 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const controlsRef = useRef<OrbitControls | null>(null);
-  const modelsRef = useRef<Record<AnimationState, { model: THREE.Group; mixer: THREE.AnimationMixer; clip: THREE.AnimationClip } | null>>({
+  const modelsRef = useRef<Record<EmotionType, { model: THREE.Group; mixer: THREE.AnimationMixer; clip: THREE.AnimationClip } | null>>({
     idle: null,
     talking: null,
     thinking: null,
     angry: null,
     celebrating: null
   });
-  const [currentState, setCurrentState] = useState<AnimationState>('idle');
+  const [currentState, setCurrentState] = useState<EmotionType>('idle');
   const [isLoading, setIsLoading] = useState(true);
   const animationFrameRef = useRef<number | null>(null);
 
@@ -72,7 +71,7 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
 
     const fbxLoader = new FBXLoader();
 
-    const loadFBXModel = (path: string, state: AnimationState): Promise<void> => {
+    const loadFBXModel = (path: string, state: EmotionType): Promise<void> => {
       return new Promise((resolve) => {
         fbxLoader.load(
           path,

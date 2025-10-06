@@ -1,4 +1,4 @@
-export type EmotionType = 'celebrating' | 'thinking' | 'talking' | 'angry' | 'idle';
+import type { EmotionType } from "@shared/schema";
 
 interface EmotionKeywords {
   celebrating: string[];

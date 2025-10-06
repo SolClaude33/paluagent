@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-
-export type EmotionType = 'celebrating' | 'thinking' | 'talking' | 'angry' | 'idle';
+import type { EmotionType } from '@shared/schema';
 
 interface WebSocketMessage {
-  type: 'connection' | 'user_message' | 'max_message' | 'max_thinking' | 'max_speaking' | 'max_emotion';
+  type: 'connection' | 'user_message' | 'max_message' | 'max_emotion';
   data: any;
 }
 
