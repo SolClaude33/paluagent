@@ -6,7 +6,7 @@ import { Send, Users, TrendingUp, Wifi, WifiOff } from "lucide-react";
 import ChatMessage from "./ChatMessage";
 import { useWebSocket } from "@/hooks/useWebSocket";
 import type { ChatMessage as ChatMessageType } from "@shared/schema";
-import gigglesLogo from '@assets/image_1759802470289.png';
+import gigglesLogo from '@assets/generated_images/Giggles_logo_transparent_background_4e8db14c.png';
 
 export default function ChatPanel() {
   const [messages, setMessages] = useState<ChatMessageType[]>([
