@@ -58,11 +58,21 @@ export default function ChatPanel() {
   };
 
   return (
-    <div className="flex h-full flex-col bg-white border-l-2 border-border shadow-lg">
-      <div className="border-b-2 border-border bg-white px-6 py-5">
+    <div className="relative flex h-full flex-col bg-white border-l-2 border-border shadow-lg">
+      <img 
+        src={gigglesLogo} 
+        alt="Giggles Academy" 
+        className="absolute top-1/3 right-8 w-32 h-32 opacity-15 pointer-events-none animate-pulse z-0"
+      />
+      <img 
+        src={gigglesLogo} 
+        alt="Giggles Academy" 
+        className="absolute bottom-1/4 left-8 w-28 h-28 opacity-12 pointer-events-none animate-pulse z-0"
+      />
+      
+      <div className="border-b-2 border-border bg-white px-6 py-5 relative z-10">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <img src={gigglesLogo} alt="Giggles" className="h-12 w-12 animate-pulse" />
             <h2 className="text-xl font-black text-foreground uppercase tracking-tight font-[Space_Grotesk]">
               Live Chat
             </h2>
@@ -86,7 +96,7 @@ export default function ChatPanel() {
         </div>
       </div>
 
-      <ScrollArea className="flex-1 px-5">
+      <ScrollArea className="flex-1 px-5 relative z-10">
         <div ref={scrollRef} className="space-y-4 py-6">
           {messages.map((msg) => (
             <ChatMessage key={msg.id} {...msg} />
@@ -94,9 +104,8 @@ export default function ChatPanel() {
         </div>
       </ScrollArea>
 
-      <div className="border-t-2 border-border bg-white p-5">
+      <div className="border-t-2 border-border bg-white p-5 relative z-10">
         <div className="flex items-center gap-3">
-          <img src={gigglesLogo} alt="Giggles" className="h-10 w-10 animate-pulse flex-shrink-0" />
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}

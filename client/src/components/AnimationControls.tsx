@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Smile, Brain, PartyPopper, Frown, CircleDot } from "lucide-react";
+import { Smile, Brain, PartyPopper, Frown, CircleDot, Music, HelpCircle } from "lucide-react";
 import type { EmotionType } from "@shared/schema";
 
 interface AnimationControlsProps {
@@ -14,6 +14,8 @@ export default function AnimationControls({ onEmotionChange, currentEmotion }: A
     { type: 'thinking', label: 'Thinking', icon: <Brain className="h-4 w-4" />, activeColor: 'bg-purple-500' },
     { type: 'celebrating', label: 'Happy', icon: <PartyPopper className="h-4 w-4" />, activeColor: 'bg-green-500' },
     { type: 'angry', label: 'Angry', icon: <Frown className="h-4 w-4" />, activeColor: 'bg-red-500' },
+    { type: 'crazy_dance', label: 'Dance', icon: <Music className="h-4 w-4" />, activeColor: 'bg-pink-500' },
+    { type: 'confused', label: 'Confused', icon: <HelpCircle className="h-4 w-4" />, activeColor: 'bg-orange-500' },
   ];
 
   return (

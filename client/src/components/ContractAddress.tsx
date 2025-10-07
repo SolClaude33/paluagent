@@ -30,7 +30,6 @@ export default function ContractAddress() {
               <h3 className="text-2xl font-bold text-foreground font-[Space_Grotesk]">
                 Smart Contract Address
               </h3>
-              <img src={gigglesLogo} alt="Giggles" className="h-8 w-8 animate-pulse" />
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Interact with Max AI directly on the blockchain. This verified smart contract powers all AI interactions.

@@ -23,7 +23,6 @@ export default function StreamHeader() {
             <div>
               <h1 className="text-2xl font-black font-[Space_Grotesk] text-foreground flex items-center gap-2">
                 Max AI
-                <img src={gigglesLogo} alt="Giggles" className="h-7 w-7 inline-block" />
               </h1>
               <p className="text-xs text-muted-foreground font-semibold">Powered by BNB Chain & Giggles Academy</p>
               <p className="text-[10px] text-muted-foreground/80 font-medium italic mt-0.5">Inspired by Max from Giggles Academy</p>

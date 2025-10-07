@@ -5,6 +5,7 @@ import { OrbitControls } from 'three-stdlib';
 import { Sparkles } from "lucide-react";
 import type { EmotionType } from '@shared/schema';
 import maxRabbitSticker from '@assets/image_1759799065070.png';
+import gigglesLogo from '@assets/image_1759802470289.png';
 
 interface Max3DViewerProps {
   emotion?: EmotionType;
@@ -21,7 +22,9 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
     talking: null,
     thinking: null,
     angry: null,
-    celebrating: null
+    celebrating: null,
+    crazy_dance: null,
+    confused: null
   });
   const [currentState, setCurrentState] = useState<EmotionType>('idle');
   const [isLoading, setIsLoading] = useState(true);
@@ -118,7 +121,9 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
       loadFBXModel('/talking.fbx', 'talking'),
       loadFBXModel('/thinking.fbx', 'thinking'),
       loadFBXModel('/angry.fbx', 'angry'),
-      loadFBXModel('/celebrating.fbx', 'celebrating')
+      loadFBXModel('/celebrating.fbx', 'celebrating'),
+      loadFBXModel('/crazy_dance.fbx', 'crazy_dance'),
+      loadFBXModel('/confused.fbx', 'confused')
     ]).then(() => {
       setIsLoading(false);
     });
@@ -240,6 +245,24 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
         src={maxRabbitSticker} 
         alt="" 
         className="absolute bottom-12 right-16 w-36 h-36 opacity-30 pointer-events-none transform -rotate-15"
+      />
+
+      <img 
+        src={gigglesLogo} 
+        alt="Giggles Academy" 
+        className="absolute top-4 right-1/4 w-20 h-20 opacity-40 pointer-events-none animate-pulse"
+      />
+      
+      <img 
+        src={gigglesLogo} 
+        alt="Giggles Academy" 
+        className="absolute bottom-1/4 left-12 w-24 h-24 opacity-35 pointer-events-none animate-pulse"
+      />
+      
+      <img 
+        src={gigglesLogo} 
+        alt="Giggles Academy" 
+        className="absolute top-1/2 right-12 w-16 h-16 opacity-30 pointer-events-none animate-pulse"
       />
 
       <div className="absolute top-8 left-8 z-10">

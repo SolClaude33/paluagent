@@ -17,7 +17,7 @@ export const insertUserSchema = createInsertSchema(users).pick({
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 
-export const emotionSchema = z.enum(['celebrating', 'thinking', 'talking', 'angry', 'idle']);
+export const emotionSchema = z.enum(['celebrating', 'thinking', 'talking', 'angry', 'idle', 'crazy_dance', 'confused']);
 export type EmotionType = z.infer<typeof emotionSchema>;
 
 export const chatMessageSchema = z.object({
