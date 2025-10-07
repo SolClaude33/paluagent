@@ -3,13 +3,14 @@ import StreamHeader from "@/components/StreamHeader";
 import Max3DViewer from "@/components/Max3DViewer";
 import ChatPanel from "@/components/ChatPanel";
 import ContractAddress from "@/components/ContractAddress";
+import AnimationControls from "@/components/AnimationControls";
 import { Button } from "@/components/ui/button";
 import { FileText, X } from "lucide-react";
 import { useWebSocket } from "@/hooks/useWebSocket";
 
 export default function StreamPage() {
   const [showContractInfo, setShowContractInfo] = useState(false);
-  const { currentEmotion } = useWebSocket('/ws');
+  const { currentEmotion, sendEmotion } = useWebSocket('/ws');
 
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden bg-black">
@@ -19,16 +20,20 @@ export default function StreamPage() {
         <div className="flex-1 w-full lg:w-[70%] relative">
           <Max3DViewer emotion={currentEmotion} />
           
-          <Button
-            variant="outline"
-            size="sm"
-            className="absolute bottom-8 left-8 gap-2 bg-black/60 backdrop-blur-xl border-primary/40 hover:bg-black/80 hover-elevate z-20 shadow-xl shadow-primary/20"
-            onClick={() => setShowContractInfo(!showContractInfo)}
-            data-testid="button-contract-info"
-          >
-            <FileText className="h-4 w-4 text-primary" />
-            <span className="text-primary font-semibold">Contract Address</span>
-          </Button>
+          <div className="absolute bottom-8 left-8 flex flex-col gap-4 z-20">
+            <AnimationControls onEmotionChange={sendEmotion} currentEmotion={currentEmotion} />
+            
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2 bg-black/60 backdrop-blur-xl border-primary/40 hover:bg-black/80 hover-elevate shadow-xl shadow-primary/20"
+              onClick={() => setShowContractInfo(!showContractInfo)}
+              data-testid="button-contract-info"
+            >
+              <FileText className="h-4 w-4 text-primary" />
+              <span className="text-primary font-semibold">Contract Address</span>
+            </Button>
+          </div>
         </div>
         
         <div className="hidden lg:block w-[30%] min-w-[320px] max-w-[420px]">

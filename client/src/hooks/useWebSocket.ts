@@ -57,5 +57,9 @@ export function useWebSocket(url: string) {
     }
   }, []);
 
-  return { isConnected, lastMessage, sendMessage, currentEmotion };
+  const sendEmotion = useCallback((emotion: EmotionType) => {
+    setCurrentEmotion(emotion);
+  }, []);
+
+  return { isConnected, lastMessage, sendMessage, currentEmotion, sendEmotion };
 }
