@@ -62,7 +62,7 @@ export default function ChatPanel() {
   };
 
   return (
-    <div className="relative flex h-full flex-col bg-white border-l-2 border-border shadow-lg">
+    <div className="relative flex h-full flex-col bg-background border-l-2 border-border shadow-lg">
       <img 
         src={gigglesLogo} 
         alt="Giggles Academy" 
@@ -74,7 +74,7 @@ export default function ChatPanel() {
         className="absolute bottom-1/4 left-8 w-28 h-28 opacity-12 pointer-events-none animate-pulse z-0"
       />
       
-      <div className="border-b-2 border-border bg-white px-6 py-5 relative z-10">
+      <div className="border-b-2 border-border bg-background px-6 py-5 relative z-10">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <h2 className="text-xl font-black text-foreground uppercase tracking-tight font-[Space_Grotesk]">
@@ -108,10 +108,10 @@ export default function ChatPanel() {
         </div>
       </ScrollArea>
 
-      <div className="border-t-2 border-border bg-white p-5 relative z-10">
+      <div className="border-t-2 border-border bg-background p-5 relative z-10">
         <div className="flex items-center gap-3">
           {!address && (
-            <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50 rounded-xl">
+            <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50 rounded-xl">
               <div className="text-center">
                 <Lock className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
                 <p className="text-sm font-bold text-foreground">Connect your BNB wallet to chat</p>
@@ -123,7 +123,7 @@ export default function ChatPanel() {
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder={!address ? "Connect wallet to chat..." : isConnected ? "Type a message..." : "Connecting..."}
-            className="flex-1 bg-white border-2 border-border focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary text-foreground placeholder:text-muted-foreground rounded-xl h-11 px-4 font-medium"
+            className="flex-1 bg-card border-2 border-border focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary text-foreground placeholder:text-muted-foreground rounded-xl h-11 px-4 font-medium"
             data-testid="input-chat"
             disabled={!isConnected || !address}
           />

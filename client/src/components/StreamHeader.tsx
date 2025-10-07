@@ -15,11 +15,11 @@ export default function StreamHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-border bg-white/95 backdrop-blur-xl shadow-sm">
+    <header className="sticky top-0 z-50 border-b-2 border-border bg-background/95 backdrop-blur-xl shadow-sm">
       <div className="flex h-20 items-center justify-between px-6 md:px-8 gap-4">
         <div className="flex items-center gap-4 flex-shrink-0">
           <div className="relative flex items-center gap-3">
-            <div className="relative h-14 w-14 rounded-2xl overflow-hidden bg-white shadow-md">
+            <div className="relative h-14 w-14 rounded-2xl overflow-hidden bg-card shadow-md">
               <img src={maxLogo} alt="Max AI Logo" className="h-full w-full object-cover" />
             </div>
             <div>

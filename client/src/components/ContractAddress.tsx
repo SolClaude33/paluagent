@@ -19,7 +19,7 @@ export default function ContractAddress() {
   };
 
   return (
-    <Card className="p-8 bg-white border-4 border-primary shadow-lg rounded-2xl">
+    <Card className="p-8 border-4 border-primary shadow-lg rounded-2xl">
       <div className="space-y-6">
         <div className="flex items-start gap-4 pb-4 border-b-2 border-primary/30">
           <div className="h-14 w-14 rounded-xl bg-primary flex items-center justify-center flex-shrink-0 shadow-sm">
@@ -42,7 +42,7 @@ export default function ContractAddress() {
             <div className="flex items-center justify-between gap-4">
               <div className="flex-1 min-w-0">
                 <p className="text-xs text-muted-foreground mb-2 font-semibold uppercase tracking-wide">Contract Address</p>
-                <code className="text-sm font-mono text-foreground break-all bg-white px-3 py-2 rounded-lg block font-medium border-2 border-primary/30">
+                <code className="text-sm font-mono text-foreground break-all bg-card px-3 py-2 rounded-lg block font-medium border-2 border-primary/30">
                   {contractAddress}
                 </code>
               </div>
