@@ -30,7 +30,9 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
   });
   const [currentState, setCurrentState] = useState<EmotionType>('idle');
   const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const animationFrameRef = useRef<number | null>(null);
+  const loadTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -118,8 +120,19 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
       });
     };
 
+    // Set timeout to show app even if 3D doesn't load (8 second limit)
+    loadTimeoutRef.current = window.setTimeout(() => {
+      setIsLoading(false);
+      setLoadError(true);
+      console.warn('3D model loading timed out - showing UI without 3D');
+    }, 8000);
+
     // Load idle model first for fast initial render
     loadFBXModel('/idle.fbx', 'idle').then(() => {
+      if (loadTimeoutRef.current !== null) {
+        clearTimeout(loadTimeoutRef.current);
+        loadTimeoutRef.current = null;
+      }
       setIsLoading(false);
       
       // Load other models in background (lazy loading)
@@ -177,6 +190,10 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      
+      if (loadTimeoutRef.current !== null) {
+        clearTimeout(loadTimeoutRef.current);
+      }
       
       if (animationFrameRef.current !== null) {
         cancelAnimationFrame(animationFrameRef.current);
@@ -286,12 +303,30 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
         </div>
       )}
 
-      {isLoading && (
+      {isLoading && !loadError && (
         <div className="absolute inset-0 flex items-center justify-center z-20 bg-background/80 backdrop-blur-sm">
           <div className="flex flex-col items-center gap-4">
             <div className="h-12 w-12 rounded-full border-4 border-muted border-t-primary animate-spin" />
             <div className="text-foreground text-lg font-bold">
               Loading 3D model...
+            </div>
+          </div>
+        </div>
+      )}
+
+      {loadError && (
+        <div className="absolute inset-0 flex items-center justify-center z-20">
+          <div className="flex flex-col items-center gap-4 text-center px-8">
+            <img 
+              src={maxRabbitClassic} 
+              alt="Max" 
+              className="w-48 h-48 opacity-80 animate-bounce"
+            />
+            <div className="text-foreground text-2xl font-bold">
+              Max is here!
+            </div>
+            <div className="text-muted-foreground text-sm max-w-md">
+              (3D visualization unavailable - chat is fully functional)
             </div>
           </div>
         </div>

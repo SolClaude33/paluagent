@@ -23,6 +23,7 @@ export default function ChatPanel() {
   const [viewerCount, setViewerCount] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const fallbackTimeoutRef = useRef<number | null>(null);
+  const currentAudioRef = useRef<HTMLAudioElement | null>(null);
   const { address } = useWallet();
   const { toast } = useToast();
   
@@ -40,21 +41,31 @@ export default function ChatPanel() {
           clearTimeout(fallbackTimeoutRef.current);
           fallbackTimeoutRef.current = null;
         }
+
+        // Stop any currently playing audio to prevent double audio
+        if (currentAudioRef.current) {
+          currentAudioRef.current.pause();
+          currentAudioRef.current.currentTime = 0;
+          currentAudioRef.current = null;
+        }
         
         // Auto-play audio if available
         if (lastMessage.data.audioBase64) {
           try {
             const audio = new Audio(`data:audio/mp3;base64,${lastMessage.data.audioBase64}`);
+            currentAudioRef.current = audio;
             
             // Emit custom event when audio ends to sync animation
             audio.addEventListener('ended', () => {
               window.dispatchEvent(new CustomEvent('maxAudioEnded'));
+              currentAudioRef.current = null;
             });
             
             audio.play().catch(err => {
               console.error('Error playing audio:', err);
               // If audio fails, still emit ended event
               window.dispatchEvent(new CustomEvent('maxAudioEnded'));
+              currentAudioRef.current = null;
             });
           } catch (error) {
             console.error('Error creating audio:', error);
@@ -85,11 +96,15 @@ export default function ChatPanel() {
     }
   }, [messages]);
 
-  // Cleanup fallback timeout on unmount
+  // Cleanup fallback timeout and audio on unmount
   useEffect(() => {
     return () => {
       if (fallbackTimeoutRef.current !== null) {
         clearTimeout(fallbackTimeoutRef.current);
+      }
+      if (currentAudioRef.current) {
+        currentAudioRef.current.pause();
+        currentAudioRef.current = null;
       }
     };
   }, []);
