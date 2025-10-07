@@ -19,7 +19,7 @@ export default function AnimationControls({ onEmotionChange, currentEmotion }: A
   ];
 
   return (
-    <div className="bg-white backdrop-blur-sm border-2 border-border rounded-2xl p-4 shadow-md">
+    <div className="bg-card backdrop-blur-sm border-2 border-border rounded-2xl p-4 shadow-md">
       <h3 className="text-xs font-bold text-foreground uppercase tracking-wide mb-3">
         Animation Controls
       </h3>
@@ -32,7 +32,7 @@ export default function AnimationControls({ onEmotionChange, currentEmotion }: A
             className={`gap-1.5 border-2 rounded-xl px-3 py-2 font-bold transition-all text-xs ${
               currentEmotion === emotion.type
                 ? `${emotion.activeColor} border-transparent text-white shadow-lg scale-105`
-                : `bg-white border-border text-foreground hover:bg-muted`
+                : `bg-card border-border text-foreground hover:bg-muted`
             }`}
             onClick={() => onEmotionChange(emotion.type)}
             data-testid={`button-animation-${emotion.type}`}
