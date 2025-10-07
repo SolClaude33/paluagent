@@ -112,7 +112,40 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes (October 2025)
 
-### High-Contrast Design Redesign (Latest - October 7, 2025)
+### Giggles Academy Integration & Yellow Accents (Latest - October 7, 2025)
+- **Yellow Contract Address Button**: Changed to vibrant yellow background with dark text for maximum visibility
+  - Used primary color (BNB Chain yellow) for brand consistency
+  - Dark foreground text ensures WCAG contrast compliance
+  - Icon also adapted to dark color for consistency
+
+- **Vibrant Animation Controls**: Enhanced emotion controls with saturated colors
+  - Active states: gray-500, blue-500, purple-500, green-500, red-500
+  - Scale animation (scale-105) when active for better feedback
+  - Stronger shadows (shadow-lg) for depth and emphasis
+  - White text on colored backgrounds for legibility
+
+- **Yellow Border Dividers**: Strategic yellow borders for visual hierarchy
+  - 4px yellow border between 3D viewer and chat panel (desktop only)
+  - ContractAddress card with 4px yellow border
+  - Internal sections with yellow accent borders (30-50% opacity)
+  - Creates visual contrast aligned with BNB Chain branding
+
+- **Max Rabbit Stickers**: Decorative elements from Giggles character
+  - Asset: `attached_assets/image_1759799065070.png` (blue rabbit with phone)
+  - Three stickers placed strategically in 3D viewer background
+  - Variable opacity (10-20%) for subtle decoration
+  - Different rotations for visual variety
+  - `pointer-events-none` ensures no interaction interference
+
+- **Giggles Logo References**: Integration of Giggles Academy branding
+  - Asset: `attached_assets/image_1759799138730.png` (yellow smiley face)
+  - Logo appears in header next to "Max AI" title
+  - Updated tagline: "Powered by BNB Chain & Giggles Academy"
+  - Appears dynamically in chat messages with celebration words
+  - Smart detection of positive words (great, awesome, excellent, etc.)
+  - Animated pulse effect when shown
+
+### High-Contrast Design Redesign (October 7, 2025)
 - **Professional Logo**: Generated custom Max AI logo featuring robotic rabbit with BNB Chain elements
   - Asset location: `attached_assets/generated_images/Max_AI_robotic_rabbit_logo_439e99f8.png`
   - Integrated into StreamHeader replacing generic Lucide icon
