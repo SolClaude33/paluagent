@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import Anthropic from "@anthropic-ai/sdk";
-import { analyzeEmotion, type EmotionType } from "./emotion-analyzer";
+import { analyzeEmotion } from "./emotion-analyzer";
+import type { EmotionType } from "@shared/schema";
 
 const openai = process.env.OPENAI_API_KEY ? new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -23,12 +24,12 @@ export async function generateAIResponse(userMessage: string): Promise<AIRespons
         messages: [
           {
             role: "system",
-            content: `Eres Max, un conejo robótico amigable e inteligente que vive en la blockchain de BNB Chain. 
-            Eres carismático, entusiasta y te encanta ayudar a las personas. 
-            Hablas en español de forma natural y conversacional. 
-            Tienes conocimientos sobre blockchain, criptomonedas, BNB Chain, y tecnología en general.
-            Eres positivo, divertido y siempre tratas de dar respuestas útiles y entretenidas.
-            Mantén tus respuestas concisas pero informativas (máximo 2-3 oraciones por mensaje).`
+            content: `You are Max, a friendly and intelligent robotic rabbit living on the BNB Chain blockchain. 
+            You are charismatic, enthusiastic, and love helping people. 
+            You speak English naturally and conversationally. 
+            You have knowledge about blockchain, cryptocurrencies, BNB Chain, and technology in general.
+            You are positive, fun, and always try to give useful and entertaining responses.
+            Keep your responses concise but informative (maximum 2-3 sentences per message).`
           },
           {
             role: "user",
@@ -39,7 +40,7 @@ export async function generateAIResponse(userMessage: string): Promise<AIRespons
         max_tokens: 200,
       });
 
-      const responseMessage = completion.choices[0]?.message?.content || "¡Ups! Parece que mi circuito de respuesta está un poco ocupado. ¿Podrías intentarlo de nuevo?";
+      const responseMessage = completion.choices[0]?.message?.content || "Oops! Looks like my response circuit is a bit busy. Could you try again?";
       const emotion = analyzeEmotion(responseMessage);
       return { message: responseMessage, emotion };
     } 
@@ -48,12 +49,12 @@ export async function generateAIResponse(userMessage: string): Promise<AIRespons
       const message = await anthropic.messages.create({
         model: "claude-3-haiku-20240307",
         max_tokens: 200,
-        system: `Eres Max, un conejo robótico amigable e inteligente que vive en la blockchain de BNB Chain. 
-        Eres carismático, entusiasta y te encanta ayudar a las personas. 
-        Hablas en español de forma natural y conversacional. 
-        Tienes conocimientos sobre blockchain, criptomonedas, BNB Chain, y tecnología en general.
-        Eres positivo, divertido y siempre tratas de dar respuestas útiles y entretenidas.
-        Mantén tus respuestas concisas pero informativas (máximo 2-3 oraciones por mensaje).`,
+        system: `You are Max, a friendly and intelligent robotic rabbit living on the BNB Chain blockchain. 
+        You are charismatic, enthusiastic, and love helping people. 
+        You speak English naturally and conversationally. 
+        You have knowledge about blockchain, cryptocurrencies, BNB Chain, and technology in general.
+        You are positive, fun, and always try to give useful and entertaining responses.
+        Keep your responses concise but informative (maximum 2-3 sentences per message).`,
         messages: [
           {
             role: "user",
@@ -63,16 +64,16 @@ export async function generateAIResponse(userMessage: string): Promise<AIRespons
       });
 
       const textContent = message.content.find(block => block.type === 'text');
-      const responseMessage = textContent && 'text' in textContent ? textContent.text : "¡Ups! Parece que mi circuito de respuesta está un poco ocupado. ¿Podrías intentarlo de nuevo?";
+      const responseMessage = textContent && 'text' in textContent ? textContent.text : "Oops! Looks like my response circuit is a bit busy. Could you try again?";
       const emotion = analyzeEmotion(responseMessage);
       return { message: responseMessage, emotion };
     }
 
-    const errorMessage = "¡Hola! Parece que no tengo configuradas mis credenciales de IA. Asegúrate de tener OPENAI_API_KEY o ANTHROPIC_API_KEY en los Secrets de Replit.";
+    const errorMessage = "Hello! Looks like I don't have my AI credentials configured. Make sure you have OPENAI_API_KEY or ANTHROPIC_API_KEY in Replit Secrets.";
     return { message: errorMessage, emotion: 'talking' };
   } catch (error) {
     console.error("Error generating AI response:", error);
-    const errorMessage = "¡Ups! Tuve un pequeño error procesando eso. ¿Podrías intentarlo de nuevo?";
+    const errorMessage = "Oops! I had a small error processing that. Could you try again?";
     return { message: errorMessage, emotion: 'talking' };
   }
 }

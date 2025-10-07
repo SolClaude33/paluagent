@@ -2,13 +2,13 @@ import { useState } from "react";
 import StreamHeader from "@/components/StreamHeader";
 import Max3DViewer from "@/components/Max3DViewer";
 import ChatPanel from "@/components/ChatPanel";
-import ApiKeyInfo from "@/components/ApiKeyInfo";
+import ContractAddress from "@/components/ContractAddress";
 import { Button } from "@/components/ui/button";
-import { Info, X } from "lucide-react";
+import { FileText, X } from "lucide-react";
 import { useWebSocket } from "@/hooks/useWebSocket";
 
 export default function StreamPage() {
-  const [showApiInfo, setShowApiInfo] = useState(false);
+  const [showContractInfo, setShowContractInfo] = useState(false);
   const { currentEmotion } = useWebSocket('/ws');
 
   return (
@@ -22,12 +22,12 @@ export default function StreamPage() {
           <Button
             variant="outline"
             size="sm"
-            className="absolute bottom-6 left-6 gap-2 bg-black/50 backdrop-blur-md border-primary/30 hover:bg-black/70 hover-elevate z-20"
-            onClick={() => setShowApiInfo(!showApiInfo)}
-            data-testid="button-api-info"
+            className="absolute bottom-8 left-8 gap-2 bg-black/60 backdrop-blur-xl border-primary/40 hover:bg-black/80 hover-elevate z-20 shadow-xl shadow-primary/20"
+            onClick={() => setShowContractInfo(!showContractInfo)}
+            data-testid="button-contract-info"
           >
-            <Info className="h-4 w-4 text-primary" />
-            <span className="text-primary font-medium">¿Cómo obtener API Keys?</span>
+            <FileText className="h-4 w-4 text-primary" />
+            <span className="text-primary font-semibold">Contract Address</span>
           </Button>
         </div>
         
@@ -36,18 +36,19 @@ export default function StreamPage() {
         </div>
       </div>
 
-      {showApiInfo && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="relative max-w-2xl w-full animate-in zoom-in-95 duration-300">
+      {showContractInfo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-300">
+          <div className="relative max-w-3xl w-full animate-in zoom-in-95 duration-300">
             <Button
               variant="ghost"
               size="icon"
-              className="absolute -top-12 right-0 text-white hover:bg-white/10"
-              onClick={() => setShowApiInfo(false)}
+              className="absolute -top-14 right-0 text-white hover:bg-white/10 h-10 w-10"
+              onClick={() => setShowContractInfo(false)}
+              data-testid="button-close-contract"
             >
               <X className="h-6 w-6" />
             </Button>
-            <ApiKeyInfo />
+            <ContractAddress />
           </div>
         </div>
       )}

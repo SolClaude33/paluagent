@@ -22,7 +22,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             id: Date.now().toString(),
             message: message.content,
             sender: 'user' as const,
-            username: message.username || 'Anónimo',
+            username: message.username || 'Anonymous',
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           };
 
