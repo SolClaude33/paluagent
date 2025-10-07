@@ -2,7 +2,7 @@
 
 ## Overview
 
-Max AI is an interactive AI-powered streaming platform featuring a 3D robotic rabbit character named "Max" that responds to user messages in real-time. The application combines live streaming aesthetics with AI chat capabilities, powered by BNB Chain branding and blockchain technology. Users can interact with Max through a chat interface while viewing an animated 3D character display, creating an engaging live-streaming experience similar to platforms like Twitch or YouTube Live.
+Max AI is an interactive AI-powered streaming platform featuring a 3D robotic rabbit character named "Max" that responds to user messages in real-time in English. The application combines live streaming aesthetics with AI chat capabilities, powered by BNB Chain branding and blockchain technology. Users can interact with Max through a chat interface while viewing an animated 3D character display, creating an engaging live-streaming experience similar to platforms like Twitch or YouTube Live. The platform displays the BNB Chain smart contract address with easy copy-to-clipboard functionality for blockchain integration.
 
 ## User Preferences
 
@@ -56,7 +56,7 @@ Preferred communication style: Simple, everyday language.
 **AI Integration:**
 - Dual AI provider support: OpenAI (GPT-3.5-turbo) and Anthropic (Claude Haiku)
 - Fallback mechanism between providers based on API key availability
-- Spanish-language personality: Max is characterized as a friendly robotic rabbit with blockchain knowledge
+- English-language personality: Max is characterized as a friendly robotic rabbit with blockchain knowledge
 - Emotion-based response system with sentiment analysis:
   - Analyzes AI responses to detect emotional tone
   - Keyword-based detection for celebrating (positive), thinking (explanatory), angry (concerned), talking (neutral)
@@ -103,3 +103,25 @@ Preferred communication style: Simple, everyday language.
 - `DATABASE_URL` - PostgreSQL connection string
 - `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` - AI service authentication
 - `NODE_ENV` - Environment mode (development/production)
+
+## Recent Changes (October 2025)
+
+### Language & Localization
+- Converted all application content from Spanish to English
+- Updated AI personality prompts for English communication
+- Translated all error messages, placeholders, and UI text to English
+
+### Features
+- Replaced "API Keys" information section with "Contract Address" feature
+- Implemented ContractAddress component with clipboard copy functionality
+- Displays BNB Chain smart contract address: `0x1234567890ABCDEF1234567890ABCDEF12345678`
+- Toast notifications confirm successful copying to clipboard
+
+### UI/UX Enhancements
+- Enhanced minimalist design with improved visual hierarchy
+- Added subtle shadows and glows to key UI elements (chat panel, 3D viewer)
+- Improved status indicators with labeled badges (Online/Offline)
+- Enhanced button styles with gradient effects and better hover states
+- Better spacing and padding throughout the interface
+- Upgraded loading states with spinner animation and backdrop blur
+- Improved audio wave visualization with enhanced gradients and container styling
