@@ -8,35 +8,35 @@ interface AnimationControlsProps {
 }
 
 export default function AnimationControls({ onEmotionChange, currentEmotion }: AnimationControlsProps) {
-  const emotions: { type: EmotionType; label: string; icon: React.ReactNode; color: string }[] = [
-    { type: 'idle', label: 'Idle', icon: <CircleDot className="h-4 w-4" />, color: 'text-gray-400' },
-    { type: 'talking', label: 'Talking', icon: <Smile className="h-4 w-4" />, color: 'text-blue-400' },
-    { type: 'thinking', label: 'Thinking', icon: <Brain className="h-4 w-4" />, color: 'text-purple-400' },
-    { type: 'celebrating', label: 'Happy', icon: <PartyPopper className="h-4 w-4" />, color: 'text-green-400' },
-    { type: 'angry', label: 'Angry', icon: <Frown className="h-4 w-4" />, color: 'text-red-400' },
+  const emotions: { type: EmotionType; label: string; icon: React.ReactNode; bgColor: string; textColor: string }[] = [
+    { type: 'idle', label: 'Idle', icon: <CircleDot className="h-5 w-5" />, bgColor: 'bg-gray-200 hover:bg-gray-300 border-gray-300', textColor: 'text-gray-700' },
+    { type: 'talking', label: 'Talking', icon: <Smile className="h-5 w-5" />, bgColor: 'bg-blue-200 hover:bg-blue-300 border-blue-300', textColor: 'text-blue-700' },
+    { type: 'thinking', label: 'Thinking', icon: <Brain className="h-5 w-5" />, bgColor: 'bg-purple-200 hover:bg-purple-300 border-purple-300', textColor: 'text-purple-700' },
+    { type: 'celebrating', label: 'Happy', icon: <PartyPopper className="h-5 w-5" />, bgColor: 'bg-green-200 hover:bg-green-300 border-green-300', textColor: 'text-green-700' },
+    { type: 'angry', label: 'Angry', icon: <Frown className="h-5 w-5" />, bgColor: 'bg-red-200 hover:bg-red-300 border-red-300', textColor: 'text-red-700' },
   ];
 
   return (
-    <div className="bg-black/70 backdrop-blur-xl border border-primary/30 rounded-2xl p-4 shadow-2xl shadow-primary/20">
-      <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-3 font-[Space_Grotesk]">
+    <div className="bg-white/95 backdrop-blur-xl border-2 border-primary/40 rounded-3xl p-5 shadow-2xl">
+      <h3 className="text-sm font-black text-primary uppercase tracking-wide mb-4 font-[Space_Grotesk]">
         Animation Controls
       </h3>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2.5">
         {emotions.map((emotion) => (
           <Button
             key={emotion.type}
-            variant={currentEmotion === emotion.type ? "default" : "outline"}
+            variant="outline"
             size="sm"
-            className={`gap-2 ${
+            className={`gap-2 border-2 rounded-2xl px-4 py-2 font-bold transition-all ${
               currentEmotion === emotion.type
-                ? 'bg-primary/20 border-primary text-primary hover:bg-primary/30'
-                : 'bg-black/50 border-primary/30 text-foreground hover:bg-black/70'
+                ? `${emotion.bgColor} ${emotion.textColor} scale-105 shadow-lg`
+                : `bg-white ${emotion.textColor} opacity-70 hover:opacity-100`
             }`}
             onClick={() => onEmotionChange(emotion.type)}
             data-testid={`button-animation-${emotion.type}`}
           >
-            <span className={emotion.color}>{emotion.icon}</span>
-            <span className="text-xs font-semibold">{emotion.label}</span>
+            {emotion.icon}
+            <span className="text-sm">{emotion.label}</span>
           </Button>
         ))}
       </div>

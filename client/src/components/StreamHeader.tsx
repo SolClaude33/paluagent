@@ -11,20 +11,20 @@ export default function StreamHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-primary/20 bg-black/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b-2 border-primary/30 bg-card/95 backdrop-blur-xl shadow-lg">
       <div className="flex h-20 items-center justify-between px-6 md:px-8">
         <div className="flex items-center gap-4">
           <div className="relative flex items-center gap-3">
-            <div className="relative h-12 w-12 rounded-xl bg-gradient-to-br from-primary via-yellow-400 to-primary/80 p-0.5 shadow-lg shadow-primary/30">
-              <div className="h-full w-full rounded-[10px] bg-black flex items-center justify-center">
-                <Zap className="h-6 w-6 text-primary fill-primary" />
+            <div className="relative h-14 w-14 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 p-1 shadow-xl">
+              <div className="h-full w-full rounded-xl bg-white flex items-center justify-center">
+                <Zap className="h-7 w-7 text-primary fill-primary" />
               </div>
             </div>
             <div>
-              <h1 className="text-2xl font-bold font-[Space_Grotesk] bg-gradient-to-r from-primary via-yellow-300 to-primary bg-clip-text text-transparent">
+              <h1 className="text-2xl font-black font-[Space_Grotesk] text-primary">
                 Max AI
               </h1>
-              <p className="text-xs text-muted-foreground font-medium">Powered by BNB Chain</p>
+              <p className="text-xs text-muted-foreground font-bold">Powered by BNB Chain</p>
             </div>
           </div>
         </div>
@@ -35,17 +35,17 @@ export default function StreamHeader() {
             variant="ghost"
             onClick={toggleTheme}
             data-testid="button-theme-toggle"
-            className="hover-elevate active-elevate-2 h-10 w-10"
+            className="hover-elevate active-elevate-2 h-11 w-11 rounded-xl"
           >
             {isDark ? <Sun className="h-5 w-5 text-primary" /> : <Moon className="h-5 w-5 text-primary" />}
           </Button>
           <Button
             variant="default"
-            className="gap-2 bg-gradient-to-r from-primary to-yellow-400 text-black font-semibold hover:from-yellow-400 hover:to-primary transition-all shadow-lg shadow-primary/30"
+            className="gap-2 bg-primary text-primary-foreground font-black hover:bg-primary/90 transition-all shadow-lg rounded-2xl px-5 py-2.5 border-2 border-primary/40"
             data-testid="button-connect-wallet"
             onClick={() => console.log("Connect wallet clicked")}
           >
-            <Wallet className="h-4 w-4" />
+            <Wallet className="h-5 w-5" />
             <span className="hidden sm:inline">Connect Wallet</span>
           </Button>
         </div>

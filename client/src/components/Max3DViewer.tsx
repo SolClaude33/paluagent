@@ -202,32 +202,32 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
   }, [emotion, currentState]);
 
   return (
-    <div className="relative h-full w-full bg-black flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(240,185,11,0.18)_0%,rgba(252,213,53,0.10)_25%,transparent_70%)]" />
+    <div className="relative h-full w-full bg-gradient-to-br from-accent/40 via-background to-primary/20 flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(240,185,11,0.25)_0%,rgba(252,213,53,0.15)_25%,transparent_70%)]" />
       
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(240,185,11,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(240,185,11,0.04)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(240,185,11,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(240,185,11,0.08)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
       <div className="absolute top-8 left-8 z-10">
-        <div className="flex items-center gap-2.5 bg-gradient-to-r from-red-600 via-red-500 to-red-600 backdrop-blur-md px-5 py-2.5 rounded-full shadow-2xl shadow-red-500/60 border border-red-400/20" data-testid="badge-live">
-          <div className="h-2.5 w-2.5 bg-white rounded-full animate-pulse shadow-xl shadow-white/80" />
-          <span className="text-white text-sm font-bold uppercase tracking-[0.15em] font-[Space_Grotesk]">LIVE</span>
+        <div className="flex items-center gap-3 bg-gradient-to-r from-red-500 via-red-400 to-red-500 backdrop-blur-md px-6 py-3 rounded-full shadow-2xl border-2 border-red-300" data-testid="badge-live">
+          <div className="h-3 w-3 bg-white rounded-full animate-pulse shadow-xl" />
+          <span className="text-white text-sm font-black uppercase tracking-wide font-[Space_Grotesk]">LIVE</span>
         </div>
       </div>
 
       {emotion === 'thinking' && (
         <div className="absolute top-8 right-8 z-10 animate-in slide-in-from-top-4 duration-300">
-          <div className="flex items-center gap-2.5 bg-primary/25 backdrop-blur-xl px-5 py-2.5 rounded-full border border-primary/50 shadow-2xl shadow-primary/30" data-testid="status-thinking">
-            <Sparkles className="h-4 w-4 text-primary animate-pulse" />
-            <span className="text-primary text-sm font-bold tracking-wide">Thinking...</span>
+          <div className="flex items-center gap-3 bg-primary/30 backdrop-blur-xl px-6 py-3 rounded-full border-2 border-primary shadow-2xl" data-testid="status-thinking">
+            <Sparkles className="h-5 w-5 text-primary animate-pulse" />
+            <span className="text-primary text-sm font-black tracking-wide">Thinking...</span>
           </div>
         </div>
       )}
 
       {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center z-20 bg-black/40 backdrop-blur-sm">
-          <div className="flex flex-col items-center gap-4">
-            <div className="h-12 w-12 rounded-full border-4 border-primary/30 border-t-primary animate-spin" />
-            <div className="text-primary text-lg font-bold tracking-wide animate-pulse">
+        <div className="absolute inset-0 flex items-center justify-center z-20 bg-background/60 backdrop-blur-md">
+          <div className="flex flex-col items-center gap-5">
+            <div className="h-16 w-16 rounded-full border-4 border-primary/30 border-t-primary animate-spin" />
+            <div className="text-primary text-xl font-black tracking-wide animate-pulse">
               Loading 3D model...
             </div>
           </div>
@@ -237,11 +237,11 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
       <div ref={containerRef} className="relative z-10 w-full h-full" data-testid="model-max" />
 
       {(emotion === 'talking' || emotion === 'celebrating') && (
-        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex items-end gap-2 h-14 z-20 bg-black/40 backdrop-blur-sm px-6 py-3 rounded-2xl border border-primary/20" data-testid="audio-waves">
+        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex items-end gap-2.5 h-16 z-20 bg-white/80 backdrop-blur-md px-8 py-4 rounded-3xl border-2 border-primary/40 shadow-2xl" data-testid="audio-waves">
           {[...Array(7)].map((_, i) => (
             <div
               key={i}
-              className="w-2.5 bg-gradient-to-t from-primary via-yellow-400 to-primary/70 rounded-full shadow-xl shadow-primary/60"
+              className="w-3 bg-gradient-to-t from-primary via-primary/80 to-primary/60 rounded-full shadow-lg"
               style={{
                 height: '40%',
                 animation: `audioWave ${0.4 + (i * 0.05)}s ease-in-out infinite alternate`,

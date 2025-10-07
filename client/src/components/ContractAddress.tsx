@@ -18,28 +18,28 @@ export default function ContractAddress() {
   };
 
   return (
-    <Card className="p-8 bg-gradient-to-br from-card via-card/95 to-card/90 border-primary/30 shadow-2xl shadow-primary/10">
+    <Card className="p-8 bg-gradient-to-br from-white via-card/98 to-card border-2 border-primary/40 shadow-2xl rounded-3xl">
       <div className="space-y-6">
-        <div className="flex items-start gap-4">
-          <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-primary/40 to-primary/20 flex items-center justify-center flex-shrink-0 border border-primary/20">
-            <FileText className="h-7 w-7 text-primary" />
+        <div className="flex items-start gap-5">
+          <div className="h-16 w-16 rounded-3xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center flex-shrink-0 shadow-lg">
+            <FileText className="h-8 w-8 text-white" />
           </div>
           <div className="flex-1">
-            <h3 className="text-2xl font-bold text-foreground mb-2 font-[Space_Grotesk] bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent">
+            <h3 className="text-3xl font-black text-primary mb-2 font-[Space_Grotesk]">
               Smart Contract Address
             </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-sm text-muted-foreground leading-relaxed font-medium">
               Interact with Max AI directly on the blockchain. This verified smart contract powers all AI interactions.
             </p>
           </div>
         </div>
 
         <div className="relative">
-          <div className="p-5 rounded-xl bg-gradient-to-br from-background/80 to-background/60 border border-primary/20 backdrop-blur-sm">
+          <div className="p-6 rounded-3xl bg-gradient-to-br from-accent/30 to-accent/20 border-2 border-primary/30 shadow-lg">
             <div className="flex items-center justify-between gap-4">
               <div className="flex-1 min-w-0">
-                <p className="text-xs text-muted-foreground mb-2 font-medium uppercase tracking-wider">Contract Address</p>
-                <code className="text-sm font-mono text-foreground break-all bg-primary/10 px-3 py-2 rounded-lg block">
+                <p className="text-xs text-primary mb-3 font-black uppercase tracking-wider">Contract Address</p>
+                <code className="text-sm font-mono text-foreground break-all bg-white px-4 py-3 rounded-2xl block font-bold border-2 border-primary/20">
                   {contractAddress}
                 </code>
               </div>
@@ -47,17 +47,17 @@ export default function ContractAddress() {
                 onClick={handleCopy}
                 size="sm"
                 variant="outline"
-                className="gap-2 hover-elevate border-primary/30 bg-primary/5"
+                className="gap-2 hover-elevate border-2 border-primary/40 bg-primary/10 rounded-2xl px-4 py-2.5 font-bold"
                 data-testid="button-copy-address"
               >
                 {copied ? (
                   <>
-                    <CheckCircle2 className="h-4 w-4 text-green-500" />
-                    <span className="text-green-500">Copied!</span>
+                    <CheckCircle2 className="h-5 w-5 text-green-600" />
+                    <span className="text-green-600">Copied!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="h-4 w-4" />
+                    <Copy className="h-5 w-5" />
                     Copy
                   </>
                 )}
@@ -66,23 +66,23 @@ export default function ContractAddress() {
           </div>
         </div>
 
-        <div className="grid gap-3">
-          <div className="p-4 rounded-xl bg-background/40 border border-primary/10">
-            <div className="flex items-start gap-3">
-              <Shield className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+        <div className="grid gap-4">
+          <div className="p-5 rounded-3xl bg-green-100 border-2 border-green-300">
+            <div className="flex items-start gap-4">
+              <Shield className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
               <div>
-                <h4 className="font-semibold text-sm text-foreground mb-1">Verified & Audited</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <h4 className="font-black text-base text-green-700 mb-1">Verified & Audited</h4>
+                <p className="text-sm text-green-700 leading-relaxed font-medium">
                   This smart contract has been verified on BNB Chain and audited for security.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20">
-            <p className="text-xs text-foreground leading-relaxed">
-              <strong className="text-primary">Network:</strong> BNB Smart Chain (BSC) • 
-              <strong className="text-primary ml-2">Chain ID:</strong> 56
+          <div className="p-5 rounded-3xl bg-gradient-to-br from-primary/20 to-primary/10 border-2 border-primary/30">
+            <p className="text-sm text-foreground leading-relaxed font-bold">
+              <span className="text-primary">Network:</span> BNB Smart Chain (BSC) • 
+              <span className="text-primary ml-2">Chain ID:</span> 56
             </p>
           </div>
         </div>

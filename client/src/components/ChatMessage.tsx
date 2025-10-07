@@ -18,37 +18,37 @@ export default function ChatMessage({ message, sender, timestamp, username }: Ch
       className={`flex gap-3 ${isMax ? '' : 'flex-row-reverse'} animate-in slide-in-from-bottom-3 fade-in duration-300`}
       data-testid={`message-${sender}`}
     >
-      <Avatar className={`h-10 w-10 flex-shrink-0 ${isMax ? 'ring-2 ring-primary/30' : 'ring-1 ring-border'}`}>
+      <Avatar className={`h-12 w-12 flex-shrink-0 ${isMax ? 'ring-3 ring-primary/40 ring-offset-2 ring-offset-background' : 'ring-2 ring-secondary/50 ring-offset-2 ring-offset-background'}`}>
         {isMax ? (
           <>
             <AvatarImage src={maxAvatar} alt="Max" className="object-cover" />
-            <AvatarFallback className="bg-gradient-to-br from-primary/30 to-primary/10">
-              <Bot className="h-5 w-5 text-primary" />
+            <AvatarFallback className="bg-gradient-to-br from-primary/40 to-primary/20">
+              <Bot className="h-6 w-6 text-primary" />
             </AvatarFallback>
           </>
         ) : (
-          <AvatarFallback className="bg-secondary">
-            <User className="h-5 w-5 text-secondary-foreground" />
+          <AvatarFallback className="bg-gradient-to-br from-secondary to-secondary/80">
+            <User className="h-6 w-6 text-secondary-foreground" />
           </AvatarFallback>
         )}
       </Avatar>
 
-      <div className={`flex flex-col gap-1.5 max-w-[75%] ${isMax ? 'items-start' : 'items-end'}`}>
-        <div className="flex items-center gap-2 px-1">
-          <span className={`text-xs font-semibold ${isMax ? 'text-primary' : 'text-foreground'}`}>
-            {isMax ? 'Max AI' : username || 'Anónimo'}
+      <div className={`flex flex-col gap-2 max-w-[75%] ${isMax ? 'items-start' : 'items-end'}`}>
+        <div className="flex items-center gap-2 px-2">
+          <span className={`text-sm font-black ${isMax ? 'text-primary' : 'text-foreground'}`}>
+            {isMax ? 'Max AI' : username || 'Anonymous'}
           </span>
-          <span className="text-[10px] text-muted-foreground">{timestamp}</span>
+          <span className="text-xs text-muted-foreground font-medium">{timestamp}</span>
         </div>
         
         <div 
-          className={`rounded-2xl px-4 py-3 shadow-md ${
+          className={`rounded-3xl px-5 py-3.5 shadow-lg border-2 ${
             isMax 
-              ? 'bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/30 text-foreground backdrop-blur-sm' 
-              : 'bg-secondary/80 text-secondary-foreground backdrop-blur-sm'
+              ? 'bg-gradient-to-br from-primary/30 via-primary/20 to-primary/10 border-primary/40 text-foreground' 
+              : 'bg-gradient-to-br from-secondary via-secondary/90 to-secondary/80 border-secondary-foreground/20 text-secondary-foreground'
           }`}
         >
-          <p className="text-sm leading-relaxed break-words">{message}</p>
+          <p className="text-sm font-medium leading-relaxed break-words">{message}</p>
         </div>
       </div>
     </div>
