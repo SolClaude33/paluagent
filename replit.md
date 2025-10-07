@@ -113,11 +113,13 @@ Preferred communication style: Simple, everyday language.
 ## Recent Changes (October 2025)
 
 ### Transparent Background Assets (Latest - October 7, 2025)
-- **Max Rabbit Sticker**: Using authentic Max character image with transparent background
-  - Asset: `attached_assets/1211_1759804535402.png`
-  - Original Max design: Blue rabbit with yellow shirt, blue overalls, and Giggles logo
-  - Transparent PNG allows perfect integration on any background
-  - Used as floating decorative element (6 instances) in Max3DViewer background
+- **Max Rabbit Sticker Variations**: Using 3 different Max character images with transparent backgrounds for visual variety
+  - **Max Classic** (`attached_assets/1211_1759804535402.png`): Blue rabbit with yellow shirt, blue overalls, and Giggles logo
+  - **Max Red Jacket** (`attached_assets/image-removebg-preview (32)_1759804532428.png`): Max wearing traditional red Chinese jacket
+  - **Max BNB Season** (`attached_assets/image-removebg-preview (31)_1759804533638.png`): Max with BNB Season flag
+  - All transparent PNGs allow perfect integration on any background
+  - 6 stickers total distributed across Max3DViewer with adjusted positioning to prevent overlap
+  - Different rotations and opacity levels (18-25%) for dynamic visual variety
   
 - **Giggles Academy Logo**: Using authentic Giggles logo with transparent background
   - Asset: `attached_assets/image-removebg-preview (30)_1759804538074.png`
