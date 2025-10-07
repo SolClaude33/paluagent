@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, User } from "lucide-react";
 import maxAvatar from "@assets/image_1759775310846.png";
-import gigglesLogo from "@assets/image_1759799138730.png";
+import gigglesLogo from "@assets/image_1759802470289.png";
 
 interface ChatMessageProps {
   id: string;
@@ -43,7 +43,7 @@ export default function ChatMessage({ message, sender, timestamp, username }: Ch
             {isMax ? 'Max AI' : username || 'Anonymous'}
           </span>
           {hasCelebration && (
-            <img src={gigglesLogo} alt="" className="h-4 w-4 inline-block animate-pulse" />
+            <img src={gigglesLogo} alt="" className="h-5 w-5 inline-block animate-pulse" />
           )}
           <span className="text-xs text-muted-foreground font-medium">{timestamp}</span>
         </div>

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Wallet, Sun, Moon } from "lucide-react";
 import { useState } from "react";
 import maxLogo from "@assets/generated_images/Max_AI_robotic_rabbit_logo_439e99f8.png";
-import gigglesLogo from "@assets/image_1759799138730.png";
+import gigglesLogo from "@assets/image_1759802470289.png";
 
 export default function StreamHeader() {
   const [isDark, setIsDark] = useState(false);
@@ -23,9 +23,10 @@ export default function StreamHeader() {
             <div>
               <h1 className="text-2xl font-black font-[Space_Grotesk] text-foreground flex items-center gap-2">
                 Max AI
-                <img src={gigglesLogo} alt="Giggles" className="h-6 w-6 inline-block" />
+                <img src={gigglesLogo} alt="Giggles" className="h-7 w-7 inline-block" />
               </h1>
               <p className="text-xs text-muted-foreground font-semibold">Powered by BNB Chain & Giggles Academy</p>
+              <p className="text-[10px] text-muted-foreground/80 font-medium italic mt-0.5">Inspired by Max from Giggles Academy</p>
             </div>
           </div>
         </div>
