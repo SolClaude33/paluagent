@@ -24,10 +24,50 @@ export default function ChatPanel() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const fallbackTimeoutRef = useRef<number | null>(null);
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
+  const audioQueueRef = useRef<string[]>([]);
+  const isPlayingRef = useRef(false);
   const { address } = useWallet();
   const { toast } = useToast();
   
   const { isConnected, lastMessage, sendMessage } = useWebSocket('/ws');
+
+  // Function to play next audio from queue
+  const playNextAudio = () => {
+    if (isPlayingRef.current || audioQueueRef.current.length === 0) {
+      return;
+    }
+
+    const audioBase64 = audioQueueRef.current.shift()!;
+    isPlayingRef.current = true;
+
+    try {
+      const audio = new Audio(`data:audio/mp3;base64,${audioBase64}`);
+      currentAudioRef.current = audio;
+
+      audio.addEventListener('ended', () => {
+        window.dispatchEvent(new CustomEvent('maxAudioEnded'));
+        currentAudioRef.current = null;
+        isPlayingRef.current = false;
+        // Play next audio in queue
+        playNextAudio();
+      });
+
+      audio.play().catch(err => {
+        console.error('Error playing audio:', err);
+        window.dispatchEvent(new CustomEvent('maxAudioEnded'));
+        currentAudioRef.current = null;
+        isPlayingRef.current = false;
+        // Try next audio in queue even if this one failed
+        playNextAudio();
+      });
+    } catch (error) {
+      console.error('Error creating audio:', error);
+      window.dispatchEvent(new CustomEvent('maxAudioEnded'));
+      isPlayingRef.current = false;
+      // Try next audio in queue even if this one failed
+      playNextAudio();
+    }
+  };
 
   useEffect(() => {
     if (lastMessage) {
@@ -41,36 +81,11 @@ export default function ChatPanel() {
           clearTimeout(fallbackTimeoutRef.current);
           fallbackTimeoutRef.current = null;
         }
-
-        // Stop any currently playing audio to prevent double audio
-        if (currentAudioRef.current) {
-          currentAudioRef.current.pause();
-          currentAudioRef.current.currentTime = 0;
-          currentAudioRef.current = null;
-        }
         
-        // Auto-play audio if available
+        // Add audio to queue if available
         if (lastMessage.data.audioBase64) {
-          try {
-            const audio = new Audio(`data:audio/mp3;base64,${lastMessage.data.audioBase64}`);
-            currentAudioRef.current = audio;
-            
-            // Emit custom event when audio ends to sync animation
-            audio.addEventListener('ended', () => {
-              window.dispatchEvent(new CustomEvent('maxAudioEnded'));
-              currentAudioRef.current = null;
-            });
-            
-            audio.play().catch(err => {
-              console.error('Error playing audio:', err);
-              // If audio fails, still emit ended event
-              window.dispatchEvent(new CustomEvent('maxAudioEnded'));
-              currentAudioRef.current = null;
-            });
-          } catch (error) {
-            console.error('Error creating audio:', error);
-            window.dispatchEvent(new CustomEvent('maxAudioEnded'));
-          }
+          audioQueueRef.current.push(lastMessage.data.audioBase64);
+          playNextAudio();
         } else {
           // No audio available (TTS failed or disabled), return to idle after short delay
           fallbackTimeoutRef.current = window.setTimeout(() => {
@@ -96,7 +111,7 @@ export default function ChatPanel() {
     }
   }, [messages]);
 
-  // Cleanup fallback timeout and audio on unmount
+  // Cleanup fallback timeout, audio, and queue on unmount
   useEffect(() => {
     return () => {
       if (fallbackTimeoutRef.current !== null) {
@@ -106,6 +121,8 @@ export default function ChatPanel() {
         currentAudioRef.current.pause();
         currentAudioRef.current = null;
       }
+      audioQueueRef.current = [];
+      isPlayingRef.current = false;
     };
   }, []);
 
