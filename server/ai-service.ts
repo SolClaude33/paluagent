@@ -17,8 +17,9 @@ export interface AIResponse {
 }
 
 export async function generateAIResponse(userMessage: string): Promise<AIResponse> {
-  try {
-    if (openai) {
+  // Try OpenAI first
+  if (openai) {
+    try {
       const completion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         messages: [
@@ -43,9 +44,15 @@ export async function generateAIResponse(userMessage: string): Promise<AIRespons
       const responseMessage = completion.choices[0]?.message?.content || "Oops! Looks like my response circuit is a bit busy. Could you try again?";
       const emotion = analyzeEmotion(responseMessage);
       return { message: responseMessage, emotion };
-    } 
-    
-    if (anthropic) {
+    } catch (error) {
+      console.error("OpenAI error, trying Anthropic fallback:", error);
+      // Fall through to try Anthropic
+    }
+  }
+  
+  // Try Anthropic as fallback or if OpenAI is not configured
+  if (anthropic) {
+    try {
       const message = await anthropic.messages.create({
         model: "claude-3-haiku-20240307",
         max_tokens: 200,
@@ -67,13 +74,14 @@ export async function generateAIResponse(userMessage: string): Promise<AIRespons
       const responseMessage = textContent && 'text' in textContent ? textContent.text : "Oops! Looks like my response circuit is a bit busy. Could you try again?";
       const emotion = analyzeEmotion(responseMessage);
       return { message: responseMessage, emotion };
+    } catch (error) {
+      console.error("Anthropic error:", error);
+      const errorMessage = "Oops! I had a small error processing that. Could you try again?";
+      return { message: errorMessage, emotion: 'talking' };
     }
-
-    const errorMessage = "Hello! Looks like I don't have my AI credentials configured. Make sure you have OPENAI_API_KEY or ANTHROPIC_API_KEY in Replit Secrets.";
-    return { message: errorMessage, emotion: 'talking' };
-  } catch (error) {
-    console.error("Error generating AI response:", error);
-    const errorMessage = "Oops! I had a small error processing that. Could you try again?";
-    return { message: errorMessage, emotion: 'talking' };
   }
+
+  // No AI service available
+  const errorMessage = "Hello! Looks like I don't have my AI credentials configured. Make sure you have OPENAI_API_KEY or ANTHROPIC_API_KEY in Replit Secrets.";
+  return { message: errorMessage, emotion: 'talking' };
 }
