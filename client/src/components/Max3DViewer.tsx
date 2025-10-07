@@ -4,10 +4,8 @@ import { FBXLoader } from 'three-stdlib';
 import { OrbitControls } from 'three-stdlib';
 import { Sparkles } from "lucide-react";
 import type { EmotionType } from '@shared/schema';
-import maxRabbitClassic from '@assets/1211_1759804535402.png';
-import maxRabbitRed from '@assets/image-removebg-preview (33)_1759806005898.png';
-import maxRabbitBNB from '@assets/image-removebg-preview (31)_1759805895806.png';
-import gigglesLogo from '@assets/image-removebg-preview (30)_1759804538074.png';
+import paluMain from '@assets/palu-main.png';
+import paluHappy from '@assets/palu-happy.png';
 
 interface Max3DViewerProps {
   emotion?: EmotionType;
@@ -234,57 +232,39 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(240,185,11,0.08)_0%,transparent_70%)]" />
       
       <img 
-        src={maxRabbitClassic} 
+        src={paluMain} 
         alt="" 
         className="absolute top-20 right-16 w-20 h-20 opacity-40 pointer-events-none transform rotate-12"
       />
       
       <img 
-        src={maxRabbitRed} 
+        src={paluHappy} 
         alt="" 
         className="absolute bottom-32 left-12 w-20 h-20 opacity-30 pointer-events-none transform -rotate-8"
       />
       
       <img 
-        src={maxRabbitBNB} 
+        src={paluMain} 
         alt="" 
         className="absolute top-1/4 left-1/3 w-16 h-16 opacity-30 pointer-events-none transform rotate-15"
       />
       
       <img 
-        src={maxRabbitClassic} 
+        src={paluHappy} 
         alt="" 
         className="absolute bottom-1/4 right-1/3 w-20 h-20 opacity-40 pointer-events-none transform -rotate-10"
       />
       
       <img 
-        src={maxRabbitRed} 
+        src={paluMain} 
         alt="" 
         className="absolute top-2/3 left-16 w-20 h-20 opacity-30 pointer-events-none transform rotate-25"
       />
       
       <img 
-        src={maxRabbitBNB} 
+        src={paluHappy} 
         alt="" 
         className="absolute bottom-16 right-20 w-20 h-20 opacity-50 pointer-events-none transform -rotate-12"
-      />
-
-      <img 
-        src={gigglesLogo} 
-        alt="Giggles Academy" 
-        className="absolute top-12 right-1/3 w-20 h-20 opacity-[0.35] pointer-events-none animate-pulse"
-      />
-      
-      <img 
-        src={gigglesLogo} 
-        alt="Giggles Academy" 
-        className="absolute bottom-20 left-1/4 w-24 h-24 opacity-30 pointer-events-none animate-pulse"
-      />
-      
-      <img 
-        src={gigglesLogo} 
-        alt="Giggles Academy" 
-        className="absolute top-1/2 right-24 w-20 h-20 opacity-[0.28] pointer-events-none animate-pulse"
       />
 
       <div className="absolute top-8 left-8 z-10">
@@ -318,12 +298,12 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <div className="flex flex-col items-center gap-4 text-center px-8">
             <img 
-              src={maxRabbitClassic} 
-              alt="Max" 
+              src={paluMain} 
+              alt="Palu" 
               className="w-48 h-48 opacity-80 animate-bounce"
             />
             <div className="text-foreground text-2xl font-bold">
-              Max is here!
+              Palu is here!
             </div>
             <div className="text-muted-foreground text-sm max-w-md">
               (3D visualization unavailable - chat is fully functional)
