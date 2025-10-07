@@ -113,16 +113,17 @@ Preferred communication style: Simple, everyday language.
 ## Recent Changes (October 2025)
 
 ### Transparent Background Assets (Latest - October 7, 2025)
-- **Max Rabbit Sticker**: Replaced white background version with transparent PNG for better visual integration
-  - Asset: `attached_assets/generated_images/Max_blue_rabbit_transparent_background_d95de07f.png`
-  - Blue rabbit character with yellow shirt and blue overalls, holding smartphone
-  - Transparent background allows flexible positioning without white box artifacts
+- **Max Rabbit Sticker**: Using authentic Max character image with transparent background
+  - Asset: `attached_assets/1211_1759804535402.png`
+  - Original Max design: Blue rabbit with yellow shirt, blue overalls, and Giggles logo
+  - Transparent PNG allows perfect integration on any background
+  - Used as floating decorative element (6 instances) in Max3DViewer background
   
-- **Giggles Academy Logo**: Replaced white background version with transparent PNG
-  - Asset: `attached_assets/generated_images/Giggles_logo_transparent_background_4e8db14c.png`
-  - Orange "G" icon in yellow circular badge, flat design style
+- **Giggles Academy Logo**: Using authentic Giggles logo with transparent background
+  - Asset: `attached_assets/image-removebg-preview (30)_1759804538074.png`
+  - Yellow flower-shaped badge with friendly smiling face design
+  - Transparent PNG enables seamless overlay on any background color
   - Used as floating decorative elements in Max3DViewer (3 instances) and ChatPanel (2 instances)
-  - Transparent background enables seamless overlay on any background color
 
 ### Giggles Academy Integration & Yellow Accents (October 7, 2025)
 - **Yellow Contract Address Button**: Changed to vibrant yellow background with dark text for maximum visibility
