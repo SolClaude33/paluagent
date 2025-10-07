@@ -25,10 +25,14 @@ Preferred communication style: Simple, everyday language.
 - Custom theming system supporting dark/light modes with BNB Chain brand colors (pastel yellows)
 
 **Design System:**
-- Dark-first approach with near-black backgrounds (HSL: 0 0% 8%)
-- BNB Chain yellow accent colors (HSL: 48 85% 75%) for primary interactions
+- Giggle Academy-inspired vibrant color palette with educational friendly aesthetics
+- Background: Light blue gradient (200 50% 96%) for soft, approachable feel
+- Primary: Bright yellow (48 95% 50%) for BNB Chain branding
+- Secondary: Vibrant blue (210 75% 60%) for interactive elements
+- Accent: Turquoise/mint green (165 60% 75%) for highlighting
+- Card: Pure white (100%) for maximum contrast against colorful backgrounds
 - Typography: Inter (body), Space Grotesk (headers), JetBrains Mono (technical)
-- Reference-based design inspired by aikotv.com and streaming platforms
+- Design inspired by Giggle Academy educational platform with colorful, playful elements
 
 **State Management:**
 - WebSocket hook for real-time bidirectional communication with AI
@@ -105,6 +109,20 @@ Preferred communication style: Simple, everyday language.
 - `NODE_ENV` - Environment mode (development/production)
 
 ## Recent Changes (October 2025)
+
+### Color Palette Redesign (Latest)
+- **Vibrant Color System**: Replaced excessive white/yellow with balanced, colorful palette inspired by Giggle Academy
+- **Background**: Light blue gradient (200 50% 96%) replacing neutral grays
+- **Primary**: Bright yellow (48 95% 50%) - saturated BNB Chain branding
+- **Secondary**: Vibrant blue (210 75% 60%) - new interactive element color
+- **Accent**: Turquoise/mint green (165 60% 75%) - highlighting and variety
+- **Component Updates**:
+  - StreamHeader: Colorful gradient background (secondary/accent/primary blend)
+  - ChatPanel: Vibrant gradient background, solid color badges (green/red)
+  - ChatMessage: Max messages in turquoise/accent, user messages in blue/secondary
+  - Max3DViewer: Multi-color gradient background (blue→green→yellow)
+  - AnimationControls: Saturated emotion buttons (gray-500, blue-500, purple-500, green-500, red-500)
+  - ContractAddress: Enhanced with colorful gradients and better contrast
 
 ### Language & Localization
 - Converted all application content from Spanish to English
