@@ -17,7 +17,7 @@ The backend is an Express.js server handling HTTP requests and WebSocket connect
 ### Feature Specifications
 - **BNB Wallet Authentication**: Users must connect a BNB Chain wallet to send messages, integrating with MetaMask/Web3 wallets. WalletContext manages global authentication state with secure validation and event listeners.
 - **Live Viewer Counter**: The server tracks and broadcasts real-time active WebSocket connections to all clients.
-- **Text-to-Speech Narration**: Max's responses are narrated using OpenAI TTS (model: tts-1, voice: "nova" - a gentle, friendly voice suitable for Max's tender character). Audio is generated server-side, converted to base64, and auto-played in the browser. Animation syncs with audio duration using custom 'maxAudioEnded' event, maintaining 'talking' animation while speaking and returning to 'idle' when finished.
+- **Text-to-Speech Narration**: Max's responses are narrated using OpenAI TTS (model: tts-1, voice: "echo" - a friendly male voice suitable for Max's tender character). Audio is generated server-side, converted to base64, and auto-played in the browser. Animation syncs with audio duration using custom 'maxAudioEnded' event, maintaining 'talking' animation while speaking and returning to 'idle' when finished.
 - **Rate Limiting**: 5-second cooldown per user between messages to prevent spam, with real-time feedback shown via toast notifications.
 - **Contract Address Display**: Displays a BNB Chain smart contract address with copy-to-clipboard functionality and toast notifications.
 - **Giggles Academy Integration**: Incorporates Max Rabbit stickers and Giggles Academy logos as decorative elements throughout the UI, with dynamic animations and text references.
