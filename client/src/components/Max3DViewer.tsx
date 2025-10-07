@@ -214,57 +214,57 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(240,185,11,0.08)_0%,transparent_70%)]" />
       
       <img 
-        src={maxRabbitSticker} 
+        src={maxRabbitClassic} 
         alt="" 
-        className="absolute top-16 right-12 w-40 h-40 opacity-30 pointer-events-none transform rotate-12"
+        className="absolute top-20 right-16 w-32 h-32 opacity-25 pointer-events-none transform rotate-12"
       />
       
       <img 
-        src={maxRabbitSticker} 
+        src={maxRabbitRed} 
         alt="" 
-        className="absolute bottom-24 left-8 w-36 h-36 opacity-25 pointer-events-none transform -rotate-6"
+        className="absolute bottom-32 left-12 w-28 h-28 opacity-20 pointer-events-none transform -rotate-8"
       />
       
       <img 
-        src={maxRabbitSticker} 
+        src={maxRabbitBNB} 
         alt="" 
-        className="absolute top-1/3 left-1/4 w-32 h-32 opacity-20 pointer-events-none transform rotate-45"
+        className="absolute top-1/4 left-1/3 w-24 h-24 opacity-18 pointer-events-none transform rotate-15"
       />
       
       <img 
-        src={maxRabbitSticker} 
+        src={maxRabbitClassic} 
         alt="" 
-        className="absolute bottom-1/3 right-1/4 w-28 h-28 opacity-25 pointer-events-none transform -rotate-12"
+        className="absolute bottom-1/4 right-1/3 w-26 h-26 opacity-22 pointer-events-none transform -rotate-10"
       />
       
       <img 
-        src={maxRabbitSticker} 
+        src={maxRabbitRed} 
         alt="" 
-        className="absolute top-1/2 left-8 w-32 h-32 opacity-20 pointer-events-none transform rotate-20"
+        className="absolute top-2/3 left-16 w-30 h-30 opacity-18 pointer-events-none transform rotate-25"
       />
       
       <img 
-        src={maxRabbitSticker} 
+        src={maxRabbitBNB} 
         alt="" 
-        className="absolute bottom-12 right-16 w-36 h-36 opacity-30 pointer-events-none transform -rotate-15"
+        className="absolute bottom-16 right-20 w-28 h-28 opacity-25 pointer-events-none transform -rotate-12"
       />
 
       <img 
         src={gigglesLogo} 
         alt="Giggles Academy" 
-        className="absolute top-4 right-1/4 w-20 h-20 opacity-40 pointer-events-none animate-pulse"
+        className="absolute top-12 right-1/3 w-20 h-20 opacity-35 pointer-events-none animate-pulse"
       />
       
       <img 
         src={gigglesLogo} 
         alt="Giggles Academy" 
-        className="absolute bottom-1/4 left-12 w-24 h-24 opacity-35 pointer-events-none animate-pulse"
+        className="absolute bottom-20 left-1/4 w-24 h-24 opacity-30 pointer-events-none animate-pulse"
       />
       
       <img 
         src={gigglesLogo} 
         alt="Giggles Academy" 
-        className="absolute top-1/2 right-12 w-16 h-16 opacity-30 pointer-events-none animate-pulse"
+        className="absolute top-1/2 right-24 w-18 h-18 opacity-28 pointer-events-none animate-pulse"
       />
 
       <div className="absolute top-8 left-8 z-10">
