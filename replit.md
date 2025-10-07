@@ -130,20 +130,30 @@ Preferred communication style: Simple, everyday language.
   - Internal sections with yellow accent borders (30-50% opacity)
   - Creates visual contrast aligned with BNB Chain branding
 
-- **Max Rabbit Stickers**: Decorative elements from Giggles character
+- **Max Rabbit Stickers**: Enhanced decorative elements from Giggles character
   - Asset: `attached_assets/image_1759799065070.png` (blue rabbit with phone)
-  - Three stickers placed strategically in 3D viewer background
-  - Variable opacity (10-20%) for subtle decoration
-  - Different rotations for visual variety
+  - Six stickers placed strategically throughout 3D viewer background
+  - Significantly increased sizes (w-28 to w-40) for better visibility
+  - Enhanced opacity (20-30%) for more prominent decoration while maintaining subtlety
+  - Different rotations and positions for dynamic visual variety
   - `pointer-events-none` ensures no interaction interference
 
-- **Giggles Logo References**: Integration of Giggles Academy branding
+- **Giggles Logo References**: Expanded integration of Giggles Academy branding
   - Asset: `attached_assets/image_1759799138730.png` (yellow smiley face)
-  - Logo appears in header next to "Max AI" title
-  - Updated tagline: "Powered by BNB Chain & Giggles Academy"
-  - Appears dynamically in chat messages with celebration words
-  - Smart detection of positive words (great, awesome, excellent, etc.)
-  - Animated pulse effect when shown
+  - **5 strategic placements** across the interface:
+    1. StreamHeader: Next to "Max AI" title with "Powered by BNB Chain & Giggles Academy"
+    2. ChatPanel header: Animated logo next to "Live Chat" title
+    3. ChatPanel footer: Logo next to message input field
+    4. ContractAddress: Logo in Smart Contract Address header
+    5. ChatMessages: Dynamically appears in celebration messages
+  - Smart detection of positive words (great, awesome, excellent, brilliant, superb, etc.)
+  - Animated pulse effect for eye-catching brand presence
+  
+- **Yellow Border Separators**: Enhanced visual hierarchy with horizontal borders
+  - 4px yellow border between header and 3D viewer section
+  - 4px yellow border between header and chat panel
+  - Creates consistent visual separation aligned with BNB Chain branding
+  - Complements existing vertical yellow border between 3D viewer and chat
 
 ### High-Contrast Design Redesign (October 7, 2025)
 - **Professional Logo**: Generated custom Max AI logo featuring robotic rabbit with BNB Chain elements
