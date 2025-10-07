@@ -31,6 +31,27 @@ export default function ChatPanel() {
         setMessages(prev => [...prev, lastMessage.data]);
       } else if (lastMessage.type === 'max_message') {
         setMessages(prev => [...prev, lastMessage.data]);
+        
+        // Auto-play audio if available
+        if (lastMessage.data.audioBase64) {
+          try {
+            const audio = new Audio(`data:audio/mp3;base64,${lastMessage.data.audioBase64}`);
+            
+            // Emit custom event when audio ends to sync animation
+            audio.addEventListener('ended', () => {
+              window.dispatchEvent(new CustomEvent('maxAudioEnded'));
+            });
+            
+            audio.play().catch(err => {
+              console.error('Error playing audio:', err);
+              // If audio fails, still emit ended event
+              window.dispatchEvent(new CustomEvent('maxAudioEnded'));
+            });
+          } catch (error) {
+            console.error('Error creating audio:', error);
+            window.dispatchEvent(new CustomEvent('maxAudioEnded'));
+          }
+        }
       } else if (lastMessage.type === 'viewer_count') {
         setViewerCount(lastMessage.data.count);
       }

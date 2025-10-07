@@ -86,17 +86,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 }));
               }
             });
-
-            setTimeout(() => {
-              wss.clients.forEach((client) => {
-                if (client.readyState === WebSocket.OPEN) {
-                  client.send(JSON.stringify({
-                    type: 'max_emotion',
-                    data: { emotion: 'idle' }
-                  }));
-                }
-              });
-            }, 3000);
           }, 500);
         }
       } catch (error) {

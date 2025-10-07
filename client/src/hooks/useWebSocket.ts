@@ -46,8 +46,16 @@ export function useWebSocket(url: string) {
       setIsConnected(false);
     };
 
+    // Listen for audio ended event to return to idle
+    const handleAudioEnded = () => {
+      setCurrentEmotion('idle');
+    };
+    
+    window.addEventListener('maxAudioEnded', handleAudioEnded);
+
     return () => {
       ws.close();
+      window.removeEventListener('maxAudioEnded', handleAudioEnded);
     };
   }, [url]);
 
