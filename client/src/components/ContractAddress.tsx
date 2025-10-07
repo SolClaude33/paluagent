@@ -18,17 +18,17 @@ export default function ContractAddress() {
   };
 
   return (
-    <Card className="p-8 bg-gradient-to-br from-white via-card/98 to-card border-2 border-primary/40 shadow-2xl rounded-3xl">
+    <Card className="p-8 bg-gradient-to-br from-white via-card to-accent/10 border-4 border-primary/50 shadow-2xl rounded-3xl">
       <div className="space-y-6">
         <div className="flex items-start gap-5">
-          <div className="h-16 w-16 rounded-3xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center flex-shrink-0 shadow-lg">
+          <div className="h-16 w-16 rounded-3xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0 shadow-xl ring-4 ring-primary/30">
             <FileText className="h-8 w-8 text-white" />
           </div>
           <div className="flex-1">
-            <h3 className="text-3xl font-black text-primary mb-2 font-[Space_Grotesk]">
+            <h3 className="text-3xl font-black bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent mb-2 font-[Space_Grotesk]">
               Smart Contract Address
             </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed font-medium">
+            <p className="text-sm text-foreground leading-relaxed font-bold">
               Interact with Max AI directly on the blockchain. This verified smart contract powers all AI interactions.
             </p>
           </div>

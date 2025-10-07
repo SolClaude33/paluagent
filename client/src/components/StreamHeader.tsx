@@ -11,20 +11,20 @@ export default function StreamHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-primary/30 bg-card/95 backdrop-blur-xl shadow-lg">
+    <header className="sticky top-0 z-50 border-b-4 border-primary/40 bg-gradient-to-r from-secondary/20 via-accent/20 to-primary/20 backdrop-blur-xl shadow-2xl">
       <div className="flex h-20 items-center justify-between px-6 md:px-8">
         <div className="flex items-center gap-4">
           <div className="relative flex items-center gap-3">
-            <div className="relative h-14 w-14 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 p-1 shadow-xl">
-              <div className="h-full w-full rounded-xl bg-white flex items-center justify-center">
+            <div className="relative h-14 w-14 rounded-3xl bg-gradient-to-br from-primary to-primary/90 p-0.5 shadow-xl ring-4 ring-primary/20">
+              <div className="h-full w-full rounded-3xl bg-white flex items-center justify-center">
                 <Zap className="h-7 w-7 text-primary fill-primary" />
               </div>
             </div>
             <div>
-              <h1 className="text-2xl font-black font-[Space_Grotesk] text-primary">
+              <h1 className="text-2xl font-black font-[Space_Grotesk] bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
                 Max AI
               </h1>
-              <p className="text-xs text-muted-foreground font-bold">Powered by BNB Chain</p>
+              <p className="text-xs text-foreground font-bold">Powered by BNB Chain</p>
             </div>
           </div>
         </div>

@@ -202,13 +202,13 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
   }, [emotion, currentState]);
 
   return (
-    <div className="relative h-full w-full bg-gradient-to-br from-accent/40 via-background to-primary/20 flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(240,185,11,0.25)_0%,rgba(252,213,53,0.15)_25%,transparent_70%)]" />
+    <div className="relative h-full w-full bg-gradient-to-br from-secondary/30 via-accent/40 to-primary/30 flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(110,180,220,0.3)_0%,rgba(100,200,180,0.2)_30%,rgba(240,185,11,0.2)_60%,transparent_90%)]" />
       
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(240,185,11,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(240,185,11,0.08)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(240,185,11,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(110,180,220,0.1)_1px,transparent_1px)] bg-[size:3rem_3rem]" />
 
       <div className="absolute top-8 left-8 z-10">
-        <div className="flex items-center gap-3 bg-gradient-to-r from-red-500 via-red-400 to-red-500 backdrop-blur-md px-6 py-3 rounded-full shadow-2xl border-2 border-red-300" data-testid="badge-live">
+        <div className="flex items-center gap-3 bg-gradient-to-r from-red-500 to-red-600 backdrop-blur-md px-6 py-3 rounded-full shadow-2xl ring-4 ring-red-300/50" data-testid="badge-live">
           <div className="h-3 w-3 bg-white rounded-full animate-pulse shadow-xl" />
           <span className="text-white text-sm font-black uppercase tracking-wide font-[Space_Grotesk]">LIVE</span>
         </div>
@@ -216,9 +216,9 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
 
       {emotion === 'thinking' && (
         <div className="absolute top-8 right-8 z-10 animate-in slide-in-from-top-4 duration-300">
-          <div className="flex items-center gap-3 bg-primary/30 backdrop-blur-xl px-6 py-3 rounded-full border-2 border-primary shadow-2xl" data-testid="status-thinking">
-            <Sparkles className="h-5 w-5 text-primary animate-pulse" />
-            <span className="text-primary text-sm font-black tracking-wide">Thinking...</span>
+          <div className="flex items-center gap-3 bg-gradient-to-r from-primary to-primary/90 backdrop-blur-xl px-6 py-3 rounded-full shadow-2xl ring-4 ring-primary/30" data-testid="status-thinking">
+            <Sparkles className="h-5 w-5 text-primary-foreground animate-pulse" />
+            <span className="text-primary-foreground text-sm font-black tracking-wide">Thinking...</span>
           </div>
         </div>
       )}

@@ -8,17 +8,17 @@ interface AnimationControlsProps {
 }
 
 export default function AnimationControls({ onEmotionChange, currentEmotion }: AnimationControlsProps) {
-  const emotions: { type: EmotionType; label: string; icon: React.ReactNode; bgColor: string; textColor: string }[] = [
-    { type: 'idle', label: 'Idle', icon: <CircleDot className="h-5 w-5" />, bgColor: 'bg-gray-200 hover:bg-gray-300 border-gray-300', textColor: 'text-gray-700' },
-    { type: 'talking', label: 'Talking', icon: <Smile className="h-5 w-5" />, bgColor: 'bg-blue-200 hover:bg-blue-300 border-blue-300', textColor: 'text-blue-700' },
-    { type: 'thinking', label: 'Thinking', icon: <Brain className="h-5 w-5" />, bgColor: 'bg-purple-200 hover:bg-purple-300 border-purple-300', textColor: 'text-purple-700' },
-    { type: 'celebrating', label: 'Happy', icon: <PartyPopper className="h-5 w-5" />, bgColor: 'bg-green-200 hover:bg-green-300 border-green-300', textColor: 'text-green-700' },
-    { type: 'angry', label: 'Angry', icon: <Frown className="h-5 w-5" />, bgColor: 'bg-red-200 hover:bg-red-300 border-red-300', textColor: 'text-red-700' },
+  const emotions: { type: EmotionType; label: string; icon: React.ReactNode; bgColor: string; activeBg: string; inactiveColor: string }[] = [
+    { type: 'idle', label: 'Idle', icon: <CircleDot className="h-5 w-5" />, bgColor: 'border-gray-600', activeBg: 'bg-gray-500', inactiveColor: 'text-gray-600' },
+    { type: 'talking', label: 'Talking', icon: <Smile className="h-5 w-5" />, bgColor: 'border-blue-600', activeBg: 'bg-blue-500', inactiveColor: 'text-blue-600' },
+    { type: 'thinking', label: 'Thinking', icon: <Brain className="h-5 w-5" />, bgColor: 'border-purple-600', activeBg: 'bg-purple-500', inactiveColor: 'text-purple-600' },
+    { type: 'celebrating', label: 'Happy', icon: <PartyPopper className="h-5 w-5" />, bgColor: 'border-green-600', activeBg: 'bg-green-500', inactiveColor: 'text-green-600' },
+    { type: 'angry', label: 'Angry', icon: <Frown className="h-5 w-5" />, bgColor: 'border-red-600', activeBg: 'bg-red-500', inactiveColor: 'text-red-600' },
   ];
 
   return (
-    <div className="bg-white/95 backdrop-blur-xl border-2 border-primary/40 rounded-3xl p-5 shadow-2xl">
-      <h3 className="text-sm font-black text-primary uppercase tracking-wide mb-4 font-[Space_Grotesk]">
+    <div className="bg-gradient-to-br from-white via-card to-white backdrop-blur-xl border-4 border-primary/50 rounded-3xl p-5 shadow-2xl">
+      <h3 className="text-sm font-black bg-gradient-to-r from-secondary via-accent to-primary bg-clip-text text-transparent uppercase tracking-wide mb-4 font-[Space_Grotesk]">
         Animation Controls
       </h3>
       <div className="flex flex-wrap gap-2.5">
@@ -27,16 +27,16 @@ export default function AnimationControls({ onEmotionChange, currentEmotion }: A
             key={emotion.type}
             variant="outline"
             size="sm"
-            className={`gap-2 border-2 rounded-2xl px-4 py-2 font-bold transition-all ${
+            className={`gap-2 border-2 rounded-2xl px-4 py-2.5 font-bold transition-all shadow-lg ${
               currentEmotion === emotion.type
-                ? `${emotion.bgColor} ${emotion.textColor} scale-105 shadow-lg`
-                : `bg-white ${emotion.textColor} opacity-70 hover:opacity-100`
+                ? `${emotion.activeBg} ${emotion.bgColor} text-white scale-110 ring-4 ring-offset-2 ring-offset-white`
+                : `bg-white/90 ${emotion.bgColor} ${emotion.inactiveColor} hover:scale-105`
             }`}
             onClick={() => onEmotionChange(emotion.type)}
             data-testid={`button-animation-${emotion.type}`}
           >
             {emotion.icon}
-            <span className="text-sm">{emotion.label}</span>
+            <span className="text-sm font-black">{emotion.label}</span>
           </Button>
         ))}
       </div>

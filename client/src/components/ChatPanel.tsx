@@ -57,32 +57,32 @@ export default function ChatPanel() {
   };
 
   return (
-    <div className="flex h-full flex-col bg-gradient-to-br from-card via-background to-accent/30 border-l border-primary/30 shadow-2xl">
-      <div className="border-b border-primary/30 bg-card/80 backdrop-blur-xl px-6 py-5">
+    <div className="flex h-full flex-col bg-gradient-to-br from-secondary/10 via-accent/15 to-primary/10 border-l-4 border-primary/40 shadow-2xl">
+      <div className="border-b-4 border-primary/40 bg-gradient-to-r from-card via-white to-card backdrop-blur-xl px-6 py-5">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <h2 className="text-xl font-black text-primary uppercase tracking-wide font-[Space_Grotesk]">
+            <h2 className="text-xl font-black bg-gradient-to-r from-secondary via-accent to-primary bg-clip-text text-transparent uppercase tracking-wide font-[Space_Grotesk]">
               Live Chat
             </h2>
             {isConnected ? (
-              <div className="flex items-center gap-2 bg-green-500/20 px-3 py-1.5 rounded-full border-2 border-green-500/40">
-                <Wifi className="h-4 w-4 text-green-600" data-testid="status-connected" />
-                <span className="text-xs font-bold text-green-600">Online</span>
+              <div className="flex items-center gap-2 bg-green-500 px-3 py-1.5 rounded-full shadow-lg">
+                <Wifi className="h-4 w-4 text-white" data-testid="status-connected" />
+                <span className="text-xs font-bold text-white">Online</span>
               </div>
             ) : (
-              <div className="flex items-center gap-2 bg-red-500/20 px-3 py-1.5 rounded-full border-2 border-red-500/40">
-                <WifiOff className="h-4 w-4 text-red-600 animate-pulse" data-testid="status-disconnected" />
-                <span className="text-xs font-bold text-red-600">Offline</span>
+              <div className="flex items-center gap-2 bg-red-500 px-3 py-1.5 rounded-full shadow-lg">
+                <WifiOff className="h-4 w-4 text-white animate-pulse" data-testid="status-disconnected" />
+                <span className="text-xs font-bold text-white">Offline</span>
               </div>
             )}
           </div>
-          <div className="flex items-center gap-2 bg-primary/20 px-4 py-2 rounded-full border-2 border-primary/40 shadow-lg" data-testid="viewer-count">
-            <TrendingUp className="h-4 w-4 text-primary" />
-            <Users className="h-4 w-4 text-primary" />
-            <span className="text-base font-black text-primary tabular-nums">{viewerCount}</span>
+          <div className="flex items-center gap-2 bg-gradient-to-r from-primary to-primary/90 px-4 py-2 rounded-full shadow-lg ring-2 ring-primary/30" data-testid="viewer-count">
+            <TrendingUp className="h-4 w-4 text-primary-foreground" />
+            <Users className="h-4 w-4 text-primary-foreground" />
+            <span className="text-base font-black text-primary-foreground tabular-nums">{viewerCount}</span>
           </div>
         </div>
-        <div className="h-1 w-full bg-gradient-to-r from-transparent via-primary to-transparent rounded-full" />
+        <div className="h-1.5 w-full bg-gradient-to-r from-secondary via-accent to-primary rounded-full shadow-lg" />
       </div>
 
       <ScrollArea className="flex-1 px-5">
