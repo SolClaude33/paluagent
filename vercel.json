@@ -5,13 +5,9 @@
       "src": "server/index.ts",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": ["client/**", "shared/**"],
+        "includeFiles": ["shared/**"],
         "maxDuration": 30
       }
-    },
-    {
-      "src": "client/**",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -25,7 +21,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/client/$1"
+      "dest": "/"
     }
   ],
   "env": {
