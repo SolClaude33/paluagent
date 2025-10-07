@@ -98,7 +98,7 @@ export async function generateTextToSpeech(text: string): Promise<string | undef
   try {
     const mp3 = await openai.audio.speech.create({
       model: "tts-1",
-      voice: "alloy",
+      voice: "nova",
       input: text,
       speed: 1.0,
     });

@@ -6,6 +6,7 @@ import { Send, Users, TrendingUp, Wifi, WifiOff, Lock } from "lucide-react";
 import ChatMessage from "./ChatMessage";
 import { useWebSocket } from "@/hooks/useWebSocket";
 import { useWallet } from "@/contexts/WalletContext";
+import { useToast } from "@/hooks/use-toast";
 import type { ChatMessage as ChatMessageType } from "@shared/schema";
 import gigglesLogo from '@assets/image-removebg-preview (30)_1759804538074.png';
 
@@ -23,6 +24,7 @@ export default function ChatPanel() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const fallbackTimeoutRef = useRef<number | null>(null);
   const { address } = useWallet();
+  const { toast } = useToast();
   
   const { isConnected, lastMessage, sendMessage } = useWebSocket('/ws');
 
@@ -67,9 +69,15 @@ export default function ChatPanel() {
         }
       } else if (lastMessage.type === 'viewer_count') {
         setViewerCount(lastMessage.data.count);
+      } else if (lastMessage.type === 'error') {
+        toast({
+          variant: "destructive",
+          title: "Rate Limit",
+          description: lastMessage.data.message,
+        });
       }
     }
-  }, [lastMessage]);
+  }, [lastMessage, toast]);
 
   useEffect(() => {
     if (scrollRef.current) {

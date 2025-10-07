@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import type { EmotionType } from '@shared/schema';
 
 interface WebSocketMessage {
-  type: 'connection' | 'user_message' | 'max_message' | 'max_emotion' | 'viewer_count';
+  type: 'connection' | 'user_message' | 'max_message' | 'max_emotion' | 'viewer_count' | 'error';
   data: any;
 }
 
