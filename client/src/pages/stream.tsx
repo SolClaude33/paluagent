@@ -17,7 +17,7 @@ export default function StreamPage() {
       <StreamHeader />
       
       <div className="flex flex-1 overflow-hidden relative">
-        <div className="flex-1 w-full lg:w-[70%] relative lg:border-r-4 lg:border-primary">
+        <div className="flex-1 w-full lg:w-[70%] relative lg:border-r-4 lg:border-primary border-t-4 border-primary">
           <Max3DViewer emotion={currentEmotion} />
           
           <div className="absolute bottom-8 left-8 flex flex-col gap-3 z-20">
@@ -36,7 +36,7 @@ export default function StreamPage() {
           </div>
         </div>
         
-        <div className="hidden lg:block w-[30%] min-w-[320px] max-w-[420px]">
+        <div className="hidden lg:block w-[30%] min-w-[320px] max-w-[420px] border-t-4 border-primary">
           <ChatPanel />
         </div>
       </div>

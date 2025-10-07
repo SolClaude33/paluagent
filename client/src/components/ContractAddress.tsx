@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Copy, CheckCircle2, FileText, Shield } from "lucide-react";
 import { useState } from "react";
+import gigglesLogo from '@assets/image_1759799138730.png';
 
 export default function ContractAddress() {
   const [copied, setCopied] = useState(false);
@@ -25,9 +26,12 @@ export default function ContractAddress() {
             <FileText className="h-7 w-7 text-primary-foreground" />
           </div>
           <div className="flex-1">
-            <h3 className="text-2xl font-bold text-foreground mb-2 font-[Space_Grotesk]">
-              Smart Contract Address
-            </h3>
+            <div className="flex items-center gap-2 mb-2">
+              <h3 className="text-2xl font-bold text-foreground font-[Space_Grotesk]">
+                Smart Contract Address
+              </h3>
+              <img src={gigglesLogo} alt="Giggles" className="h-7 w-7 animate-pulse" />
+            </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Interact with Max AI directly on the blockchain. This verified smart contract powers all AI interactions.
             </p>

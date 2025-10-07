@@ -209,19 +209,37 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
       <img 
         src={maxRabbitSticker} 
         alt="" 
-        className="absolute top-1/4 right-8 w-24 h-24 opacity-20 pointer-events-none transform rotate-12"
+        className="absolute top-16 right-12 w-40 h-40 opacity-30 pointer-events-none transform rotate-12"
       />
       
       <img 
         src={maxRabbitSticker} 
         alt="" 
-        className="absolute bottom-1/3 left-12 w-20 h-20 opacity-15 pointer-events-none transform -rotate-6"
+        className="absolute bottom-24 left-8 w-36 h-36 opacity-25 pointer-events-none transform -rotate-6"
       />
       
       <img 
         src={maxRabbitSticker} 
         alt="" 
-        className="absolute top-1/3 left-1/4 w-16 h-16 opacity-10 pointer-events-none transform rotate-45"
+        className="absolute top-1/3 left-1/4 w-32 h-32 opacity-20 pointer-events-none transform rotate-45"
+      />
+      
+      <img 
+        src={maxRabbitSticker} 
+        alt="" 
+        className="absolute bottom-1/3 right-1/4 w-28 h-28 opacity-25 pointer-events-none transform -rotate-12"
+      />
+      
+      <img 
+        src={maxRabbitSticker} 
+        alt="" 
+        className="absolute top-1/2 left-8 w-32 h-32 opacity-20 pointer-events-none transform rotate-20"
+      />
+      
+      <img 
+        src={maxRabbitSticker} 
+        alt="" 
+        className="absolute bottom-12 right-16 w-36 h-36 opacity-30 pointer-events-none transform -rotate-15"
       />
 
       <div className="absolute top-8 left-8 z-10">

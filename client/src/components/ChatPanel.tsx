@@ -6,6 +6,7 @@ import { Send, Users, TrendingUp, Wifi, WifiOff } from "lucide-react";
 import ChatMessage from "./ChatMessage";
 import { useWebSocket } from "@/hooks/useWebSocket";
 import type { ChatMessage as ChatMessageType } from "@shared/schema";
+import gigglesLogo from '@assets/image_1759799138730.png';
 
 export default function ChatPanel() {
   const [messages, setMessages] = useState<ChatMessageType[]>([
@@ -61,6 +62,7 @@ export default function ChatPanel() {
       <div className="border-b-2 border-border bg-white px-6 py-5">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
+            <img src={gigglesLogo} alt="Giggles" className="h-8 w-8 animate-pulse" />
             <h2 className="text-xl font-black text-foreground uppercase tracking-tight font-[Space_Grotesk]">
               Live Chat
             </h2>
@@ -93,7 +95,8 @@ export default function ChatPanel() {
       </ScrollArea>
 
       <div className="border-t-2 border-border bg-white p-5">
-        <div className="flex gap-3">
+        <div className="flex items-center gap-3">
+          <img src={gigglesLogo} alt="Giggles" className="h-7 w-7 animate-pulse flex-shrink-0" />
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
