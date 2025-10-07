@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Wallet, Sun, Moon, BookOpen, LogOut } from "lucide-react";
 import { useState } from "react";
 import { useWallet } from "@/contexts/WalletContext";
-import paluLogo from "@assets/palu-main.png";
+import paluLogo from "/palu-main.png";
 
 export default function StreamHeader() {
   const [isDark, setIsDark] = useState(false);

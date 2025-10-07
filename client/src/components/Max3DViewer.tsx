@@ -4,8 +4,8 @@ import { FBXLoader } from 'three-stdlib';
 import { OrbitControls } from 'three-stdlib';
 import { Sparkles } from "lucide-react";
 import type { EmotionType } from '@shared/schema';
-import paluMain from '@assets/palu-main.png';
-import paluHappy from '@assets/palu-happy.png';
+import paluMain from '/palu-main.png';
+import paluHappy from '/palu-happy.png';
 
 interface Max3DViewerProps {
   emotion?: EmotionType;

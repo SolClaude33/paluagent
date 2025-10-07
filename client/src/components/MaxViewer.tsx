@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Activity, Sparkles } from "lucide-react";
-import maxImage from "@assets/image_1759775310846.png";
+import maxImage from "/max-image.png";
 
 interface MaxViewerProps {
   isThinking?: boolean;

@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, User } from "lucide-react";
-import paluAvatar from "@assets/palu-main.png";
+import paluAvatar from "/palu-main.png";
 
 interface ChatMessageProps {
   id: string;
