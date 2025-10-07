@@ -1,4 +1,4 @@
-# Design Guidelines: Max AI Streaming Platform
+# Design Guidelines: Palu AI Streaming Platform
 
 ## Design Approach
 

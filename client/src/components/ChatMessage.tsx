@@ -1,7 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, User } from "lucide-react";
-import maxAvatar from "@assets/image_1759775310846.png";
-import gigglesLogo from "@assets/image_1759802470289.png";
+import paluAvatar from "@assets/palu-main.png";
 
 interface ChatMessageProps {
   id: string;
@@ -25,7 +24,7 @@ export default function ChatMessage({ message, sender, timestamp, username }: Ch
       <Avatar className={`h-11 w-11 flex-shrink-0 ${isMax ? 'ring-2 ring-primary/30 ring-offset-2 ring-offset-background shadow-sm' : 'ring-2 ring-secondary/30 ring-offset-2 ring-offset-background shadow-sm'}`}>
         {isMax ? (
           <>
-            <AvatarImage src={maxAvatar} alt="Max" className="object-cover" />
+            <AvatarImage src={paluAvatar} alt="Palu" className="object-cover" />
             <AvatarFallback className="bg-primary">
               <Bot className="h-5 w-5 text-primary-foreground" />
             </AvatarFallback>
@@ -40,11 +39,8 @@ export default function ChatMessage({ message, sender, timestamp, username }: Ch
       <div className={`flex flex-col gap-1.5 max-w-[75%] ${isMax ? 'items-start' : 'items-end'}`}>
         <div className="flex items-center gap-2 px-1">
           <span className={`text-sm font-bold ${isMax ? 'text-foreground' : 'text-foreground'}`}>
-            {isMax ? 'Max AI' : username || 'Anonymous'}
+            {isMax ? 'Palu AI' : username || 'Anonymous'}
           </span>
-          {hasCelebration && (
-            <img src={gigglesLogo} alt="" className="h-5 w-5 inline-block animate-pulse" />
-          )}
           <span className="text-xs text-muted-foreground font-medium">{timestamp}</span>
         </div>
         
