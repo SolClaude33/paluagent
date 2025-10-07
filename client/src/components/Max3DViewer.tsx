@@ -216,37 +216,37 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
       <img 
         src={maxRabbitClassic} 
         alt="" 
-        className="absolute top-20 right-16 w-32 h-32 opacity-25 pointer-events-none transform rotate-12"
+        className="absolute top-20 right-16 w-16 h-16 opacity-[0.10] pointer-events-none transform rotate-12"
       />
       
       <img 
         src={maxRabbitRed} 
         alt="" 
-        className="absolute bottom-32 left-12 w-28 h-28 opacity-20 pointer-events-none transform -rotate-8"
+        className="absolute bottom-32 left-12 w-14 h-14 opacity-[0.08] pointer-events-none transform -rotate-8"
       />
       
       <img 
         src={maxRabbitBNB} 
         alt="" 
-        className="absolute top-1/4 left-1/3 w-24 h-24 opacity-[0.18] pointer-events-none transform rotate-15"
+        className="absolute top-1/4 left-1/3 w-12 h-12 opacity-[0.08] pointer-events-none transform rotate-15"
       />
       
       <img 
         src={maxRabbitClassic} 
         alt="" 
-        className="absolute bottom-1/4 right-1/3 w-28 h-28 opacity-[0.22] pointer-events-none transform -rotate-10"
+        className="absolute bottom-1/4 right-1/3 w-14 h-14 opacity-[0.10] pointer-events-none transform -rotate-10"
       />
       
       <img 
         src={maxRabbitRed} 
         alt="" 
-        className="absolute top-2/3 left-16 w-32 h-32 opacity-[0.18] pointer-events-none transform rotate-25"
+        className="absolute top-2/3 left-16 w-16 h-16 opacity-[0.08] pointer-events-none transform rotate-25"
       />
       
       <img 
         src={maxRabbitBNB} 
         alt="" 
-        className="absolute bottom-16 right-20 w-28 h-28 opacity-25 pointer-events-none transform -rotate-12"
+        className="absolute bottom-16 right-20 w-14 h-14 opacity-[0.12] pointer-events-none transform -rotate-12"
       />
 
       <img 
