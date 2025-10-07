@@ -27,6 +27,7 @@ export const chatMessageSchema = z.object({
   username: z.string().optional(),
   timestamp: z.string(),
   emotion: emotionSchema.optional(),
+  audioBase64: z.string().optional(),
 });
 
 export type ChatMessage = z.infer<typeof chatMessageSchema>;

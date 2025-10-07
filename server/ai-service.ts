@@ -14,6 +14,7 @@ const anthropic = process.env.ANTHROPIC_API_KEY ? new Anthropic({
 export interface AIResponse {
   message: string;
   emotion: EmotionType;
+  audioBase64?: string;
 }
 
 export async function generateAIResponse(userMessage: string): Promise<AIResponse> {
@@ -43,7 +44,8 @@ export async function generateAIResponse(userMessage: string): Promise<AIRespons
 
       const responseMessage = completion.choices[0]?.message?.content || "Oops! Looks like my response circuit is a bit busy. Could you try again?";
       const emotion = analyzeEmotion(responseMessage);
-      return { message: responseMessage, emotion };
+      const audioBase64 = await generateTextToSpeech(responseMessage);
+      return { message: responseMessage, emotion, audioBase64 };
     } catch (error) {
       console.error("OpenAI error, trying Anthropic fallback:", error);
       // Fall through to try Anthropic
@@ -73,7 +75,8 @@ export async function generateAIResponse(userMessage: string): Promise<AIRespons
       const textContent = message.content.find(block => block.type === 'text');
       const responseMessage = textContent && 'text' in textContent ? textContent.text : "Oops! Looks like my response circuit is a bit busy. Could you try again?";
       const emotion = analyzeEmotion(responseMessage);
-      return { message: responseMessage, emotion };
+      const audioBase64 = await generateTextToSpeech(responseMessage);
+      return { message: responseMessage, emotion, audioBase64 };
     } catch (error) {
       console.error("Anthropic error:", error);
       const errorMessage = "Oops! I had a small error processing that. Could you try again?";
@@ -84,4 +87,27 @@ export async function generateAIResponse(userMessage: string): Promise<AIRespons
   // No AI service available
   const errorMessage = "Hello! Looks like I don't have my AI credentials configured. Make sure you have OPENAI_API_KEY or ANTHROPIC_API_KEY in Replit Secrets.";
   return { message: errorMessage, emotion: 'talking' };
+}
+
+export async function generateTextToSpeech(text: string): Promise<string | undefined> {
+  if (!openai) {
+    console.log('OpenAI not configured, skipping TTS');
+    return undefined;
+  }
+
+  try {
+    const mp3 = await openai.audio.speech.create({
+      model: "tts-1",
+      voice: "alloy",
+      input: text,
+      speed: 1.0,
+    });
+
+    const buffer = Buffer.from(await mp3.arrayBuffer());
+    const base64Audio = buffer.toString('base64');
+    return base64Audio;
+  } catch (error) {
+    console.error('Error generating TTS:', error);
+    return undefined;
+  }
 }

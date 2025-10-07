@@ -65,6 +65,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             sender: 'max' as const,
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             emotion: aiResponse.emotion,
+            audioBase64: aiResponse.audioBase64,
           };
 
           wss.clients.forEach((client) => {
