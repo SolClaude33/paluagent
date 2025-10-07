@@ -4,7 +4,9 @@ import { FBXLoader } from 'three-stdlib';
 import { OrbitControls } from 'three-stdlib';
 import { Sparkles } from "lucide-react";
 import type { EmotionType } from '@shared/schema';
-import maxRabbitSticker from '@assets/1211_1759804535402.png';
+import maxRabbitClassic from '@assets/1211_1759804535402.png';
+import maxRabbitRed from '@assets/image-removebg-preview (32)_1759804532428.png';
+import maxRabbitBNB from '@assets/image-removebg-preview (31)_1759804533638.png';
 import gigglesLogo from '@assets/image-removebg-preview (30)_1759804538074.png';
 
 interface Max3DViewerProps {
