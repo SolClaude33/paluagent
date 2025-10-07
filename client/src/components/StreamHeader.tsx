@@ -2,8 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Wallet, Sun, Moon, BookOpen, LogOut } from "lucide-react";
 import { useState } from "react";
 import { useWallet } from "@/contexts/WalletContext";
-import maxLogo from "@assets/generated_images/Max_AI_robotic_rabbit_logo_439e99f8.png";
-import gigglesLogo from "@assets/image_1759802470289.png";
+import paluLogo from "@assets/palu-main.png";
 
 export default function StreamHeader() {
   const [isDark, setIsDark] = useState(false);
@@ -20,14 +19,14 @@ export default function StreamHeader() {
         <div className="flex items-center gap-4 flex-shrink-0">
           <div className="relative flex items-center gap-3">
             <div className="relative h-14 w-14 rounded-2xl overflow-hidden bg-card shadow-md">
-              <img src={maxLogo} alt="Max AI Logo" className="h-full w-full object-cover" />
+              <img src={paluLogo} alt="Palu - Binance Mascot" className="h-full w-full object-cover" />
             </div>
             <div>
               <h1 className="text-2xl font-black font-[Space_Grotesk] text-foreground flex items-center gap-2">
-                Max AI
+                Palu AI
               </h1>
-              <p className="text-xs text-muted-foreground font-semibold">Powered by BNB Chain & Giggles Academy</p>
-              <p className="text-[10px] text-muted-foreground/80 font-medium italic mt-0.5">Inspired by Max from Giggles Academy</p>
+              <p className="text-xs text-muted-foreground font-semibold">Binance Official Mascot on BNB Chain</p>
+              <p className="text-[10px] text-muted-foreground/80 font-medium italic mt-0.5">Live AI Stream</p>
             </div>
           </div>
         </div>
@@ -40,12 +39,12 @@ export default function StreamHeader() {
             data-testid="button-know-more"
           >
             <a 
-              href="https://www.giggleacademy.com/story/search/1?searchQuery=max&recommendation=RECENT&translateLanguage=en"
+              href="https://twitter.com/palucto"
               target="_blank"
               rel="noopener noreferrer"
             >
               <BookOpen className="h-5 w-5" />
-              <span>Max's Stories</span>
+              <span>Follow Palu</span>
             </a>
           </Button>
         </div>
