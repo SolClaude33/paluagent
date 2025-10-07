@@ -43,7 +43,7 @@ export default function StreamHeader() {
               rel="noopener noreferrer"
             >
               <BookOpen className="h-5 w-5" />
-              <span>Know More About Max</span>
+              <span>Max's Stories</span>
             </a>
           </Button>
         </div>
