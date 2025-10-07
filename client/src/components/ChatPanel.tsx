@@ -57,32 +57,31 @@ export default function ChatPanel() {
   };
 
   return (
-    <div className="flex h-full flex-col bg-gradient-to-br from-secondary/10 via-accent/15 to-primary/10 border-l-4 border-primary/40 shadow-2xl">
-      <div className="border-b-4 border-primary/40 bg-gradient-to-r from-card via-white to-card backdrop-blur-xl px-6 py-5">
+    <div className="flex h-full flex-col bg-white border-l-2 border-border shadow-lg">
+      <div className="border-b-2 border-border bg-white px-6 py-5">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <h2 className="text-xl font-black bg-gradient-to-r from-secondary via-accent to-primary bg-clip-text text-transparent uppercase tracking-wide font-[Space_Grotesk]">
+            <h2 className="text-xl font-black text-foreground uppercase tracking-tight font-[Space_Grotesk]">
               Live Chat
             </h2>
             {isConnected ? (
-              <div className="flex items-center gap-2 bg-green-500 px-3 py-1.5 rounded-full shadow-lg">
-                <Wifi className="h-4 w-4 text-white" data-testid="status-connected" />
+              <div className="flex items-center gap-2 bg-green-500 px-3 py-1.5 rounded-full shadow-sm">
+                <Wifi className="h-3.5 w-3.5 text-white" data-testid="status-connected" />
                 <span className="text-xs font-bold text-white">Online</span>
               </div>
             ) : (
-              <div className="flex items-center gap-2 bg-red-500 px-3 py-1.5 rounded-full shadow-lg">
-                <WifiOff className="h-4 w-4 text-white animate-pulse" data-testid="status-disconnected" />
+              <div className="flex items-center gap-2 bg-red-500 px-3 py-1.5 rounded-full shadow-sm">
+                <WifiOff className="h-3.5 w-3.5 text-white animate-pulse" data-testid="status-disconnected" />
                 <span className="text-xs font-bold text-white">Offline</span>
               </div>
             )}
           </div>
-          <div className="flex items-center gap-2 bg-gradient-to-r from-primary to-primary/90 px-4 py-2 rounded-full shadow-lg ring-2 ring-primary/30" data-testid="viewer-count">
-            <TrendingUp className="h-4 w-4 text-primary-foreground" />
-            <Users className="h-4 w-4 text-primary-foreground" />
-            <span className="text-base font-black text-primary-foreground tabular-nums">{viewerCount}</span>
+          <div className="flex items-center gap-2 bg-muted px-3 py-1.5 rounded-full" data-testid="viewer-count">
+            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <Users className="h-4 w-4 text-muted-foreground" />
+            <span className="text-sm font-bold text-foreground tabular-nums">{viewerCount}</span>
           </div>
         </div>
-        <div className="h-1.5 w-full bg-gradient-to-r from-secondary via-accent to-primary rounded-full shadow-lg" />
       </div>
 
       <ScrollArea className="flex-1 px-5">
@@ -93,14 +92,14 @@ export default function ChatPanel() {
         </div>
       </ScrollArea>
 
-      <div className="border-t border-primary/30 bg-card/80 backdrop-blur-xl p-5 shadow-xl">
+      <div className="border-t-2 border-border bg-white p-5">
         <div className="flex gap-3">
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder={isConnected ? "Type something amazing..." : "Connecting..."}
-            className="flex-1 bg-white border-2 border-primary/30 focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary text-foreground placeholder:text-muted-foreground rounded-2xl h-12 px-5 font-medium shadow-lg"
+            placeholder={isConnected ? "Type a message..." : "Connecting..."}
+            className="flex-1 bg-white border-2 border-border focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary text-foreground placeholder:text-muted-foreground rounded-xl h-11 px-4 font-medium"
             data-testid="input-chat"
             disabled={!isConnected}
           />
@@ -109,7 +108,7 @@ export default function ChatPanel() {
             size="icon"
             disabled={!input.trim() || !isConnected}
             data-testid="button-send"
-            className="h-12 w-12 bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-xl disabled:opacity-40 disabled:cursor-not-allowed rounded-2xl border-2 border-primary/40 font-bold"
+            className="h-11 w-11 bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-sm disabled:opacity-40 disabled:cursor-not-allowed rounded-xl"
           >
             <Send className="h-5 w-5" />
           </Button>
