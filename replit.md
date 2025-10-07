@@ -112,7 +112,19 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes (October 2025)
 
-### Giggles Academy Integration & Yellow Accents (Latest - October 7, 2025)
+### Transparent Background Assets (Latest - October 7, 2025)
+- **Max Rabbit Sticker**: Replaced white background version with transparent PNG for better visual integration
+  - Asset: `attached_assets/generated_images/Max_blue_rabbit_transparent_background_d95de07f.png`
+  - Blue rabbit character with yellow shirt and blue overalls, holding smartphone
+  - Transparent background allows flexible positioning without white box artifacts
+  
+- **Giggles Academy Logo**: Replaced white background version with transparent PNG
+  - Asset: `attached_assets/generated_images/Giggles_logo_transparent_background_4e8db14c.png`
+  - Orange "G" icon in yellow circular badge, flat design style
+  - Used as floating decorative elements in Max3DViewer (3 instances) and ChatPanel (2 instances)
+  - Transparent background enables seamless overlay on any background color
+
+### Giggles Academy Integration & Yellow Accents (October 7, 2025)
 - **Yellow Contract Address Button**: Changed to vibrant yellow background with dark text for maximum visibility
   - Used primary color (BNB Chain yellow) for brand consistency
   - Dark foreground text ensures WCAG contrast compliance
