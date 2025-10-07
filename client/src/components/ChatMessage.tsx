@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, User } from "lucide-react";
 import maxAvatar from "@assets/image_1759775310846.png";
+import gigglesLogo from "@assets/image_1759799138730.png";
 
 interface ChatMessageProps {
   id: string;
@@ -12,6 +13,9 @@ interface ChatMessageProps {
 
 export default function ChatMessage({ message, sender, timestamp, username }: ChatMessageProps) {
   const isMax = sender === "max";
+  
+  const celebrationWords = ['great', 'awesome', 'excellent', 'perfect', 'wonderful', 'amazing', 'fantastic', 'congrat', 'success', 'good job', 'well done', 'happy', 'brilliant', 'superb'];
+  const hasCelebration = isMax && celebrationWords.some(word => message.toLowerCase().includes(word));
 
   return (
     <div 
@@ -38,6 +42,9 @@ export default function ChatMessage({ message, sender, timestamp, username }: Ch
           <span className={`text-sm font-bold ${isMax ? 'text-foreground' : 'text-foreground'}`}>
             {isMax ? 'Max AI' : username || 'Anonymous'}
           </span>
+          {hasCelebration && (
+            <img src={gigglesLogo} alt="" className="h-4 w-4 inline-block animate-pulse" />
+          )}
           <span className="text-xs text-muted-foreground font-medium">{timestamp}</span>
         </div>
         

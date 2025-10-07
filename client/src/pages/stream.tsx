@@ -17,7 +17,7 @@ export default function StreamPage() {
       <StreamHeader />
       
       <div className="flex flex-1 overflow-hidden relative">
-        <div className="flex-1 w-full lg:w-[70%] relative">
+        <div className="flex-1 w-full lg:w-[70%] relative lg:border-r-4 lg:border-primary">
           <Max3DViewer emotion={currentEmotion} />
           
           <div className="absolute bottom-8 left-8 flex flex-col gap-3 z-20">
@@ -26,11 +26,11 @@ export default function StreamPage() {
             <Button
               variant="outline"
               size="sm"
-              className="gap-2 bg-white border-2 border-border hover:bg-muted hover-elevate shadow-sm rounded-xl px-4 py-2 font-semibold text-foreground"
+              className="gap-2 bg-primary border-2 border-primary hover:bg-primary/90 hover-elevate shadow-md rounded-xl px-4 py-2 font-bold text-primary-foreground"
               onClick={() => setShowContractInfo(!showContractInfo)}
               data-testid="button-contract-info"
             >
-              <FileText className="h-4 w-4" />
+              <FileText className="h-4 w-4 text-primary-foreground" />
               <span className="text-sm">Contract Address</span>
             </Button>
           </div>

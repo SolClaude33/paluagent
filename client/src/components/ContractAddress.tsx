@@ -18,9 +18,9 @@ export default function ContractAddress() {
   };
 
   return (
-    <Card className="p-8 bg-white border-2 border-border shadow-lg rounded-2xl">
+    <Card className="p-8 bg-white border-4 border-primary shadow-lg rounded-2xl">
       <div className="space-y-6">
-        <div className="flex items-start gap-4">
+        <div className="flex items-start gap-4 pb-4 border-b-2 border-primary/30">
           <div className="h-14 w-14 rounded-xl bg-primary flex items-center justify-center flex-shrink-0 shadow-sm">
             <FileText className="h-7 w-7 text-primary-foreground" />
           </div>
@@ -35,11 +35,11 @@ export default function ContractAddress() {
         </div>
 
         <div className="relative">
-          <div className="p-5 rounded-xl bg-muted border border-border">
+          <div className="p-5 rounded-xl bg-muted border-2 border-primary/40">
             <div className="flex items-center justify-between gap-4">
               <div className="flex-1 min-w-0">
                 <p className="text-xs text-muted-foreground mb-2 font-semibold uppercase tracking-wide">Contract Address</p>
-                <code className="text-sm font-mono text-foreground break-all bg-white px-3 py-2 rounded-lg block font-medium border border-border">
+                <code className="text-sm font-mono text-foreground break-all bg-white px-3 py-2 rounded-lg block font-medium border-2 border-primary/30">
                   {contractAddress}
                 </code>
               </div>
@@ -47,7 +47,7 @@ export default function ContractAddress() {
                 onClick={handleCopy}
                 size="sm"
                 variant="outline"
-                className="gap-2 hover-elevate border-border rounded-lg px-3 py-2 font-semibold"
+                className="gap-2 hover-elevate border-2 border-primary rounded-lg px-3 py-2 font-semibold"
                 data-testid="button-copy-address"
               >
                 {copied ? (
@@ -67,7 +67,7 @@ export default function ContractAddress() {
         </div>
 
         <div className="grid gap-3">
-          <div className="p-4 rounded-xl bg-green-50 border border-green-200">
+          <div className="p-4 rounded-xl bg-green-50 border-2 border-green-400">
             <div className="flex items-start gap-3">
               <Shield className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
               <div>
@@ -79,7 +79,7 @@ export default function ContractAddress() {
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-primary/5 border border-primary/20">
+          <div className="p-4 rounded-xl bg-primary/10 border-2 border-primary/50">
             <p className="text-sm text-foreground leading-relaxed font-medium">
               <span className="font-semibold">Network:</span> BNB Smart Chain (BSC) • 
               <span className="font-semibold ml-2">Chain ID:</span> 56

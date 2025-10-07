@@ -27,15 +27,15 @@ export default function AnimationControls({ onEmotionChange, currentEmotion }: A
             key={emotion.type}
             variant="outline"
             size="sm"
-            className={`gap-1.5 border rounded-lg px-3 py-1.5 font-semibold transition-all text-xs ${
+            className={`gap-1.5 border-2 rounded-xl px-3 py-2 font-bold transition-all text-xs ${
               currentEmotion === emotion.type
-                ? `${emotion.activeColor} border-transparent text-white shadow-sm`
+                ? `${emotion.activeColor} border-transparent text-white shadow-lg scale-105`
                 : `bg-white border-border text-foreground hover:bg-muted`
             }`}
             onClick={() => onEmotionChange(emotion.type)}
             data-testid={`button-animation-${emotion.type}`}
           >
-            {emotion.icon}
+            <span className={currentEmotion === emotion.type ? 'text-white' : ''}>{emotion.icon}</span>
             <span>{emotion.label}</span>
           </Button>
         ))}

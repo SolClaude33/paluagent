@@ -4,6 +4,7 @@ import { FBXLoader } from 'three-stdlib';
 import { OrbitControls } from 'three-stdlib';
 import { Sparkles } from "lucide-react";
 import type { EmotionType } from '@shared/schema';
+import maxRabbitSticker from '@assets/image_1759799065070.png';
 
 interface Max3DViewerProps {
   emotion?: EmotionType;
@@ -204,6 +205,24 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
   return (
     <div className="relative h-full w-full bg-gradient-to-br from-muted/50 to-background flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(240,185,11,0.08)_0%,transparent_70%)]" />
+      
+      <img 
+        src={maxRabbitSticker} 
+        alt="" 
+        className="absolute top-1/4 right-8 w-24 h-24 opacity-20 pointer-events-none transform rotate-12"
+      />
+      
+      <img 
+        src={maxRabbitSticker} 
+        alt="" 
+        className="absolute bottom-1/3 left-12 w-20 h-20 opacity-15 pointer-events-none transform -rotate-6"
+      />
+      
+      <img 
+        src={maxRabbitSticker} 
+        alt="" 
+        className="absolute top-1/3 left-1/4 w-16 h-16 opacity-10 pointer-events-none transform rotate-45"
+      />
 
       <div className="absolute top-8 left-8 z-10">
         <div className="flex items-center gap-2 bg-red-500 backdrop-blur-sm px-5 py-2.5 rounded-full shadow-md" data-testid="badge-live">
