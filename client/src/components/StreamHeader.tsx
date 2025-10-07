@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { Wallet, Sun, Moon, BookOpen } from "lucide-react";
+import { Wallet, Sun, Moon, BookOpen, LogOut } from "lucide-react";
 import { useState } from "react";
+import { useWallet } from "@/contexts/WalletContext";
 import maxLogo from "@assets/generated_images/Max_AI_robotic_rabbit_logo_439e99f8.png";
 import gigglesLogo from "@assets/image_1759802470289.png";
 
 export default function StreamHeader() {
   const [isDark, setIsDark] = useState(false);
+  const { address, isConnecting, connectWallet, disconnectWallet } = useWallet();
 
   const toggleTheme = () => {
     setIsDark(!isDark);
@@ -58,15 +60,37 @@ export default function StreamHeader() {
           >
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
-          <Button
-            variant="default"
-            className="gap-2 bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-all shadow-md rounded-xl px-5 py-2"
-            data-testid="button-connect-wallet"
-            onClick={() => console.log("Connect wallet clicked")}
-          >
-            <Wallet className="h-5 w-5" />
-            <span className="hidden sm:inline">Connect Wallet</span>
-          </Button>
+          {address ? (
+            <div className="flex items-center gap-2">
+              <div className="bg-green-500/10 border-2 border-green-500 px-4 py-2 rounded-xl">
+                <span className="text-sm font-bold text-green-600">
+                  {address.slice(0, 6)}...{address.slice(-4)}
+                </span>
+              </div>
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={disconnectWallet}
+                data-testid="button-disconnect-wallet"
+                className="hover-elevate active-elevate-2 h-10 w-10 rounded-lg text-red-500"
+              >
+                <LogOut className="h-5 w-5" />
+              </Button>
+            </div>
+          ) : (
+            <Button
+              variant="default"
+              className="gap-2 bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-all shadow-md rounded-xl px-5 py-2"
+              data-testid="button-connect-wallet"
+              onClick={connectWallet}
+              disabled={isConnecting}
+            >
+              <Wallet className="h-5 w-5" />
+              <span className="hidden sm:inline">
+                {isConnecting ? 'Connecting...' : 'Connect Wallet'}
+              </span>
+            </Button>
+          )}
         </div>
       </div>
     </header>

@@ -10,8 +10,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   const wss = new WebSocketServer({ server: httpServer, path: '/ws' });
 
+  const broadcastViewerCount = () => {
+    const count = wss.clients.size;
+    wss.clients.forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(JSON.stringify({
+          type: 'viewer_count',
+          data: { count }
+        }));
+      }
+    });
+  };
+
   wss.on('connection', (ws: WebSocket) => {
     console.log('New WebSocket connection established');
+    broadcastViewerCount();
 
     ws.on('message', async (data: Buffer) => {
       try {
@@ -92,6 +105,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     ws.on('close', () => {
       console.log('WebSocket connection closed');
+      broadcastViewerCount();
     });
 
     ws.send(JSON.stringify({

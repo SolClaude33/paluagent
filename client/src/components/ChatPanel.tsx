@@ -2,9 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Send, Users, TrendingUp, Wifi, WifiOff } from "lucide-react";
+import { Send, Users, TrendingUp, Wifi, WifiOff, Lock } from "lucide-react";
 import ChatMessage from "./ChatMessage";
 import { useWebSocket } from "@/hooks/useWebSocket";
+import { useWallet } from "@/contexts/WalletContext";
 import type { ChatMessage as ChatMessageType } from "@shared/schema";
 import gigglesLogo from '@assets/image-removebg-preview (30)_1759804538074.png';
 
@@ -12,14 +13,15 @@ export default function ChatPanel() {
   const [messages, setMessages] = useState<ChatMessageType[]>([
     {
       id: "1",
-      message: "Welcome to Max AI stream! I'm a live AI agent. How can I help you today?",
+      message: "Welcome to Max AI stream! I'm a live AI agent. Connect your BNB wallet to start chatting!",
       sender: "max",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     }
   ]);
   const [input, setInput] = useState("");
-  const [viewerCount] = useState(127);
+  const [viewerCount, setViewerCount] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { address } = useWallet();
   
   const { isConnected, lastMessage, sendMessage } = useWebSocket('/ws');
 
@@ -29,6 +31,8 @@ export default function ChatPanel() {
         setMessages(prev => [...prev, lastMessage.data]);
       } else if (lastMessage.type === 'max_message') {
         setMessages(prev => [...prev, lastMessage.data]);
+      } else if (lastMessage.type === 'viewer_count') {
+        setViewerCount(lastMessage.data.count);
       }
     }
   }, [lastMessage]);
@@ -40,11 +44,11 @@ export default function ChatPanel() {
   }, [messages]);
 
   const handleSend = () => {
-    if (!input.trim() || !isConnected) return;
+    if (!input.trim() || !isConnected || !address) return;
 
     sendMessage('user_message', {
       content: input,
-      username: 'You'
+      username: `${address.slice(0, 6)}...${address.slice(-4)}`
     });
 
     setInput("");
@@ -106,19 +110,27 @@ export default function ChatPanel() {
 
       <div className="border-t-2 border-border bg-white p-5 relative z-10">
         <div className="flex items-center gap-3">
+          {!address && (
+            <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50 rounded-xl">
+              <div className="text-center">
+                <Lock className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                <p className="text-sm font-bold text-foreground">Connect your BNB wallet to chat</p>
+              </div>
+            </div>
+          )}
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder={isConnected ? "Type a message..." : "Connecting..."}
+            placeholder={!address ? "Connect wallet to chat..." : isConnected ? "Type a message..." : "Connecting..."}
             className="flex-1 bg-white border-2 border-border focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary text-foreground placeholder:text-muted-foreground rounded-xl h-11 px-4 font-medium"
             data-testid="input-chat"
-            disabled={!isConnected}
+            disabled={!isConnected || !address}
           />
           <Button 
             onClick={handleSend}
             size="icon"
-            disabled={!input.trim() || !isConnected}
+            disabled={!input.trim() || !isConnected || !address}
             data-testid="button-send"
             className="h-11 w-11 bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-sm disabled:opacity-40 disabled:cursor-not-allowed rounded-xl"
           >
