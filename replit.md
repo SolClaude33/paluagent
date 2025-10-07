@@ -139,15 +139,16 @@ Preferred communication style: Simple, everyday language.
   - `pointer-events-none` ensures no interaction interference
 
 - **Giggles Logo References**: Expanded integration of Giggles Academy branding
-  - Asset: `attached_assets/image_1759799138730.png` (yellow smiley face)
-  - **5 strategic placements** across the interface:
-    1. StreamHeader: Next to "Max AI" title with "Powered by BNB Chain & Giggles Academy"
-    2. ChatPanel header: Animated logo next to "Live Chat" title
-    3. ChatPanel footer: Logo next to message input field
-    4. ContractAddress: Logo in Smart Contract Address header
-    5. ChatMessages: Dynamically appears in celebration messages
+  - Asset: `attached_assets/image_1759802470289.png` (improved quality logo)
+  - **5 strategic placements** across the interface with enhanced visibility:
+    1. StreamHeader: Next to "Max AI" title (h-7 w-7) with "Powered by BNB Chain & Giggles Academy" + "Inspired by Max from Giggles Academy"
+    2. ChatPanel header: Large animated logo (h-12 w-12) next to "Live Chat" title
+    3. ChatPanel footer: Prominent logo (h-10 w-10) next to message input field
+    4. ContractAddress: Logo (h-8 w-8) in Smart Contract Address header
+    5. ChatMessages: Dynamically appears (h-5 w-5) in celebration messages
   - Smart detection of positive words (great, awesome, excellent, brilliant, superb, etc.)
   - Animated pulse effect for eye-catching brand presence
+  - "Inspired by Max from Giggles Academy" text displayed in header
   
 - **Yellow Border Separators**: Enhanced visual hierarchy with horizontal borders
   - 4px yellow border between header and 3D viewer section
