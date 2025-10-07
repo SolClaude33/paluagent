@@ -46,9 +46,9 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
     camera.position.set(0, 0, 5);
     cameraRef.current = camera;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
@@ -118,16 +118,19 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
       });
     };
 
-    Promise.all([
-      loadFBXModel('/idle.fbx', 'idle'),
-      loadFBXModel('/talking.fbx', 'talking'),
-      loadFBXModel('/thinking.fbx', 'thinking'),
-      loadFBXModel('/angry.fbx', 'angry'),
-      loadFBXModel('/celebrating.fbx', 'celebrating'),
-      loadFBXModel('/crazy_dance.fbx', 'crazy_dance'),
-      loadFBXModel('/confused.fbx', 'confused')
-    ]).then(() => {
+    // Load idle model first for fast initial render
+    loadFBXModel('/idle.fbx', 'idle').then(() => {
       setIsLoading(false);
+      
+      // Load other models in background (lazy loading)
+      Promise.all([
+        loadFBXModel('/talking.fbx', 'talking'),
+        loadFBXModel('/thinking.fbx', 'thinking'),
+        loadFBXModel('/angry.fbx', 'angry'),
+        loadFBXModel('/celebrating.fbx', 'celebrating'),
+        loadFBXModel('/crazy_dance.fbx', 'crazy_dance'),
+        loadFBXModel('/confused.fbx', 'confused')
+      ]);
     });
 
     const clock = new THREE.Clock();
