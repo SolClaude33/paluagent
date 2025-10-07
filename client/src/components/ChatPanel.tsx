@@ -21,6 +21,7 @@ export default function ChatPanel() {
   const [input, setInput] = useState("");
   const [viewerCount, setViewerCount] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const fallbackTimeoutRef = useRef<number | null>(null);
   const { address } = useWallet();
   
   const { isConnected, lastMessage, sendMessage } = useWebSocket('/ws');
@@ -31,6 +32,12 @@ export default function ChatPanel() {
         setMessages(prev => [...prev, lastMessage.data]);
       } else if (lastMessage.type === 'max_message') {
         setMessages(prev => [...prev, lastMessage.data]);
+        
+        // Clear any pending fallback timeout
+        if (fallbackTimeoutRef.current !== null) {
+          clearTimeout(fallbackTimeoutRef.current);
+          fallbackTimeoutRef.current = null;
+        }
         
         // Auto-play audio if available
         if (lastMessage.data.audioBase64) {
@@ -51,6 +58,12 @@ export default function ChatPanel() {
             console.error('Error creating audio:', error);
             window.dispatchEvent(new CustomEvent('maxAudioEnded'));
           }
+        } else {
+          // No audio available (TTS failed or disabled), return to idle after short delay
+          fallbackTimeoutRef.current = window.setTimeout(() => {
+            window.dispatchEvent(new CustomEvent('maxAudioEnded'));
+            fallbackTimeoutRef.current = null;
+          }, 2000);
         }
       } else if (lastMessage.type === 'viewer_count') {
         setViewerCount(lastMessage.data.count);
@@ -63,6 +76,15 @@ export default function ChatPanel() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages]);
+
+  // Cleanup fallback timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (fallbackTimeoutRef.current !== null) {
+        clearTimeout(fallbackTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleSend = () => {
     if (!input.trim() || !isConnected || !address) return;

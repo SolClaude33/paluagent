@@ -17,15 +17,16 @@ The backend is an Express.js server handling HTTP requests and WebSocket connect
 ### Feature Specifications
 - **BNB Wallet Authentication**: Users must connect a BNB Chain wallet to send messages, integrating with MetaMask/Web3 wallets. WalletContext manages global authentication state with secure validation and event listeners.
 - **Live Viewer Counter**: The server tracks and broadcasts real-time active WebSocket connections to all clients.
+- **Text-to-Speech Narration**: Max's responses are narrated using OpenAI TTS (model: tts-1, voice: "alloy"). Audio is generated server-side, converted to base64, and auto-played in the browser. Animation syncs with audio duration using custom 'maxAudioEnded' event, maintaining 'talking' animation while speaking and returning to 'idle' when finished.
 - **Contract Address Display**: Displays a BNB Chain smart contract address with copy-to-clipboard functionality and toast notifications.
 - **Giggles Academy Integration**: Incorporates Max Rabbit stickers and Giggles Academy logos as decorative elements throughout the UI, with dynamic animations and text references.
-- **High-Contrast Design**: Implements a clean, professional design with pure white backgrounds, dark gray foregrounds, and vibrant colors (BNB Chain yellow, blue, green, red) used sparingly for accents and active states.
+- **High-Contrast Design**: Implements a clean, professional design with pure white backgrounds, dark gray foregrounds, and vibrant colors (BNB Chain yellow, blue, green, red) used sparingly for accents and active states. Dark mode inverts colors with dark backgrounds (9% lightness) and light text (92% lightness).
 - **Language**: All application content, AI personality, and UI text are in English.
 
 ## External Dependencies
 
 **AI Services:**
-- OpenAI API (GPT-3.5-turbo)
+- OpenAI API (GPT-3.5-turbo for chat, TTS-1 for voice narration)
 - Anthropic API (Claude Haiku)
 
 **Database:**
