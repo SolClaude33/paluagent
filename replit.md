@@ -25,14 +25,16 @@ Preferred communication style: Simple, everyday language.
 - Custom theming system supporting dark/light modes with BNB Chain brand colors (pastel yellows)
 
 **Design System:**
-- Giggle Academy-inspired vibrant color palette with educational friendly aesthetics
-- Background: Light blue gradient (200 50% 96%) for soft, approachable feel
-- Primary: Bright yellow (48 95% 50%) for BNB Chain branding
-- Secondary: Vibrant blue (210 75% 60%) for interactive elements
-- Accent: Turquoise/mint green (165 60% 75%) for highlighting
-- Card: Pure white (100%) for maximum contrast against colorful backgrounds
+- Giggle Academy-inspired high-contrast design with strategic color accents
+- Background: Pure white (0 0% 100%) for clean, professional appearance
+- Foreground: Dark gray (0 0% 10%) for maximum legibility and contrast
+- Primary: Vibrant yellow (48 95% 50%) for BNB Chain branding (used sparingly)
+- Secondary: Saturated blue (210 80% 50%) for interactive elements and accents
+- Accent: Dark emerald (165 70% 45%) for emphasis and variety
+- Muted: Very light gray (0 0% 96%) for subtle backgrounds and secondary surfaces
+- Card: Pure white with subtle borders for elevated surfaces
 - Typography: Inter (body), Space Grotesk (headers), JetBrains Mono (technical)
-- Design inspired by Giggle Academy educational platform with colorful, playful elements
+- Design principle: ~90% black/dark text on white/light backgrounds, vibrant colors only for emphasis and states
 
 **State Management:**
 - WebSocket hook for real-time bidirectional communication with AI
@@ -110,19 +112,35 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes (October 2025)
 
-### Color Palette Redesign (Latest)
-- **Vibrant Color System**: Replaced excessive white/yellow with balanced, colorful palette inspired by Giggle Academy
-- **Background**: Light blue gradient (200 50% 96%) replacing neutral grays
-- **Primary**: Bright yellow (48 95% 50%) - saturated BNB Chain branding
-- **Secondary**: Vibrant blue (210 75% 60%) - new interactive element color
-- **Accent**: Turquoise/mint green (165 60% 75%) - highlighting and variety
-- **Component Updates**:
-  - StreamHeader: Colorful gradient background (secondary/accent/primary blend)
-  - ChatPanel: Vibrant gradient background, solid color badges (green/red)
-  - ChatMessage: Max messages in turquoise/accent, user messages in blue/secondary
-  - Max3DViewer: Multi-color gradient background (blue→green→yellow)
-  - AnimationControls: Saturated emotion buttons (gray-500, blue-500, purple-500, green-500, red-500)
-  - ContractAddress: Enhanced with colorful gradients and better contrast
+### High-Contrast Design Redesign (Latest - October 7, 2025)
+- **Professional Logo**: Generated custom Max AI logo featuring robotic rabbit with BNB Chain elements
+  - Asset location: `attached_assets/generated_images/Max_AI_robotic_rabbit_logo_439e99f8.png`
+  - Integrated into StreamHeader replacing generic Lucide icon
+  - Professional branding aligned with blockchain/crypto aesthetic
+
+- **High-Contrast Color System**: Complete redesign following Giggle Academy principle
+  - Strategy: Clean white/light backgrounds with dark text for maximum legibility
+  - Background: Pure white (0 0% 100%) replacing pastel gradients
+  - Foreground: Dark gray (0 0% 10%) for all body text
+  - Vibrant colors (yellow, blue, green, red) reserved exclusively for accents and active states
+  - Eliminated visual noise from excessive pastel color mixing
+
+- **Component Updates with High Contrast**:
+  - **StreamHeader**: White background, dark text, generated logo, yellow accent button
+  - **ChatPanel**: White background, dark text, colorful badges only for status (green/red)
+  - **ChatMessage**: Light gray (muted) for Max messages, blue for user messages, all with dark text
+  - **Max3DViewer**: Subtle gradient background, solid color badges (LIVE/Thinking) with high contrast
+  - **AnimationControls**: White buttons with dark text, vibrant colors only when active
+  - **ContractAddress**: White card with dark text, green/yellow accents for info sections
+
+- **Design Principles Applied**:
+  - 90% of interface uses black/dark gray text on white/light backgrounds
+  - Color saturation used sparingly for emphasis (buttons, states, badges)
+  - Maximum WCAG contrast ratios for accessibility
+  - Strategic use of muted gray (96% lightness) for secondary surfaces
+  - Borders and shadows kept subtle for clean, professional appearance
+
+### Previous Updates
 
 ### Language & Localization
 - Converted all application content from Spanish to English
@@ -137,9 +155,7 @@ Preferred communication style: Simple, everyday language.
 
 ### UI/UX Enhancements
 - Enhanced minimalist design with improved visual hierarchy
-- Added subtle shadows and glows to key UI elements (chat panel, 3D viewer)
 - Improved status indicators with labeled badges (Online/Offline)
-- Enhanced button styles with gradient effects and better hover states
 - Better spacing and padding throughout the interface
-- Upgraded loading states with spinner animation and backdrop blur
-- Improved audio wave visualization with enhanced gradients and container styling
+- Loading states with spinner animation and backdrop blur
+- Audio wave visualization for talking/celebrating states
