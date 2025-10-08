@@ -51,7 +51,7 @@ export function useChat() {
 
   const sendMessage = useCallback(async (content: string, username: string) => {
     try {
-      const response = await fetch('/api/ws', {
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -65,11 +65,32 @@ export function useChat() {
           // Trigger emotion change
           setCurrentEmotion(data.message.emotion || 'talking');
           
-          // Return to idle after 3 seconds
-          setTimeout(() => {
-            setCurrentEmotion('idle');
-          }, 3000);
+          // Play audio if available
+          if (data.message.audioBase64) {
+            try {
+              const audio = new Audio(`data:audio/mp3;base64,${data.message.audioBase64}`);
+              audio.play().catch(err => console.error('Error playing audio:', err));
+              
+              // Return to idle after audio ends
+              audio.addEventListener('ended', () => {
+                setCurrentEmotion('idle');
+              });
+            } catch (audioError) {
+              console.error('Error creating audio:', audioError);
+              // Return to idle after 3 seconds if no audio
+              setTimeout(() => {
+                setCurrentEmotion('idle');
+              }, 3000);
+            }
+          } else {
+            // Return to idle after 3 seconds if no audio
+            setTimeout(() => {
+              setCurrentEmotion('idle');
+            }, 3000);
+          }
         }
+      } else {
+        console.error('Error response:', response.status, response.statusText);
       }
     } catch (error) {
       console.error('Error sending message:', error);

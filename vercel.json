@@ -5,6 +5,9 @@
   "functions": {
     "api/ws.js": {
       "maxDuration": 30
+    },
+    "api/chat.js": {
+      "maxDuration": 30
     }
   },
   "routes": [
@@ -15,6 +18,10 @@
     {
       "src": "/ws",
       "dest": "/api/ws.js"
+    },
+    {
+      "src": "/chat",
+      "dest": "/api/chat.js"
     }
   ]
 }
