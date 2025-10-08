@@ -20,6 +20,7 @@ export function useChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [viewerCount, setViewerCount] = useState(0);
   const [currentEmotion, setCurrentEmotion] = useState<EmotionType>('idle');
+  const [lastLocalMessageId, setLastLocalMessageId] = useState<string | null>(null);
 
   // Poll for messages
   useEffect(() => {
@@ -28,7 +29,25 @@ export function useChat() {
         const response = await fetch('/api/ws');
         if (response.ok) {
           const data: ChatResponse = await response.json();
-          setMessages(data.messages);
+          
+          // Only update messages if we don't have recent local messages
+          // This prevents overwriting messages that were just added locally
+          setMessages(currentMessages => {
+            // If we have local messages that are newer than what we're polling,
+            // keep the local messages and merge with server messages
+            const hasRecentLocalMessages = lastLocalMessageId && 
+              currentMessages.some(msg => msg.id === lastLocalMessageId);
+            
+            if (hasRecentLocalMessages) {
+              // Merge server messages with local messages, avoiding duplicates
+              const serverMessageIds = new Set(data.messages.map(msg => msg.id));
+              const localMessages = currentMessages.filter(msg => !serverMessageIds.has(msg.id));
+              return [...localMessages, ...data.messages];
+            } else {
+              return data.messages;
+            }
+          });
+          
           setViewerCount(data.viewerCount);
           setIsConnected(true);
         } else {
@@ -43,11 +62,11 @@ export function useChat() {
     // Initial poll
     pollMessages();
     
-    // Poll every 2 seconds
-    const interval = setInterval(pollMessages, 2000);
+    // Poll every 3 seconds (less frequent to avoid conflicts)
+    const interval = setInterval(pollMessages, 3000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [lastLocalMessageId]);
 
   const sendMessage = useCallback(async (content: string, username: string) => {
     try {
@@ -60,6 +79,7 @@ export function useChat() {
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
       setMessages(prev => [...prev, userMessage]);
+      setLastLocalMessageId(userMessage.id);
 
       const response = await fetch('/api/chat', {
         method: 'POST',
@@ -74,6 +94,7 @@ export function useChat() {
         if (data.success && data.message) {
           // Add AI response to messages
           setMessages(prev => [...prev, data.message]);
+          setLastLocalMessageId(data.message.id);
           
           // Trigger emotion change
           setCurrentEmotion(data.message.emotion || 'talking');
