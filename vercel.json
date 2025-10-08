@@ -1,10 +1,9 @@
 {
   "version": 2,
+  "buildCommand": "npm run vercel-build",
+  "outputDirectory": "client",
+  "framework": "vite",
   "builds": [
-    {
-      "src": "client/**",
-      "use": "@vercel/static"
-    },
     {
       "src": "server/index.ts",
       "use": "@vercel/node",
@@ -24,12 +23,8 @@
       "dest": "/server/index.ts"
     },
     {
-      "src": "/assets/(.*)",
-      "dest": "/client/assets/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/client/$1"
+      "dest": "/index.html"
     }
   ],
   "env": {
