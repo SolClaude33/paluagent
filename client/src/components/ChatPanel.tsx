@@ -4,106 +4,19 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Send, Users, TrendingUp, Wifi, WifiOff, Lock } from "lucide-react";
 import ChatMessage from "./ChatMessage";
-import { useWebSocket } from "@/hooks/useWebSocket";
+import { useChat } from "@/hooks/useChat";
 import { useWallet } from "@/contexts/WalletContext";
 import { useToast } from "@/hooks/use-toast";
 import type { ChatMessage as ChatMessageType } from "@shared/schema";
 import gigglesLogo from '/giggles-logo.png';
 
 export default function ChatPanel() {
-  const [messages, setMessages] = useState<ChatMessageType[]>([
-    {
-      id: "1",
-      message: "Welcome to Palu AI stream! I'm the official Binance mascot, now live as an AI! Connect your BNB wallet to start chatting with me!",
-      sender: "max",
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-    }
-  ]);
   const [input, setInput] = useState("");
-  const [viewerCount, setViewerCount] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const fallbackTimeoutRef = useRef<number | null>(null);
-  const currentAudioRef = useRef<HTMLAudioElement | null>(null);
-  const audioQueueRef = useRef<string[]>([]);
-  const isPlayingRef = useRef(false);
   const { address } = useWallet();
   const { toast } = useToast();
   
-  const { isConnected, lastMessage, sendMessage } = useWebSocket('/ws');
-
-  // Function to play next audio from queue
-  const playNextAudio = () => {
-    if (isPlayingRef.current || audioQueueRef.current.length === 0) {
-      return;
-    }
-
-    const audioBase64 = audioQueueRef.current.shift()!;
-    isPlayingRef.current = true;
-
-    try {
-      const audio = new Audio(`data:audio/mp3;base64,${audioBase64}`);
-      currentAudioRef.current = audio;
-
-      audio.addEventListener('ended', () => {
-        window.dispatchEvent(new CustomEvent('maxAudioEnded'));
-        currentAudioRef.current = null;
-        isPlayingRef.current = false;
-        // Play next audio in queue
-        playNextAudio();
-      });
-
-      audio.play().catch(err => {
-        console.error('Error playing audio:', err);
-        window.dispatchEvent(new CustomEvent('maxAudioEnded'));
-        currentAudioRef.current = null;
-        isPlayingRef.current = false;
-        // Try next audio in queue even if this one failed
-        playNextAudio();
-      });
-    } catch (error) {
-      console.error('Error creating audio:', error);
-      window.dispatchEvent(new CustomEvent('maxAudioEnded'));
-      isPlayingRef.current = false;
-      // Try next audio in queue even if this one failed
-      playNextAudio();
-    }
-  };
-
-  useEffect(() => {
-    if (lastMessage) {
-      if (lastMessage.type === 'user_message') {
-        setMessages(prev => [...prev, lastMessage.data]);
-      } else if (lastMessage.type === 'max_message') {
-        setMessages(prev => [...prev, lastMessage.data]);
-        
-        // Clear any pending fallback timeout
-        if (fallbackTimeoutRef.current !== null) {
-          clearTimeout(fallbackTimeoutRef.current);
-          fallbackTimeoutRef.current = null;
-        }
-        
-        // Add audio to queue if available
-        if (lastMessage.data.audioBase64) {
-          audioQueueRef.current.push(lastMessage.data.audioBase64);
-          playNextAudio();
-        } else {
-          // No audio available (TTS failed or disabled), return to idle after short delay
-          fallbackTimeoutRef.current = window.setTimeout(() => {
-            window.dispatchEvent(new CustomEvent('maxAudioEnded'));
-            fallbackTimeoutRef.current = null;
-          }, 2000);
-        }
-      } else if (lastMessage.type === 'viewer_count') {
-        setViewerCount(lastMessage.data.count);
-      } else if (lastMessage.type === 'error') {
-        toast({
-          variant: "destructive",
-          title: "Rate Limit",
-          description: lastMessage.data.message,
-        });
-      }
-    }
-  }, [lastMessage, toast]);
+  const { isConnected, messages, viewerCount, sendMessage } = useChat();
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -111,29 +24,10 @@ export default function ChatPanel() {
     }
   }, [messages]);
 
-  // Cleanup fallback timeout, audio, and queue on unmount
-  useEffect(() => {
-    return () => {
-      if (fallbackTimeoutRef.current !== null) {
-        clearTimeout(fallbackTimeoutRef.current);
-      }
-      if (currentAudioRef.current) {
-        currentAudioRef.current.pause();
-        currentAudioRef.current = null;
-      }
-      audioQueueRef.current = [];
-      isPlayingRef.current = false;
-    };
-  }, []);
-
   const handleSend = () => {
     if (!input.trim() || !isConnected || !address) return;
 
-    sendMessage('user_message', {
-      content: input,
-      username: `${address.slice(0, 6)}...${address.slice(-4)}`
-    });
-
+    sendMessage(input, `${address.slice(0, 6)}...${address.slice(-4)}`);
     setInput("");
   };
 

@@ -6,11 +6,11 @@ import ContractAddress from "@/components/ContractAddress";
 import AnimationControls from "@/components/AnimationControls";
 import { Button } from "@/components/ui/button";
 import { FileText, X } from "lucide-react";
-import { useWebSocket } from "@/hooks/useWebSocket";
+import { useChat } from "@/hooks/useChat";
 
 export default function StreamPage() {
   const [showContractInfo, setShowContractInfo] = useState(false);
-  const { currentEmotion, sendEmotion } = useWebSocket('/ws');
+  const { currentEmotion, sendEmotion } = useChat();
 
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden bg-background">
