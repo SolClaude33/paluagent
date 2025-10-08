@@ -1,9 +1,6 @@
 # Exclude large assets and unnecessary files
 attached_assets/
 *.zip
-*.fbx
-*.glb
-*.gltf
 
 # Exclude development files
 .config/
