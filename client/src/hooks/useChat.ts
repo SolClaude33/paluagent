@@ -21,6 +21,7 @@ export function useChat() {
   const [viewerCount, setViewerCount] = useState(0);
   const [currentEmotion, setCurrentEmotion] = useState<EmotionType>('idle');
   const [lastLocalMessageId, setLastLocalMessageId] = useState<string | null>(null);
+  const [hasUserSentMessage, setHasUserSentMessage] = useState(false);
 
   // Poll for messages
   useEffect(() => {
@@ -42,8 +43,23 @@ export function useChat() {
               // Merge server messages with local messages, avoiding duplicates
               const serverMessageIds = new Set(data.messages.map(msg => msg.id));
               const localMessages = currentMessages.filter(msg => !serverMessageIds.has(msg.id));
-              return [...localMessages, ...data.messages];
+              let mergedMessages = [...localMessages, ...data.messages];
+              
+              // Remove welcome message if user has sent a message
+              if (hasUserSentMessage) {
+                mergedMessages = mergedMessages.filter(msg => 
+                  !msg.message.includes("Welcome to Palu AI stream!") || msg.sender === 'user'
+                );
+              }
+              
+              return mergedMessages;
             } else {
+              // Remove welcome message if user has sent a message
+              if (hasUserSentMessage) {
+                return data.messages.filter(msg => 
+                  !msg.message.includes("Welcome to Palu AI stream!") || msg.sender === 'user'
+                );
+              }
               return data.messages;
             }
           });
@@ -80,6 +96,7 @@ export function useChat() {
       };
       setMessages(prev => [...prev, userMessage]);
       setLastLocalMessageId(userMessage.id);
+      setHasUserSentMessage(true);
 
       const response = await fetch('/api/chat', {
         method: 'POST',
