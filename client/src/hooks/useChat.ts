@@ -51,6 +51,16 @@ export function useChat() {
 
   const sendMessage = useCallback(async (content: string, username: string) => {
     try {
+      // Add user message immediately to UI
+      const userMessage: ChatMessage = {
+        id: Date.now().toString(),
+        message: content,
+        sender: 'user',
+        username: username,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      };
+      setMessages(prev => [...prev, userMessage]);
+
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
@@ -62,6 +72,9 @@ export function useChat() {
       if (response.ok) {
         const data = await response.json();
         if (data.success && data.message) {
+          // Add AI response to messages
+          setMessages(prev => [...prev, data.message]);
+          
           // Trigger emotion change
           setCurrentEmotion(data.message.emotion || 'talking');
           
