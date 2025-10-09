@@ -56,12 +56,12 @@ export default function ContractAddress() {
                 {copied ? (
                   <>
                     <CheckCircle2 className="h-4 w-4 text-green-600" />
-                    <span className="text-green-600">Copied!</span>
+                    <span className="text-green-600">已复制!</span>
                   </>
                 ) : (
                   <>
                     <Copy className="h-4 w-4" />
-                    Copy
+                    复制
                   </>
                 )}
               </Button>

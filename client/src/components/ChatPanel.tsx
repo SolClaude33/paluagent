@@ -99,7 +99,7 @@ export default function ChatPanel() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder={!address ? "Connect wallet to chat..." : isConnected ? "Type a message..." : "Connecting..."}
+            placeholder={!address ? "连接钱包以聊天..." : isConnected ? "输入消息..." : "连接中..."}
             className="flex-1 bg-card border-2 border-border focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary text-foreground placeholder:text-muted-foreground rounded-xl h-11 px-4 font-medium"
             data-testid="input-chat"
             disabled={!isConnected || !address}

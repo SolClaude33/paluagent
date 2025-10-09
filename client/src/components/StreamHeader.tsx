@@ -86,7 +86,7 @@ export default function StreamHeader() {
             >
               <Wallet className="h-5 w-5" />
               <span className="hidden sm:inline">
-                {isConnecting ? 'Connecting...' : 'Connect Wallet'}
+                {isConnecting ? '连接中...' : '连接钱包'}
               </span>
             </Button>
           )}

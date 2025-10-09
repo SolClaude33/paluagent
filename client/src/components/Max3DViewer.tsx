@@ -288,7 +288,7 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
           <div className="flex flex-col items-center gap-4">
             <div className="h-12 w-12 rounded-full border-4 border-muted border-t-primary animate-spin" />
             <div className="text-foreground text-lg font-bold">
-              Loading 3D model...
+              加载3D模型中...
             </div>
           </div>
         </div>
