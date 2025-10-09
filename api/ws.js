@@ -2,7 +2,7 @@
 let messages = [
   {
     id: "1",
-    message: "欢迎来到 Palu AI 直播！我是币安的官方吉祥物，现在已成为人工智能！连接您的 BNB 钱包即可开始与我聊天！",
+    message: "欢迎来到 Palu 人工智能 直播！我是币安的官方吉祥物，现在已成为人工智能！连接您的 BNB 钱包即可开始与我聊天！",
     sender: "max",
     timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
   }

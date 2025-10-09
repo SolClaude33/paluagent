@@ -48,7 +48,7 @@ export function useChat() {
               // Remove welcome message if user has sent a message
               if (hasUserSentMessage) {
                 mergedMessages = mergedMessages.filter(msg => 
-                  !msg.message.includes("欢迎来到 Palu AI 直播") || msg.sender === 'user'
+                  !msg.message.includes("欢迎来到 Palu 人工智能 直播") || msg.sender === 'user'
                 );
               }
               
@@ -57,7 +57,7 @@ export function useChat() {
               // Remove welcome message if user has sent a message
               if (hasUserSentMessage) {
                 return data.messages.filter(msg => 
-                  !msg.message.includes("欢迎来到 Palu AI 直播") || msg.sender === 'user'
+                  !msg.message.includes("欢迎来到 Palu 人工智能 直播") || msg.sender === 'user'
                 );
               }
               return data.messages;
