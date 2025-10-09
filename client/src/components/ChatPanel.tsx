@@ -55,12 +55,12 @@ export default function ChatPanel() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <h2 className="text-xl font-black text-foreground uppercase tracking-tight font-[Space_Grotesk]">
-              Live Chat
+              实时聊天
             </h2>
             {isConnected ? (
               <div className="flex items-center gap-2 bg-green-500 px-3 py-1.5 rounded-full shadow-sm">
                 <Wifi className="h-3.5 w-3.5 text-white" data-testid="status-connected" />
-                <span className="text-xs font-bold text-white">Online</span>
+                <span className="text-xs font-bold text-white">在线</span>
               </div>
             ) : (
               <div className="flex items-center gap-2 bg-red-500 px-3 py-1.5 rounded-full shadow-sm">
@@ -91,7 +91,7 @@ export default function ChatPanel() {
             <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50 rounded-xl">
               <div className="text-center">
                 <Lock className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-                <p className="text-sm font-bold text-foreground">Connect your BNB wallet to chat</p>
+                <p className="text-sm font-bold text-foreground">连接您的 BNB 钱包以聊天</p>
               </div>
             </div>
           )}

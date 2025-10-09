@@ -23,10 +23,10 @@ export default function StreamHeader() {
             </div>
             <div>
               <h1 className="text-2xl font-black font-[Space_Grotesk] text-foreground flex items-center gap-2">
-                Palu AI
+                Palu 人工智能
               </h1>
-              <p className="text-xs text-muted-foreground font-semibold">Binance Official Mascot on BNB Chain</p>
-              <p className="text-[10px] text-muted-foreground/80 font-medium italic mt-0.5">Live AI Stream</p>
+              <p className="text-xs text-muted-foreground font-semibold">币安 BNB 链官方吉祥物</p>
+              <p className="text-[10px] text-muted-foreground/80 font-medium italic mt-0.5">直播</p>
             </div>
           </div>
         </div>
@@ -44,7 +44,7 @@ export default function StreamHeader() {
               rel="noopener noreferrer"
             >
               <BookOpen className="h-5 w-5" />
-              <span>Follow Palu</span>
+              <span>关注 Palu</span>
             </a>
           </Button>
         </div>
