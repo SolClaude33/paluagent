@@ -270,7 +270,7 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
       <div className="absolute top-8 left-8 z-10">
         <div className="flex items-center gap-2 bg-red-500 backdrop-blur-sm px-5 py-2.5 rounded-full shadow-md" data-testid="badge-live">
           <div className="h-2.5 w-2.5 bg-white rounded-full animate-pulse" />
-          <span className="text-white text-sm font-bold uppercase tracking-wide">LIVE</span>
+          <span className="text-white text-sm font-bold uppercase tracking-wide">直播</span>
         </div>
       </div>
 
@@ -278,7 +278,7 @@ export default function Max3DViewer({ emotion = 'idle' }: Max3DViewerProps) {
         <div className="absolute top-8 right-8 z-10 animate-in slide-in-from-top-4 duration-300">
           <div className="flex items-center gap-2 bg-primary backdrop-blur-sm px-5 py-2.5 rounded-full shadow-md" data-testid="status-thinking">
             <Sparkles className="h-4 w-4 text-primary-foreground animate-pulse" />
-            <span className="text-primary-foreground text-sm font-bold">Thinking...</span>
+            <span className="text-primary-foreground text-sm font-bold">思考中...</span>
           </div>
         </div>
       )}
