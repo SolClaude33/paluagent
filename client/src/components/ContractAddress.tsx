@@ -28,11 +28,11 @@ export default function ContractAddress() {
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
               <h3 className="text-2xl font-bold text-foreground font-[Space_Grotesk]">
-                Smart Contract Address
+                智能合约地址
               </h3>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Interact with Palu 人工智能 directly on the blockchain. This verified smart contract powers all AI interactions.
+              直接在区块链上与 Palu 人工智能交互。这个经过验证的智能合约为所有AI交互提供动力。
             </p>
           </div>
         </div>
@@ -41,7 +41,7 @@ export default function ContractAddress() {
           <div className="p-5 rounded-xl bg-muted border-2 border-primary/40">
             <div className="flex items-center justify-between gap-4">
               <div className="flex-1 min-w-0">
-                <p className="text-xs text-muted-foreground mb-2 font-semibold uppercase tracking-wide">Contract Address</p>
+                <p className="text-xs text-muted-foreground mb-2 font-semibold uppercase tracking-wide">合约地址</p>
                 <code className="text-sm font-mono text-foreground break-all bg-card px-3 py-2 rounded-lg block font-medium border-2 border-primary/30">
                   {contractAddress}
                 </code>
