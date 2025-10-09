@@ -6,7 +6,7 @@ import gigglesLogo from '/giggles-logo-2.png';
 
 export default function ContractAddress() {
   const [copied, setCopied] = useState(false);
-  const contractAddress = "0x1234567890abcdef1234567890abcdef12345678";
+  const contractAddress = "SOON";
 
   const handleCopy = async () => {
     try {

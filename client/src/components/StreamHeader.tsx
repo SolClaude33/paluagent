@@ -39,7 +39,7 @@ export default function StreamHeader() {
             data-testid="button-know-more"
           >
             <a 
-              href="https://twitter.com/palucto"
+              href="https://x.com/PaluAI_token"
               target="_blank"
               rel="noopener noreferrer"
             >
